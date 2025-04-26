@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Rocket | Harness chaos. Trade ahead.</title>
+    <meta name="description" content="Pioneer-grade trading infrastructure: regulated sniper bot + upcoming validator & staking">
+    <meta name="keywords" content="Solana sniper bot, TVTG, Liechtenstein, audited DeFi, crypto trading">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <meta name="theme-color" content="#04070D">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustrocket.io/">
+    <meta property="og:title" content="Rust Rocket | Harness chaos. Trade ahead.">
+    <meta property="og:description" content="Pioneer-grade trading infrastructure: regulated sniper bot + upcoming validator & staking">
+    <meta property="og:site_name" content="Rust Rocket – Fast. Fair. Fully Audited.">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="canonical" href="https://rustrocket.io/">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Rust Rocket",
+        "url": "https://rustrocket.io",
+        "logo": "https://rustrocket.io/assets/logo.svg",
+        "description": "Pioneer-grade trading infrastructure: regulated sniper bot + upcoming validator & staking",
+        "sameAs": [
+            "https://twitter.com/rustrocket"
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    },
+                    fontSize: {
+                        '4.5xl': 'clamp(2.5rem, 5vw, 3.75rem)',
+                        '2.5xl': 'clamp(1.75rem, 3vw, 1.875rem)',
+                        'lg-fluid': 'clamp(1.125rem, 1.5vw, 1.25rem)',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(42, 255, 98, 0.5)',
+                        'inner-glow': 'inset 0 0 10px rgba(42, 255, 98, 0.15)',
+                    }
+                }
+            },
+            content: [
+                './*.html',
+                './legal/*.html',
+                './pricing.html',
+                './referral.html'
+            ]
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <!-- tsParticles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    
+    <!-- Lenis for smooth scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
+            border-color: rgba(42, 255, 98, 0.2);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased relative">
+    <!-- NAVIGATION -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="flex items-center gap-2 group">
+                    <span class="h-3 w-3 rounded-full bg-neonGreen group-hover:animate-pulse"></span>
+                    <span class="font-semibold tracking-tight">Rust Rocket</span>
+                </a>
+                
+                <div class="hidden md:flex items-center">
+                    <a href="#why" class="px-4 py-2 text-white/80 hover:text-white">Why</a>
+                    <a href="#features" class="px-4 py-2 text-white/80 hover:text-white">Features</a>
+                    <a href="/pricing.html" class="px-4 py-2 text-white/80 hover:text-white">Pricing</a>
+                    <a href="#roadmap" class="px-4 py-2 text-white/80 hover:text-white">Roadmap</a>
+                    <a href="https://app.rustrocket.io" class="ml-4 px-6 py-2 rounded-full bg-rocketPurple hover:bg-rocketPurple/80">Dashboard →</a>
+                    <button id="walletBtn" class="ml-4 px-6 py-2 rounded-full bg-rustBlue hover:bg-rustBlue/90">Connect wallet</button>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <button id="walletBtnMobile" class="md:hidden bg-rustBlue hover:bg-rustBlue/90 p-2 rounded-full text-sm">
+                        <span class="sr-only">Connect wallet</span>
+                        <i class="icon-wallet text-sm"></i>
+                    </button>
+                    <button class="md:hidden text-white">
+                        <i class="icon-menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BEGIN HERO -->
+    <section id="hero" class="relative min-h-screen flex flex-col md:flex-row items-center justify-center gap-14 px-6 pt-24">
+      <div id="particleCanvas" class="absolute inset-0 z-0"></div>
+      <!-- COPY -->
+      <div class="flex-1 max-w-xl z-10">
+        <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight">
+          Millisekunden voraus.<br />
+          Gewinne gesichert.
+        </h1>
+
+        <p class="mt-6 text-sm lg:text-base uppercase tracking-widest text-white/70">
+          FAST · REGULATED · FRONT-RUN PROOF
+        </p>
+
+        <!-- Waitlist form -->
+        <form id="heroForm" class="mt-8 flex w-full max-w-md">
+          <input type="email" placeholder="Work email"
+                 class="flex-1 px-4 py-3 rounded-l-full bg-white/10 border border-white/10
+                        focus:outline-none focus:border-neonGreen/50" required />
+          <button type="submit"
+                  class="px-6 py-3 relative isolate font-semibold rounded-r-full bg-rustBlue text-white shadow-lg
+                         before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient-to-r
+                         before:from-rustBlue before:via-rocketPurple before:to-neonGreen
+                         before:opacity-0 hover:before:opacity-100 transition">
+            Get early access →
+          </button>
+        </form>
+
+        <!-- Feedback Message -->
+        <p id="heroFormFeedback" class="mt-2 text-sm text-neonGreen hidden">Thank you! We'll be in touch soon.</p>
+      </div>
+
+      <!-- VISUAL -->
+      <div class="flex-1 hidden md:flex items-center justify-center relative z-10">
+        <div class="w-80 h-80 rounded-full bg-gradient-to-br from-rustBlue/30 to-rocketPurple/20
+                    blur-2xl opacity-70 animate-pulse"></div>
+        <!-- swap with Lottie or tsParticles canvas -->
+        <canvas id="orbitVisual" class="absolute inset-0"></canvas>
+      </div>
+      
+      <!-- Scroll Down Indicator -->
+      <a href="#why" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+        <span class="text-xs text-white/60 mb-2">Entdecke mehr</span>
+        <i class="icon-chevron-down text-neonGreen text-2xl"></i>
+      </a>
+    </section>
+
+    <!-- BEGIN DEMO STRIP -->
+    <section class="py-10 bg-spaceDark border-y border-white/5">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Video Demo -->
+                <div class="flex items-center">
+                    <a href="#" id="openDemoModal" class="group flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full bg-neonGreen/10 flex items-center justify-center group-hover:bg-neonGreen/20 transition-colors">
+                            <i class="icon-play text-neonGreen text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium">Watch demo</h3>
+                            <p class="text-sm text-gray-400">90-second walkthrough</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Vertical Divider -->
+                <div class="hidden md:block h-14 w-px bg-white/10"></div>
+                
+                <!-- Key Stats -->
+                <div class="flex flex-wrap justify-around gap-8">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-neonGreen">74 ms</div>
+                        <p class="text-sm text-gray-400">Median latency</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-neonGreen">92%</div>
+                        <p class="text-sm text-gray-400">Scam protection</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-neonGreen">24/7</div>
+                        <p class="text-sm text-gray-400">Real-time monitoring</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGIN WHY SECTION -->
+    <section id="why" class="py-24 relative">
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2.5xl font-bold text-center mb-16">Why Rust Rocket exists</h2>
+            
+            <div class="space-y-8">
+                <div class="glass-card rounded-xl p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="text-neonGreen mt-1"><i class="icon-zap-fast text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Missed launches?</h3>
+                            <p class="mt-2 text-gray-300">Lightning-fast execution with our Rust-based architecture and dedicated TPU streams delivers p95 latency under 80 ms, letting you trade before others even see the opportunity.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="text-neonGreen mt-1"><i class="icon-shield text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Rug pulls?</h3>
+                            <p class="mt-2 text-gray-300">Built-in scam protection with advanced contract analysis blocks honeypots, fee traps, and freeze-bits <em>before</em> you buy, protecting your capital from fraudulent tokens.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="text-neonGreen mt-1"><i class="icon-check-circle text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Complex UIs?</h3>
+                            <p class="mt-2 text-gray-300">Zero-setup interface with intuitive controls, making it easy to execute trades at lightning speed without complex configuration or technical expertise.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="text-neonGreen mt-1"><i class="icon-eye text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Pro-Grade API & Analytics</h3>
+                            <p class="mt-2 text-gray-300">Advanced API access and real-time analytics dashboards give you complete control and insights into your trading performance and market conditions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="text-neonGreen mt-1"><i class="icon-cpu text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-semibold">TVTG-Compliance & Audit Trails</h3>
+                            <p class="mt-2 text-gray-300">Full regulatory compliance with Liechtenstein's TVTG framework and comprehensive audit trails for every transaction for institutional-grade peace of mind.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGIN FEATURE GRID -->
+    <section id="features" class="py-24 relative">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2.5xl font-bold text-center mb-16">Engineered for out-performance</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Execution Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-zap"></i></span>
+                        <h3 class="text-xl font-semibold">Speed</h3>
+                    </div>
+                    <p class="text-gray-300">Median latency <span class="text-neonGreen font-semibold">74 ms</span>, 99th percentile <span class="text-neonGreen font-semibold">118 ms</span>. Our Rust-based architecture outperforms JavaScript bots by 4-10x in speed.</p>
+                </div>
+                
+                <!-- Security Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-shield"></i></span>
+                        <h3 class="text-xl font-semibold">Protection</h3>
+                    </div>
+                    <p class="text-gray-300">Over <span class="text-neonGreen font-semibold">92%</span> of detected fraud tokens auto-blocked since launch. Our AI system scans contracts at bytecode level to detect malicious patterns.</p>
+                </div>
+                
+                <!-- Compliance Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-shield-check"></i></span>
+                        <h3 class="text-xl font-semibold">Regulation</h3>
+                    </div>
+                    <p class="text-gray-300">TVTG-registered entity in Liechtenstein with quarterly external code audits. MiCAR alignment roadmap in progress for 2025 completion.</p>
+                </div>
+                
+                <!-- Transparency Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-eye"></i></span>
+                        <h3 class="text-xl font-semibold">Transparency</h3>
+                    </div>
+                    <p class="text-gray-300">Live fee wallets, latency wall, and SLA status. Visit our real-time dashboard to monitor system performance and revenue allocation.</p>
+                </div>
+                
+                <!-- Validator Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-database"></i></span>
+                        <h3 class="text-xl font-semibold">Validator</h3>
+                        <span class="text-xs font-medium py-1 px-3 rounded-full bg-neonGreen/10 text-neonGreen">Coming Q3 2025</span>
+                    </div>
+                    <p class="text-gray-300">Decentralized trading infrastructure with Solana validator integration. Stake SOL with us and earn prioritized fee-tier bonuses.</p>
+                </div>
+                
+                <!-- Copy-Trading Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-copy"></i></span>
+                        <h3 class="text-xl font-semibold">Copy-Trading</h3>
+                    </div>
+                    <p class="text-gray-300">One-click copying of top-performing strategies and wallets with automatic position sizing and risk management to maximize your returns.</p>
+                </div>
+                
+                <!-- Liquidator Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-trending-up"></i></span>
+                        <h3 class="text-xl font-semibold">Liquidator</h3>
+                    </div>
+                    <p class="text-gray-300">Automatic liquidation protection and opportunity detection system that monitors markets 24/7 for the best entry and exit points.</p>
+                </div>
+                
+                <!-- MEV-Analytics Card -->
+                <div class="glass-card rounded-xl p-8 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-neonGreen text-2xl"><i class="icon-bar-chart-2"></i></span>
+                        <h3 class="text-xl font-semibold">MEV-Analytics</h3>
+                    </div>
+                    <p class="text-gray-300">Advanced Maximal Extractable Value insights and analytics to identify profitable arbitrage opportunities and avoid sandwich attacks.</p>
+                </div>
+            </div>
+            
+            <!-- See Plans CTA -->
+            <div class="mt-12 text-center">
+                <a href="/pricing.html" class="inline-flex items-center px-6 py-3 bg-rustBlue hover:bg-rustBlue/90 text-white font-medium rounded-lg transition-colors">
+                    <i class="icon-credit-card mr-2"></i> See pricing plans →
+                </a>
+                <p class="mt-2 text-sm text-gray-400">Choose between Starter, Pro, and UltraSpeed tiers</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGIN METRICS STRIP -->
+    <section class="py-10 bg-deepGreen/30 backdrop-blur">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center md:justify-around gap-y-6 text-center">
+                <div>
+                    <span id="trader-count" class="text-neonGreen font-bold text-2xl">2,435</span>
+                    <span class="text-gray-300"> traders</span>
+                </div>
+                <div>
+                    <span id="volume-count" class="text-neonGreen font-bold text-2xl">US$ 68.7M</span>
+                    <span class="text-gray-300"> total volume</span>
+                </div>
+                <div>
+                    <span class="text-gray-300">median slippage </span>
+                    <span id="slippage-count" class="text-neonGreen font-bold text-2xl">0.19%</span>
+                </div>
+                <div>
+                    <span class="text-gray-300">latency </span>
+                    <span id="latency-count" class="text-neonGreen font-bold text-2xl">74 ms</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGIN TRANSPARENCY SECTION -->
+    <section id="transparency" class="py-24 px-6 bg-spaceDark fade-in">
+      <div class="container max-w-7xl mx-auto">
+        <h2 class="text-2.5xl font-bold text-center mb-12">Radikale Transparenz</h2>
+        <div class="grid gap-10 lg:grid-cols-3">
+            <!-- Live Latency -->
+            <div class="glass-card rounded-xl p-8">
+                <canvas id="latencyChart" class="w-full h-56"></canvas>
+                <p class="mt-4 text-center text-sm">Echtzeit-Latenz (ms)</p>
+            </div>
+            <!-- Treasury -->
+            <div class="glass-card rounded-xl p-8 flex flex-col items-center justify-center">
+                <div id="treasuryBalance" class="text-4.5xl font-bold text-center text-neonGreen">–</div>
+                <p class="mt-4 text-center text-sm">Offenes Fee-Wallet</p>
+                <a href="https://solscan.io/account/..." target="_blank" class="block text-center underline mt-2 text-neonGreen hover:text-white transition-colors">On-Chain ansehen</a>
+            </div>
+            <!-- Audit Badges -->
+            <div class="glass-card rounded-xl p-8 flex flex-col items-center">
+                <div class="flex flex-col items-center justify-center h-full">
+                    <div class="w-16 h-16 rounded-full bg-rustBlue/20 flex items-center justify-center mb-4">
+                        <i class="icon-code text-rustBlue text-3xl"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-liechtensteinRed/20 flex items-center justify-center mb-4">
+                        <i class="icon-check-square text-liechtensteinRed text-3xl"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-speedYellow/20 flex items-center justify-center mb-4">
+                        <i class="icon-activity text-speedYellow text-3xl"></i>
+                    </div>
+                    <p class="text-sm mt-2 text-center">Verifiziert durch Dritte</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEGIN ROADMAP -->
+    <section id="roadmap" class="py-24 relative">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2.5xl font-bold text-center mb-16">Roadmap to infrastructure dominance</h2>
+            
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-neonGreen/30 md:transform md:-translate-x-1/2"></div>
+                
+                <!-- Timeline items -->
+                <div class="space-y-12 md:space-y-0">
+                    <!-- 2024 Q4 -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 fade-in">
+                        <div class="ml-12 md:ml-0 md:text-right md:mr-8 mb-12 md:mb-24">
+                            <div class="font-semibold text-neonGreen mb-2">2024 Q4</div>
+                            <h3 class="text-xl font-semibold mb-2">Launch</h3>
+                            <p class="text-gray-300">Initial release of Rust Rocket sniper infrastructure with sub-80ms latency and basic contract risk analysis.</p>
+                        </div>
+                        
+                        <div class="absolute left-0 md:left-1/2 top-0 w-8 h-8 bg-neonGreen/20 rounded-full border-2 border-neonGreen transform -translate-x-1/2 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-neonGreen rounded-full"></div>
+                        </div>
+                        
+                        <div class="md:hidden"></div>
+                    </div>
+                    
+                    <!-- 2025 Q1 -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 fade-in">
+                        <div class="md:hidden"></div>
+                        
+                        <div class="absolute left-0 md:left-1/2 top-0 w-8 h-8 bg-neonGreen/20 rounded-full border-2 border-neonGreen transform -translate-x-1/2 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-neonGreen rounded-full"></div>
+                        </div>
+                        
+                        <div class="ml-12 md:ml-8 mb-12 md:mb-24">
+                            <div class="font-semibold text-neonGreen mb-2">2025 Q1</div>
+                            <h3 class="text-xl font-semibold mb-2">RugShield AI</h3>
+                            <p class="text-gray-300">Advanced contract analysis with machine learning to detect and prevent rugs, honeypots, and other scams in real-time.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2025 Q3 -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 fade-in">
+                        <div class="ml-12 md:ml-0 md:text-right md:mr-8 mb-12 md:mb-24">
+                            <div class="font-semibold text-neonGreen mb-2">2025 Q3</div>
+                            <h3 class="text-xl font-semibold mb-2">Validator & Staking</h3>
+                            <p class="text-gray-300">Launch of Rust Rocket validator node with staking rewards and prioritized execution for token holders.</p>
+                        </div>
+                        
+                        <div class="absolute left-0 md:left-1/2 top-0 w-8 h-8 bg-neonGreen/20 rounded-full border-2 border-neonGreen transform -translate-x-1/2 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-neonGreen rounded-full"></div>
+                        </div>
+                        
+                        <div class="md:hidden"></div>
+                    </div>
+                    
+                    <!-- 2025 Q4 -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 fade-in">
+                        <div class="md:hidden"></div>
+                        
+                        <div class="absolute left-0 md:left-1/2 top-0 w-8 h-8 bg-neonGreen/20 rounded-full border-2 border-neonGreen transform -translate-x-1/2 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-neonGreen rounded-full"></div>
+                        </div>
+                        
+                        <div class="ml-12 md:ml-8 mb-12 md:mb-24">
+                            <div class="font-semibold text-neonGreen mb-2">2025 Q4</div>
+                            <h3 class="text-xl font-semibold mb-2">Copy-Trade AI</h3>
+                            <p class="text-gray-300">Advanced machine learning system to identify and automatically copy profitable trading strategies from top performers.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2026 Q1 -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 fade-in">
+                        <div class="ml-12 md:ml-0 md:text-right md:mr-8 mb-12 md:mb-24">
+                            <div class="font-semibold text-neonGreen mb-2">2026 Q1</div>
+                            <h3 class="text-xl font-semibold mb-2">Mobile App Beta</h3>
+                            <p class="text-gray-300">Full-featured mobile application for iOS and Android with real-time alerts, portfolio tracking, and on-the-go trading capabilities.</p>
+                        </div>
+                        
+                        <div class="absolute left-0 md:left-1/2 top-0 w-8 h-8 bg-neonGreen/20 rounded-full border-2 border-neonGreen transform -translate-x-1/2 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-neonGreen rounded-full"></div>
+                        </div>
+                        
+                        <div class="md:hidden"></div>
+                    </div>
+                    
+                    <!-- 2026 Q2 -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-8 fade-in">
+                        <div class="md:hidden"></div>
+                        
+                        <div class="absolute left-0 md:left-1/2 top-0 w-8 h-8 bg-neonGreen/20 rounded-full border-2 border-neonGreen transform -translate-x-1/2 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-neonGreen rounded-full"></div>
+                        </div>
+                        
+                        <div class="ml-12 md:ml-8">
+                            <div class="font-semibold text-neonGreen mb-2">2026 Q2</div>
+                            <h3 class="text-xl font-semibold mb-2">Auto-Optimization Engine</h3>
+                            <p class="text-gray-300">Self-optimizing trading engine that automatically adjusts parameters based on market conditions and historical performance data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGIN WAITLIST / CONTACT -->
+    <section id="join" class="py-24 relative">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2.5xl font-bold text-center mb-16">Join the Pioneer Network</h2>
+            
+            <div class="glass-card rounded-xl p-8 lg:p-12 fade-in">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Waitlist Form -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">Secure your early access</h3>
+                        <form id="waitlistForm" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-neonGreen/50"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Work Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-neonGreen/50"
+                                    required
+                                >
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                class="w-full px-5 py-3 bg-neonGreen text-spaceBlack font-medium rounded-lg hover:bg-white transition-colors flex items-center justify-center"
+                            >
+                                Join Waitlist
+                                <i class="icon-arrow-right ml-2"></i>
+                            </button>
+                        </form>
+                        <p id="waitlistFormFeedback" class="mt-4 text-sm text-neonGreen hidden">Thank you! Your place in line is secured.</p>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">Speak with an account manager</h3>
+                        <form id="contactForm" class="space-y-6">
+                            <div>
+                                <label for="contact-name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="contact-name" 
+                                    name="contact-name" 
+                                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-neonGreen/50"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label for="contact-email" class="block text-sm font-medium text-gray-300 mb-1">Work Email</label>
+                                <input 
+                                    type="email" 
+                                    id="contact-email" 
+                                    name="contact-email" 
+                                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-neonGreen/50"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    rows="4" 
+                                    class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/10 focus:outline-none focus:border-neonGreen/50"
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                class="w-full px-5 py-3 bg-royalPurple/80 text-white font-medium rounded-lg hover:bg-royalPurple transition-colors flex items-center justify-center"
+                            >
+                                Send Message
+                                <i class="icon-send ml-2"></i>
+                            </button>
+                        </form>
+                        <p id="contactFormFeedback" class="mt-4 text-sm text-neonGreen hidden">Thank you! We'll be in touch shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEGIN REFERRAL BANNER -->
+    <div class="py-6 bg-rustBlue/20">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-center md:justify-between">
+                <p class="text-white font-medium mb-4 md:mb-0">Ready to share the rocket fuel? Earn rewards</p>
+                <a href="/referral.html" class="px-5 py-2 bg-rustBlue hover:bg-rustBlue/90 text-white font-medium rounded-full flex items-center">
+                    <i class="icon-gift mr-2"></i> Learn more →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BEGIN FOOTER -->
+    <footer class="py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="/" class="flex items-center gap-2 group mb-4">
+                        <span class="h-3 w-3 rounded-full bg-neonGreen"></span>
+                        <span class="font-semibold tracking-tight">Rust Rocket</span>
+                    </a>
+                    <p class="text-sm text-gray-400">Fast. Fair. Fully Audited.</p>
+                    
+                    <!-- Lighthouse Scores -->
+                    <div class="mt-4 flex items-center gap-2">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-neonGreen/20">
+                            <span class="text-xs font-bold text-neonGreen">95</span>
+                        </div>
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-neonGreen/20">
+                            <span class="text-xs font-bold text-neonGreen">98</span>
+                        </div>
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-neonGreen/20">
+                            <span class="text-xs font-bold text-neonGreen">96</span>
+                        </div>
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-neonGreen/20">
+                            <span class="text-xs font-bold text-neonGreen">92</span>
+                        </div>
+                        <span class="text-xs text-gray-500">Lighthouse Score</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/pricing.html" class="text-sm text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="/referral.html" class="text-sm text-gray-400 hover:text-white">Referral Program</a></li>
+                        <li><a href="/#features" class="text-sm text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="/#roadmap" class="text-sm text-gray-400 hover:text-white">Roadmap</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/legal/imprint.html" class="text-sm text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="/legal/privacy.html" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="/legal/terms.html" class="text-sm text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="/legal/aml-policy.html" class="text-sm text-gray-400 hover:text-white">AML Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://twitter.com/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
+                        <li><a href="https://discord.gg/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
+                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> Axiom Enterprise AG. All rights reserved.</p>
+                <p class="text-sm text-gray-500 mt-4 md:mt-0">TVTG-registriert • Landstrasse 123, FL-9490 Vaduz</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script type="module">
+        // Imports
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+        import Chart from 'https://cdn.jsdelivr.net/npm/chart.js/+esm';
+        
+        // Supabase initialization
+        const supabaseClient = createClient(
+            "https://jpvbnbphgvtokbrlctke.supabase.co", 
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…pgfc0"
+        );
+        
+        // Initialize tsParticles
+        async function initParticles() {
+            const isMobile = window.innerWidth < 768;
+            
+            await tsParticles.load("particleCanvas", {
+                fullScreen: {
+                    enable: false
+                },
+                particles: {
+                    number: {
+                        value: 60,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: "#2AFF62"
+                    },
+                    shape: {
+                        type: "circle"
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true
+                    },
+                    size: {
+                        value: {
+                            min: 2,
+                            max: 4
+                        },
+                        random: true
+                    },
+                    move: {
+                        enable: true,
+                        speed: 0.8,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        }
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 0.5
+                            }
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        }
+        
+        // Initialize Lenis smooth scroll
+        function initSmoothScroll() {
+            // Prüfen auf Safari-Unterstützung
+            const isSafariLT15 = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) && 
+                                parseInt(navigator.appVersion.match(/Version\/(\d+)/)?.[1] || '15', 10) < 15;
+            
+            if (isSafariLT15) {
+                // Einfacher Fallback für ältere Safari-Versionen
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href'))?.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+                return;
+            }
+            
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                smoothTouch: false,
+                touchMultiplier: 2
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+
+            // Smooth anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').split('?')[0]; // Remove query params
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        lenis.scrollTo(targetElement);
+                    }
+                });
+            });
+        }
+        
+        // Navbar transparency on scroll
+        function handleNavbarTransparency() {
+            const NAVBAR_THRESHOLD = 64; // px
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > NAVBAR_THRESHOLD) {
+                    navbar.classList.add('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
+                } else {
+                    navbar.classList.remove('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
+                }
+            });
+        }
+        
+        // Intersection Observer for fade-in elements
+        function initFadeInObserver() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+        
+        // CountUp animation for metrics
+        function animateCounters() {
+            const counters = [
+                { id: 'trader-count', start: 0, end: 2435, prefix: '', suffix: '' },
+                { id: 'volume-count', start: 0, end: 68.7, prefix: 'US$ ', suffix: 'M' },
+                { id: 'slippage-count', start: 0, end: 0.19, prefix: '', suffix: '%', decimals: 2 },
+                { id: 'latency-count', start: 0, end: 74, prefix: '', suffix: ' ms' }
+            ];
+            
+            const duration = 2000; // 2 seconds
+            const frameDuration = 1000 / 60; // 60fps
+            
+            counters.forEach(counter => {
+                const element = document.getElementById(counter.id);
+                if (!element) return;
+                
+                const totalFrames = Math.round(duration / frameDuration);
+                const decimal = counter.decimals || 0;
+                
+                let frame = 0;
+                const animate = () => {
+                    frame++;
+                    const progress = frame / totalFrames;
+                    const currentValue = counter.start + (counter.end - counter.start) * progress;
+                    
+                    element.textContent = `${counter.prefix}${currentValue.toFixed(decimal)}${counter.suffix}`;
+                    
+                    if (frame < totalFrames) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                animate();
+            });
+        }
+        
+        // Initialize Latency Chart
+        function initLatencyChart() {
+            const ctx = document.getElementById('latencyChart')?.getContext('2d');
+            if (!ctx) return;
+            
+            const latencyChart = new Chart(ctx, {
+                type: 'line',
+                data: { 
+                    labels: Array(20).fill(''),
+                    datasets: [{ 
+                        data: [78, 76, 82, 79, 74, 73, 77, 80, 76, 75, 74, 72, 75, 77, 79, 76, 74, 75, 73, 72],
+                        borderColor: '#2AFF62',
+                        backgroundColor: 'rgba(42, 255, 98, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }] 
+                },
+                options: { 
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false } 
+                    }, 
+                    scales: { 
+                        x: { display: false },
+                        y: { 
+                            min: 50,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.5)'
+                            }
+                        } 
+                    },
+                    animation: {
+                        duration: 300
+                    }
+                }
+            });
+            
+            // Subscribe to Supabase real-time updates for latency
+            supabaseClient.channel('latency')
+                .on('postgres_changes', 
+                    { event: 'INSERT', schema: 'public', table: 'latency' },
+                    ({ new: row }) => {
+                        latencyChart.data.labels.push('');
+                        latencyChart.data.labels.shift();
+                        latencyChart.data.datasets[0].data.push(row.ms);
+                        latencyChart.data.datasets[0].data.shift();
+                        latencyChart.update('quiet');
+                        document.getElementById('latency-count').textContent = `${row.ms} ms`;
+                    }
+                )
+                .subscribe();
+                
+            // Simulate latency updates
+            let lastValue = 74;
+            setInterval(async () => {
+                try {
+                    // Call the latency API endpoint with CORS handling
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    
+                    const response = await fetch('/api/relay-latency', {
+                        signal: controller.signal,
+                        headers: {
+                            'Accept': 'application/json'
+                        },
+                        mode: 'cors'
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (!response.ok) {
+                        throw new Error(`API returned ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    const newValue = data.p50 || Math.max(50, Math.min(100, lastValue + (Math.random() * 10 - 5)));
+                    lastValue = Math.round(newValue);
+                    
+                    updateLatencyUI(lastValue);
+                } catch (err) {
+                    // Fallback to simulation if API call fails
+                    console.warn('Using simulated latency data:', err.message);
+                    lastValue = Math.max(50, Math.min(100, lastValue + (Math.random() * 10 - 5)));
+                    lastValue = Math.round(lastValue);
+                    
+                    updateLatencyUI(lastValue);
+                }
+            }, 20000); // 20 second interval as specified
+            
+            function updateLatencyUI(value) {
+                // Update chart
+                latencyChart.data.labels.push('');
+                latencyChart.data.labels.shift();
+                latencyChart.data.datasets[0].data.push(value);
+                latencyChart.data.datasets[0].data.shift();
+                latencyChart.update('quiet');
+                
+                // Update display
+                document.getElementById('latency-count').textContent = `${value} ms`;
+                
+                // Update TX lead counter based on latency
+                const txLeadElement = document.getElementById('tx-lead');
+                if (txLeadElement) {
+                    txLeadElement.textContent = `< ${Math.round(value * 0.6)} ms`;
+                }
+                
+                console.log('Latency updated:', value, 'ms');
+            }
+        }
+        
+        // Treasury API connection
+        async function updateTreasury() {
+            try {
+                // In a real implementation, this would call your backend API
+                // const { usd } = await fetch('/api/treasury').then(r => r.json());
+                
+                // For demo, we'll simulate a response
+                const usd = (Math.random() * 500000 + 1500000).toFixed(2);
+                const formattedUsd = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2
+                }).format(usd);
+                
+                document.getElementById('treasuryBalance').textContent = formattedUsd;
+            } catch (err) {
+                console.error('Treasury update error:', err);
+            }
+        }
+        
+        // Form submission handlers
+        function setupFormHandlers() {
+            // Hero form
+            document.getElementById('heroForm')?.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                try {
+                    const { error } = await supabaseClient.from('waitlist').insert({ email });
+                    
+                    const feedback = document.getElementById('heroFormFeedback');
+                    feedback.textContent = error ? 'Error. Please try again.' : 'Thank you! We\'ll be in touch soon.';
+                    feedback.classList.remove('hidden');
+                    
+                    if (!error) {
+                        this.reset();
+                    }
+                } catch (err) {
+                    console.error('Form submission error:', err);
+                }
+            });
+            
+            // Waitlist form
+            document.getElementById('waitlistForm')?.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const name = this.querySelector('#name').value;
+                const email = this.querySelector('#email').value;
+                
+                try {
+                    const { error } = await supabaseClient.from('waitlist').insert({ name, email });
+                    
+                    const feedback = document.getElementById('waitlistFormFeedback');
+                    feedback.textContent = error ? 'Error. Please try again.' : 'Thank you! Your place in line is secured.';
+                    feedback.classList.remove('hidden');
+                    
+                    if (!error) {
+                        this.reset();
+                    }
+                } catch (err) {
+                    console.error('Form submission error:', err);
+                }
+            });
+            
+            // Contact form
+            document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const name = this.querySelector('#contact-name').value;
+                const email = this.querySelector('#contact-email').value;
+                const message = this.querySelector('#message').value;
+                
+                try {
+                    const { error } = await supabaseClient.from('contact_requests').insert({ 
+                        name, 
+                        email, 
+                        message 
+                    });
+                    
+                    const feedback = document.getElementById('contactFormFeedback');
+                    feedback.textContent = error ? 'Error. Please try again.' : 'Thank you! We\'ll be in touch shortly.';
+                    feedback.classList.remove('hidden');
+                    
+                    if (!error) {
+                        this.reset();
+                    }
+                } catch (err) {
+                    console.error('Form submission error:', err);
+                }
+            });
+            
+            // Pre-fill message field if plan is specified in URL
+            const url = new URL(location.href);
+            const plan = url.searchParams.get('plan');
+            if (plan) {
+                const messageField = document.querySelector('[name=message]');
+                if (messageField) {
+                    messageField.value = `Interested in ${plan} plan`;
+                }
+            }
+            
+            // Listen for plan link clicks
+            document.querySelectorAll('a[href^="#join?plan="]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const plan = this.getAttribute('href').split('=')[1];
+                    const messageField = document.querySelector('[name=message]');
+                    if (messageField) {
+                        messageField.value = `Interested in ${plan} plan`;
+                    }
+                });
+            });
+            
+            // Referral modal button
+            document.getElementById('openReferralModal')?.addEventListener('click', function() {
+                alert('Referral program coming soon!');
+            });
+        }
+        
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initParticles();
+            initSmoothScroll();
+            handleNavbarTransparency();
+            initFadeInObserver();
+            setupFormHandlers();
+            initLatencyChart();
+            updateTreasury();
+            setInterval(updateTreasury, 30000);
+            
+            // Animate metrics when they come into view
+            const metricsObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                    }
+                });
+            });
+            
+            const metricsElement = document.querySelector('#trader-count');
+            if (metricsElement) {
+                metricsObserver.observe(metricsElement);
+            }
+        });
+
+        /* ─── Wallet Connect (Dummy) ─────────────────────────── */
+        const walletBtn = document.getElementById('walletBtn');
+        const walletBtnMobile = document.getElementById('walletBtnMobile');
+        let walletAddress = null;
+
+        function truncate(pk) {
+          return pk.slice(0, 4) + '…' + pk.slice(-4);
+        }
+
+        async function connectWallet() {
+          try {
+            const provider = window.solana;
+            if (!provider || !provider.isPhantom) {
+              return alert('Please install Phantom Wallet or visit solana.com for wallet options.');
+            }
+            
+            const { publicKey } = await provider.connect();
+            walletAddress = publicKey.toString();
+            
+            // Save to localStorage for persistence
+            localStorage.setItem('wallet', walletAddress);
+            
+            // Update UI
+            updateWalletUI();
+            
+            console.log('Wallet connected successfully:', truncate(walletAddress));
+          } catch (e) {
+            console.error('Wallet connect error', e);
+          }
+        }
+        
+        function updateWalletUI() {
+          if (!walletAddress) return;
+          
+          if (walletBtn) {
+            walletBtn.textContent = truncate(walletAddress);
+            walletBtn.classList.add('bg-spaceBlack', 'border', 'border-neonGreen/40');
+            walletBtn.setAttribute('aria-live', 'polite');
+          }
+          
+          if (walletBtnMobile) {
+            walletBtnMobile.classList.add('bg-spaceBlack', 'border', 'border-neonGreen/40');
+            walletBtnMobile.setAttribute('aria-live', 'polite');
+          }
+        }
+
+        // Add click events
+        walletBtn?.addEventListener('click', connectWallet);
+        walletBtnMobile?.addEventListener('click', connectWallet);
+
+        // Restore session from localStorage
+        const cached = localStorage.getItem('wallet');
+        if (cached) {
+          walletAddress = cached;
+          updateWalletUI();
+        }
+    </script>
+    
+    <!-- Demo Modal -->
+    <div id="demoModal" class="fixed inset-0 z-50 flex items-center justify-center bg-spaceBlack/90 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="max-w-4xl w-full mx-4 glass rounded-xl overflow-hidden">
+            <div class="flex justify-between items-center p-4 border-b border-white/10">
+                <h3 class="text-xl font-semibold">Rust Rocket Trading Interface</h3>
+                <button id="closeDemoModal" class="text-white/50 hover:text-white">
+                    <i class="icon-x"></i>
+                </button>
+            </div>
+            <div class="relative aspect-video">
+                <div class="absolute inset-0 flex items-center justify-center bg-spaceBlack">
+                    <div class="text-center p-8">
+                        <div class="text-neonGreen text-5xl mb-4">
+                            <i class="icon-play-circle"></i>
+                        </div>
+                        <p class="text-gray-400 mb-6">Demo video would play here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Demo Modal
+        const demoModal = document.getElementById('demoModal');
+        const openDemoModal = document.getElementById('openDemoModal');
+        const closeDemoModal = document.getElementById('closeDemoModal');
+        
+        openDemoModal?.addEventListener('click', function(e) {
+            e.preventDefault();
+            demoModal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeDemoModal?.addEventListener('click', function() {
+            demoModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        });
+        
+        demoModal?.addEventListener('click', function(e) {
+            if (e.target === demoModal) {
+                demoModal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html> 
