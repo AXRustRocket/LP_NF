@@ -180,9 +180,9 @@
     <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
     
     <script type="module">
-        import { include } from './js/include.js';
+        import {inject} from './js/include.js';
         document.addEventListener('DOMContentLoaded', function() {
-            include('#navContainer', '_includes/nav.html');
+            inject('#navContainer', './components/nav.html');
         });
     </script>
     
