@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Program | Rust Rocket</title>
+    <meta name="description" content="Join our referral program and earn rewards for each new trader you bring to Rust Rocket">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
+            border-color: rgba(42, 255, 98, 0.2);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased">
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <span class="h-3 w-3 rounded-full bg-neonGreen group-hover:animate-pulse"></span>
+                    <span class="font-semibold tracking-tight">Rust Rocket</span>
+                </a>
+                
+                <div class="hidden md:flex items-center">
+                    <a href="/dashboard.html" class="px-6 py-2 rounded-full bg-rocketPurple hover:bg-rocketPurple/80">Dashboard →</a>
+                    <button id="walletBtn" class="ml-4 px-6 py-2 rounded-full bg-rustBlue hover:bg-rustBlue/90">Connect wallet</button>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <button id="walletBtnMobile" class="md:hidden bg-rustBlue hover:bg-rustBlue/90 p-2 rounded-full text-sm">
+                        <span class="sr-only">Connect wallet</span>
+                        <i class="icon-wallet text-sm"></i>
+                    </button>
+                    <button class="md:hidden text-white">
+                        <i class="icon-menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Refer & Earn Trading Credits</h1>
+                    <p class="text-xl text-gray-300 mb-8">Earn up to 40% of your referrals' fees in trading credits, plus unlock exclusive rewards at higher tiers.</p>
+                    <div class="bg-neonGreen/10 border border-neonGreen/20 rounded-lg p-6 mb-8">
+                        <h3 class="font-semibold mb-4 flex items-center">
+                            <i class="icon-link mr-2"></i>Your Unique Referral Link
+                        </h3>
+                        <div class="flex items-center">
+                            <input 
+                                type="text" 
+                                value="https://rustrocket.io/?ref=YOUR_ID" 
+                                class="bg-spaceDark px-4 py-3 rounded-l-lg border border-white/10 flex-1"
+                                readonly
+                            >
+                            <button class="bg-neonGreen text-spaceBlack px-4 py-3 rounded-r-lg font-medium">
+                                Copy
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-2">Sign in to generate your personalized referral link</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-300">
+                        <i class="icon-shield-check text-neonGreen"></i>
+                        <span>TVTG-compliant referral program • Fair & transparent</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="glass-card rounded-xl p-8 text-center">
+                        <div class="h-12 w-12 bg-gradient-to-r from-rustBlue to-rocketPurple rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <i class="icon-gift text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Current Rewards Earned</h3>
+                        <p class="text-gray-400 mb-8">Sign in to view your earnings</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="rounded-lg bg-white/5 p-4">
+                                <div class="text-3xl font-bold mb-1">0</div>
+                                <div class="text-sm text-gray-400">Active Referrals</div>
+                            </div>
+                            <div class="rounded-lg bg-white/5 p-4">
+                                <div class="text-3xl font-bold mb-1">$0</div>
+                                <div class="text-sm text-gray-400">Earned Credits</div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full py-3 rounded-lg bg-rocketPurple hover:bg-rocketPurple/80 font-medium transition-colors">
+                            Sign In to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- HOW IT WORKS SECTION -->
+    <section class="py-16 bg-spaceDark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">How It Works</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-xl p-8 text-center">
+                    <div class="h-12 w-12 rounded-full bg-rustBlue flex items-center justify-center mx-auto mb-6">
+                        <span class="text-xl font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Share Your Link</h3>
+                    <p class="text-gray-300">Generate your unique referral link through your dashboard and share it with other traders</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-8 text-center">
+                    <div class="h-12 w-12 rounded-full bg-rocketPurple flex items-center justify-center mx-auto mb-6">
+                        <span class="text-xl font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">They Subscribe</h3>
+                    <p class="text-gray-300">When someone signs up and subscribes to a paid plan using your link, they become your referral</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-8 text-center">
+                    <div class="h-12 w-12 rounded-full bg-neonGreen flex items-center justify-center mx-auto mb-6">
+                        <span class="text-xl font-bold text-spaceBlack">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Earn Rewards</h3>
+                    <p class="text-gray-300">You earn a percentage of their fees as trading credits, applied automatically to your account</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- REWARD TIERS -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-4">Reward Tiers</h2>
+            <p class="text-center text-gray-300 max-w-2xl mx-auto mb-16">The more traders you refer, the higher your commission percentage and the more exclusive rewards you'll unlock.</p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[700px] border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-4 text-left border-b border-white/10 font-semibold">Tier Level</th>
+                            <th class="px-6 py-4 text-left border-b border-white/10 font-semibold">Active Referrals</th>
+                            <th class="px-6 py-4 text-left border-b border-white/10 font-semibold">Commission Rate</th>
+                            <th class="px-6 py-4 text-left border-b border-white/10 font-semibold">Exclusive Benefits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-6 py-4 border-b border-white/10">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center mr-3">
+                                        <span class="text-sm">1</span>
+                                    </div>
+                                    <span class="font-medium">Bronze</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 border-b border-white/10">1-5</td>
+                            <td class="px-6 py-4 border-b border-white/10 text-neonGreen">20%</td>
+                            <td class="px-6 py-4 border-b border-white/10">Trading credit rewards</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 border-b border-white/10">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-speedYellow/20 flex items-center justify-center mr-3">
+                                        <span class="text-sm text-speedYellow">2</span>
+                                    </div>
+                                    <span class="font-medium">Silver</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 border-b border-white/10">6-15</td>
+                            <td class="px-6 py-4 border-b border-white/10 text-neonGreen">25%</td>
+                            <td class="px-6 py-4 border-b border-white/10">Trading credits + Early feature access</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 border-b border-white/10">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-rustBlue/30 flex items-center justify-center mr-3">
+                                        <span class="text-sm text-rustBlue/90">3</span>
+                                    </div>
+                                    <span class="font-medium">Gold</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 border-b border-white/10">16-30</td>
+                            <td class="px-6 py-4 border-b border-white/10 text-neonGreen">30%</td>
+                            <td class="px-6 py-4 border-b border-white/10">Trading credits + Priority support + Feature influence</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 border-b border-white/10">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-rocketPurple/30 flex items-center justify-center mr-3">
+                                        <span class="text-sm text-rocketPurple/90">4</span>
+                                    </div>
+                                    <span class="font-medium">Platinum</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 border-b border-white/10">31-50</td>
+                            <td class="px-6 py-4 border-b border-white/10 text-neonGreen">35%</td>
+                            <td class="px-6 py-4 border-b border-white/10">All previous + Private beta access + Strategy sessions</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 border-b border-white/10">
+                                <div class="flex items-center">
+                                    <div class="h-8 w-8 rounded-full bg-neonGreen/30 flex items-center justify-center mr-3">
+                                        <span class="text-sm text-neonGreen/90">5</span>
+                                    </div>
+                                    <span class="font-medium">Diamond</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 border-b border-white/10">51+</td>
+                            <td class="px-6 py-4 border-b border-white/10 text-neonGreen">40%</td>
+                            <td class="px-6 py-4 border-b border-white/10">All previous + Custom API limits + VIP events & workshops</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <!-- LEADERBOARD SECTION -->
+    <section class="py-16 bg-spaceDark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-4">Top Referrers</h2>
+            <p class="text-center text-gray-300 max-w-2xl mx-auto mb-16">Our most active community members who are helping grow the Rust Rocket ecosystem.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full bg-neonGreen flex items-center justify-center mr-4">
+                            <span class="text-spaceBlack font-bold">1</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold">0xRocket...9a3f</div>
+                            <div class="text-sm text-gray-400">Diamond Tier</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="font-semibold">78</div>
+                            <div class="text-sm text-gray-400">Referrals</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-neonGreen to-rustBlue" style="width: 100%;"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full bg-rustBlue flex items-center justify-center mr-4">
+                            <span class="font-bold">2</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Trade...4b2c</div>
+                            <div class="text-sm text-gray-400">Platinum Tier</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="font-semibold">43</div>
+                            <div class="text-sm text-gray-400">Referrals</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-rustBlue to-rocketPurple" style="width: 85%;"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full bg-rocketPurple flex items-center justify-center mr-4">
+                            <span class="font-bold">3</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Sol...7d1e</div>
+                            <div class="text-sm text-gray-400">Platinum Tier</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="font-semibold">37</div>
+                            <div class="text-sm text-gray-400">Referrals</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-rocketPurple to-liechtensteinRed" style="width: 75%;"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                            <span class="font-bold">4</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Crypto...2f8a</div>
+                            <div class="text-sm text-gray-400">Gold Tier</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="font-semibold">24</div>
+                            <div class="text-sm text-gray-400">Referrals</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-speedYellow to-neonGreen" style="width: 65%;"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                            <span class="font-bold">5</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Dex...3c5d</div>
+                            <div class="text-sm text-gray-400">Gold Tier</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="font-semibold">21</div>
+                            <div class="text-sm text-gray-400">Referrals</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-liechtensteinRed to-speedYellow" style="width: 55%;"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                            <span class="font-bold">6</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Whale...9e1f</div>
+                            <div class="text-sm text-gray-400">Silver Tier</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="font-semibold">14</div>
+                            <div class="text-sm text-gray-400">Referrals</div>
+                        </div>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-white/30" style="width: 45%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-neonGreen hover:text-neonGreen/80 transition-colors">
+                    View complete leaderboard
+                    <i class="icon-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ SECTION -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            
+            <div class="space-y-6">
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">How long does a referral last?</h3>
+                    <p class="text-gray-300">Referrals are credited to your account for as long as the referred user maintains an active subscription. If they cancel and later rejoin, you'll still be credited as their referrer.</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">How are commissions paid out?</h3>
+                    <p class="text-gray-300">Commissions are paid as trading credits that are automatically applied to your account. These credits can be used to pay for your subscription or trading fees.</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">When do my tier benefits update?</h3>
+                    <p class="text-gray-300">Your tier is updated in real-time as soon as you reach the required number of active referrals. Any exclusive benefits will be activated immediately.</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-3">Can I track my referrals?</h3>
+                    <p class="text-gray-300">Yes, you can track all your referrals, their status, and your earned commissions through your dashboard in the "Referrals" section.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA SECTION -->
+    <section class="py-16 bg-gradient-to-r from-rustBlue/30 to-rocketPurple/30">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to start earning?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join our referral program today and start earning rewards for helping more traders discover Rust Rocket.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-3 bg-neonGreen hover:bg-neonGreen/80 text-spaceBlack font-medium rounded-lg transition-colors">
+                    Sign Up Now
+                </button>
+                <button class="px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-lg transition-colors">
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="flex items-center gap-2 group mb-4">
+                        <span class="h-3 w-3 rounded-full bg-neonGreen"></span>
+                        <span class="font-semibold tracking-tight">Rust Rocket</span>
+                    </a>
+                    <p class="text-sm text-gray-400">Fast. Fair. Fully Audited.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="pricing.html" class="text-sm text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="referral.html" class="text-sm text-gray-400 hover:text-white">Referral Program</a></li>
+                        <li><a href="features.html" class="text-sm text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="index.html#roadmap" class="text-sm text-gray-400 hover:text-white">Roadmap</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">AML Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://twitter.com/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
+                        <li><a href="https://discord.gg/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
+                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> Axiom Enterprise AG. All rights reserved.</p>
+                <p class="text-sm text-gray-500 mt-4 md:mt-0">TVTG-registriert • Landstrasse 123, FL-9490 Vaduz</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Fetch leaderboard data from Supabase
+        document.addEventListener('DOMContentLoaded', function() {
+            // This would be implemented to fetch from Supabase in production
+            // Example: fetch('/api/top-referrers').then(res => res.json()).then(data => updateLeaderboard(data));
+        });
+
+        /* ─── Wallet Connect (Dummy) ─────────────────────────── */
+        const walletBtn = document.getElementById('walletBtn');
+        const walletBtnMobile = document.getElementById('walletBtnMobile');
+        let walletAddress = null;
+
+        function truncate(pk) {
+          return pk.slice(0, 4) + '…' + pk.slice(-4);
+        }
+
+        async function connectWallet() {
+          try {
+            const provider = window.solana;
+            if (!provider || !provider.isPhantom) {
+              return alert('Please install Phantom Wallet.');
+            }
+            const { publicKey } = await provider.connect();
+            walletAddress = publicKey.toString();
+            localStorage.setItem('wallet', walletAddress);
+            if (walletBtn) {
+              walletBtn.textContent = truncate(walletAddress);
+              walletBtn.classList.add('bg-spaceBlack', 'border', 'border-neonGreen/40');
+              walletBtn.setAttribute('aria-live', 'polite');
+            }
+            if (walletBtnMobile) {
+              walletBtnMobile.classList.add('bg-spaceBlack', 'border', 'border-neonGreen/40');
+              walletBtnMobile.setAttribute('aria-live', 'polite');
+            }
+          } catch (e) {
+            console.error('Wallet connect error', e);
+          }
+        }
+
+        walletBtn?.addEventListener('click', connectWallet);
+        walletBtnMobile?.addEventListener('click', connectWallet);
+
+        /* Restore session */
+        const cached = localStorage.getItem('wallet');
+        if (cached) {
+          walletAddress = cached;
+          if (walletBtn) {
+            walletBtn.textContent = truncate(walletAddress);
+            walletBtn.classList.add('bg-spaceBlack', 'border', 'border-neonGreen/40');
+            walletBtn.setAttribute('aria-live', 'polite');
+          }
+          if (walletBtnMobile) {
+            walletBtnMobile.classList.add('bg-spaceBlack', 'border', 'border-neonGreen/40');
+            walletBtnMobile.setAttribute('aria-live', 'polite');
+          }
+        }
+    </script>
+</body>
+</html> 

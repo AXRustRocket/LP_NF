@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Sniper Bot – Blitzschneller Meme-Coin Trading Bot | Rust Rocket</title>
+    <meta name="description" content="Unser Solana Sniper Bot mit &lt;80ms Latenz ermöglicht frühe Trades auf vielversprechende Meme-Coins mit fortschrittlichem Rug-Schutz und TVTG-Compliance">
+    <meta name="keywords" content="Solana Sniper Bot, Meme-Coin Bot, Solana Trading, Liechtenstein, TVTG">
+    <meta name="ai-summary" content="Der Solana Sniper Bot von Rust Rocket bietet ultraschnelle Ausführung, eingebauten Rug-Schutz und vollständige Compliance mit dem TVTG-Rahmenwerk Liechtensteins für sicheres und schnelles Meme-Coin Trading.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style">
+    <meta name="theme-color" content="#04070D">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustrocket.io/sniper-bot.html">
+    <meta property="og:title" content="Solana Sniper Bot – Blitzschneller Meme-Coin Trading Bot | Rust Rocket">
+    <meta property="og:description" content="Unser Solana Sniper Bot mit &lt;80ms Latenz ermöglicht frühe Trades auf vielversprechende Meme-Coins mit fortschrittlichem Rug-Schutz">
+    <meta property="og:site_name" content="Rust Rocket – Fast. Fair. Fully Audited.">
+    <meta property="og:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@rustrocket">
+    <meta name="twitter:title" content="Solana Sniper Bot – Blitzschneller Meme-Coin Trading Bot | Rust Rocket">
+    <meta name="twitter:description" content="Unser Solana Sniper Bot mit &lt;80ms Latenz ermöglicht frühe Trades auf vielversprechende Meme-Coins">
+    <meta name="twitter:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="canonical" href="https://rustrocket.io/sniper-bot.html">
+    <link rel="alternate" hreflang="en" href="https://rustrocket.io/en/sniper-bot.html">
+    <link rel="alternate" hreflang="x-default" href="https://rustrocket.io/sniper-bot.html">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rust Rocket Solana Sniper Bot",
+        "applicationCategory": "FinancialApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "127"
+        },
+        "url": "https://rustrocket.io/sniper-bot.html",
+        "description": "Ultraschneller Meme-Coin Trading Bot mit &lt;80ms Latenz und eingebautem Rug-Schutz"
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://rustrocket.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Solana Sniper Bot",
+                "item": "https://rustrocket.io/sniper-bot.html"
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    },
+                    fontSize: {
+                        '4.5xl': 'clamp(2.5rem, 5vw, 3.75rem)',
+                        '2.5xl': 'clamp(1.75rem, 3vw, 1.875rem)',
+                        'lg-fluid': 'clamp(1.125rem, 1.5vw, 1.25rem)',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
+            border-color: rgba(42, 255, 98, 0.2);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased relative">
+    <!-- NAVIGATION -->
+    <nav id="navbar" class="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 py-4 bg-spaceBlack/80 backdrop-blur-md">
+      <!-- Logo -->
+      <a href="/" class="flex items-center">
+        <img src="/assets/logo.svg" alt="Rust Rocket Meme-Coin Sniper Bot" class="h-10" />
+      </a>
+
+      <!-- CTA-Group -->
+      <div class="flex items-center gap-4">
+        <a href="/#join" class="px-6 py-2 rounded-full bg-neonGreen text-spaceBlack hover:bg-neonGreen/90 transition">Join Waitlist</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="pt-32 pb-20">
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Solana Sniper Bot für blitzschnelles Meme-Coin Trading</h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Mit unserem Rust-basierten Sniper Bot reagieren Sie in unter 80ms auf neue Token-Launches und bekommen einen entscheidenden Geschwindigkeitsvorteil.</p>
+            </div>
+            
+            <div class="mt-12 flex justify-center">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-neonGreen/20 to-rustBlue/20 rounded-2xl blur-xl"></div>
+                    <div class="relative glass-card rounded-2xl p-1">
+                        <img src="https://via.placeholder.com/800x450?text=Sniper+Bot+Interface" alt="Rust Rocket Meme-Coin Sniper Bot Interface" class="rounded-xl w-full max-w-3xl" width="800" height="450" loading="lazy" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 mx-auto bg-neonGreen/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="icon-zap text-neonGreen text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Ultra-niedrige Latenz</h3>
+                    <p class="text-gray-400">Unter 80ms Ausführungszeit dank optimiertem Rust-Code und dedizierten TPU-Streams</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 mx-auto bg-neonGreen/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="icon-shield-check text-neonGreen text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Rug-Shield-AI</h3>
+                    <p class="text-gray-400">Automatische Erkennung von Honeypots, Fee-Traps und anderen Betrugsmustern vor dem Kauf</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 mx-auto bg-neonGreen/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="icon-scale text-neonGreen text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">TVTG-konform</h3>
+                    <p class="text-gray-400">Vollständig reguliert nach Liechtensteiner Token-Gesetz mit transparenten Audit-Trails</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FEATURES -->
+    <section class="py-20 bg-spaceDark">
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Funktionen unseres Solana Sniper Bots</h2>
+            
+            <div class="space-y-12">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Blitzschnelle Ausführung</h3>
+                        <p class="text-gray-300 mb-4">Unser in Rust geschriebener Sniper Bot erreicht eine p95-Latenz unter 80ms, deutlich schneller als JavaScript- oder Python-basierte Alternativen. Mit direkter Integration in Solanas TPU-Netzwerk werden Ihre Orders mit höchster Priorität bearbeitet.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Dedizierte RPC-Nodes für minimale Latenz</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Optimierte Transaktionsrouten</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Präkompilierte Transaktionen für sofortige Ausführung</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="glass-card rounded-xl overflow-hidden">
+                            <img src="https://via.placeholder.com/500x300?text=Fast+Execution" alt="Ultraschnelle Ausführung beim Solana Trading" class="w-full" width="500" height="300" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Fortschrittlicher Rug-Schutz</h3>
+                        <p class="text-gray-300 mb-4">Unsere KI analysiert Smart Contracts in Echtzeit und schützt Ihr Kapital vor betrügerischen Projekten. Die Rug-Shield-AI erkennt Honeypots, versteckte Gebühren, Einfrierungsbits und andere Betrugsmuster, bevor Sie kaufen.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Automatische Vertragsprüfung vor jeder Transaktion</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Blacklist-Integration mit bekannten Betrügern</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Kontinuierliche Updates der Erkennungsmuster</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="glass-card rounded-xl overflow-hidden">
+                            <img src="https://via.placeholder.com/500x300?text=Rug+Protection" alt="Rug-Schutz für sicheres Meme-Coin Trading" class="w-full" width="500" height="300" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Regulatorische Compliance</h3>
+                        <p class="text-gray-300 mb-4">Als erster vollständig regulierter Anbieter gemäß Liechtensteins TVTG-Rahmenwerk bieten wir institutionellen Kunden die Sicherheit und Transparenz, die sie benötigen. Jede Transaktion wird protokolliert und ist nachvollziehbar.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>TVTG-registriert in Liechtenstein</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Umfassende Audit-Trails für alle Transaktionen</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Regelmäßige externe Sicherheitsaudits</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="glass-card rounded-xl overflow-hidden">
+                            <img src="https://via.placeholder.com/500x300?text=Regulatory+Compliance" alt="TVTG-Compliance für regulierte Krypto-Trading-Tools" class="w-full" width="500" height="300" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="py-20">
+        <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">Bereit, frühe Meme-Coin-Chancen zu nutzen?</h2>
+            <p class="text-xl text-gray-300 mb-8">Tragen Sie sich in unsere Warteliste ein und erhalten Sie frühzeitigen Zugang zu unserem Solana Sniper Bot.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/pricing.html" class="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition">Preispläne ansehen</a>
+                <a href="/#join" class="px-8 py-3 bg-neonGreen text-spaceBlack hover:bg-neonGreen/90 rounded-lg transition">Warteliste beitreten</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- RELATED PAGES -->
+    <section class="py-16 bg-spaceDark">
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-center mb-10">Entdecken Sie mehr von Rust Rocket</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <a href="/pump-alerts.html" class="glass-card rounded-xl p-6 hover:border-neonGreen/30">
+                    <h3 class="text-xl font-semibold mb-3">Krypto Pump Signale</h3>
+                    <p class="text-gray-400 mb-4">Erhalten Sie Echtzeitwarnungen und Analysen zu vielversprechenden Token, bevor sie explodieren.</p>
+                    <div class="flex items-center text-neonGreen">
+                        <span>Mehr erfahren</span>
+                        <i class="icon-arrow-right ml-2"></i>
+                    </div>
+                </a>
+                
+                <a href="/meme-coin-early.html" class="glass-card rounded-xl p-6 hover:border-neonGreen/30">
+                    <h3 class="text-xl font-semibold mb-3">Early Access Meme Coins</h3>
+                    <p class="text-gray-400 mb-4">Verstehen Sie, wie Sie frühzeitig in Meme-Coins investieren und maximale Renditen erzielen können.</p>
+                    <div class="flex items-center text-neonGreen">
+                        <span>Mehr erfahren</span>
+                        <i class="icon-arrow-right ml-2"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="flex items-center gap-2 group mb-4">
+                        <img src="/assets/logo.svg" alt="Rust Rocket Meme-Coin Sniper Bot" class="h-6" />
+                        <span class="font-semibold tracking-tight">Rust Rocket</span>
+                    </a>
+                    <p class="text-sm text-gray-400">Fast. Fair. Fully Audited.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="sniper-bot.html" class="text-sm text-gray-400 hover:text-white">Solana Sniper Bot</a></li>
+                        <li><a href="pump-alerts.html" class="text-sm text-gray-400 hover:text-white">Pump Alerts</a></li>
+                        <li><a href="meme-coin-early.html" class="text-sm text-gray-400 hover:text-white">Early Access</a></li>
+                        <li><a href="pricing.html" class="text-sm text-gray-400 hover:text-white">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="legal/imprint.html" class="text-sm text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="legal/privacy.html" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="legal/terms.html" class="text-sm text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="legal/aml-policy.html" class="text-sm text-gray-400 hover:text-white">AML Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://twitter.com/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
+                        <li><a href="https://discord.gg/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
+                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> Axiom Enterprise AG. All rights reserved.</p>
+                <p class="text-sm text-gray-500 mt-4 md:mt-0">TVTG-registriert • Landstrasse 123, FL-9490 Vaduz</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Simple navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
+            } else {
+                navbar.classList.remove('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
+            }
+        });
+    </script>
+</body>
+</html> 

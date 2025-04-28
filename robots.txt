@@ -1,0 +1,19 @@
+# Rust Rocket robots.txt
+User-agent: *
+Allow: /
+
+# AI Crawlers
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemap
+Sitemap: https://rustrocket.io/sitemap.xml 

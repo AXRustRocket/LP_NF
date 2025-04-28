@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Rust Rocket",
+  "name_for_model": "rust_rocket",
+  "description_for_human": "Meme-Coin Sniper Bot with <80ms latency and advanced rug protection.",
+  "description_for_model": "This plugin provides information about Rust Rocket, a TVTG-compliant Solana Sniper Bot with ultra-low latency and advanced rug protection features for trading meme coins.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://rustrocket.io/.well-known/openapi.yaml"
+  },
+  "logo_url": "https://rustrocket.io/assets/logo.svg",
+  "contact_email": "hello@rustrocket.io",
+  "legal_info_url": "https://rustrocket.io/legal/terms.html"
+} 

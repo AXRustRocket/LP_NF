@@ -1,0 +1,16 @@
+{
+  "name": "Rust Rocket",
+  "short_name": "RustRocket",
+  "description": "Fast. Fair. Fully Audited.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04070D",
+  "theme_color": "#2AFF62",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+} 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans Component Test</title>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
+            border-color: rgba(42, 255, 98, 0.2);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-100 antialiased">
+    <header class="text-center py-16">
+        <h1 class="text-4xl font-bold">Plans Component Test</h1>
+        <p class="mt-4 text-gray-300">This page tests the component loading functionality</p>
+    </header>
+    
+    <!-- Plans container -->
+    <div id="plans-container" class="py-12 relative">
+        <div class="text-center py-8 loading-indicator">
+            <div class="inline-block w-8 h-8 border-2 border-neonGreen border-t-transparent rounded-full animate-spin"></div>
+            <p class="mt-4 text-gray-400">Loading pricing plans...</p>
+        </div>
+    </div>
+    
+    <footer class="text-center py-8 text-gray-500">
+        <p>Component loading test page</p>
+    </footer>
+    
+    <!-- Import app.js for component loading -->
+    <script src="/js/app.js"></script>
+</body>
+</html> 

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Rocket – Pricing</title>
+    <meta name="description" content="Pricing plans for Rust Rocket trading infrastructure">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
+            border-color: rgba(42, 255, 98, 0.2);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased">
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="text-primary text-xl font-bold flex items-center">
+                    <span>Rust</span>
+                    <span class="text-white ml-1">Rocket</span>
+                </a>
+                
+                <div class="hidden md:flex items-center">
+                    <a href="/dashboard.html" class="px-6 py-2 rounded-full bg-rocketPurple hover:bg-rocketPurple/80">Dashboard →</a>
+                    <button id="walletBtn" class="ml-4 px-6 py-2 rounded-full bg-rustBlue hover:bg-rustBlue/90">Connect wallet</button>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <button id="walletBtnMobile" class="md:hidden bg-rustBlue hover:bg-rustBlue/90 p-2 rounded-full text-sm">
+                        <span class="sr-only">Connect wallet</span>
+                        <i class="icon-wallet text-sm"></i>
+                    </button>
+                    <button class="md:hidden text-white">
+                        <i class="icon-menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="min-h-screen py-24 px-6">
+        <h1 class="text-4xl font-bold text-center mb-10">Pricing</h1>
+
+        <!-- Hier dieselbe Komponente einbinden -->
+        <div id="plansPageSlot"></div>
+        
+        <p class="mt-12 text-center text-white/50 text-sm">
+            Tipp: Auf der <a href="/" class="underline">Startseite</a> findest du den kompakten Überblick.
+        </p>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="text-primary text-xl font-bold flex items-center">
+                        <span>Rust</span>
+                        <span class="text-white ml-1">Rocket</span>
+                    </a>
+                    <p class="text-sm text-gray-400">Fast. Fair. Fully Audited.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="pricing.html" class="text-sm text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="referral.html" class="text-sm text-gray-400 hover:text-white">Referral Program</a></li>
+                        <li><a href="features.html" class="hover:text-primary transition-colors">Features</a></li>
+                        <li><a href="index.html#roadmap" class="hover:text-primary transition-colors">Roadmap</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" onclick="return false;" class="text-sm text-gray-400 hover:text-white">AML Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://twitter.com/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
+                        <li><a href="https://discord.gg/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
+                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> Axiom Enterprise AG. All rights reserved.</p>
+                <p class="text-sm text-gray-500 mt-4 md:mt-0">TVTG-registriert • Landstrasse 123, FL-9490 Vaduz</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { include } from '/js/include.js';
+        include('#plansPageSlot', '/components/plans.html');
+    </script>
+</body>
+</html> 

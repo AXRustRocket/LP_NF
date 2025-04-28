@@ -1,0 +1,24 @@
+{
+  "name": "rust-rocket-website",
+  "version": "1.0.0",
+  "description": "Rust Rocket - Trading Infrastructure Platform",
+  "main": "index.js",
+  "scripts": {
+    "check-links": "node link-checker.js",
+    "serve": "npx serve -l 8000"
+  },
+  "author": "Axiom Enterprise AG",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "jsdom": "^21.1.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "google-closure-compiler": "^20240317.0.0",
+    "lighthouse": "^12.6.0",
+    "serve": "^14.2.0",
+    "vite-plugin-compression": "^0.5.1"
+  }
+}

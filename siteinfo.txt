@@ -1,0 +1,40 @@
+Site: Rust Rocket (https://rustrocket.io)
+Purpose: Providing a high-speed Meme-Coin Sniper Bot with rug protection on Solana blockchain
+
+#SHORT_DESCRIPTION
+Rust Rocket offers a Meme-Coin Sniper Bot with <80ms latency and advanced rug protection, fully compliant with Liechtenstein's TVTG regulatory framework.
+
+#PRODUCTS_AND_SERVICES
+- Solana Sniper Bot: High-speed trading execution with <80ms latency
+- Rug-Shield-AI: Advanced protection against scams and rug pulls
+- Private Relay: Low-latency transaction submission
+- API & Analytics: Professional tools for traders
+
+#CORNERSTONE_PAGES
+- https://rustrocket.io/sniper-bot.html - Solana Sniper Bot details
+- https://rustrocket.io/pump-alerts.html - Crypto Pump Signals
+- https://rustrocket.io/meme-coin-early.html - Early Access Meme Coins
+
+#FREQUENTLY_ASKED_QUESTIONS
+Q: What is a Meme-Coin Sniper Bot?
+A: A Meme-Coin Sniper Bot is an automated trading tool that executes buy and sell orders for new meme tokens at lightning speed. Rust Rocket's bot specifically offers ultra-low latency trading (under 80ms) with built-in rug protection to help traders capitalize on early opportunities while avoiding scams.
+
+Q: How does Rust Rocket protect against rug pulls?
+A: Our Rug-Shield-AI analyzes smart contracts in real-time before you buy, detecting common scam patterns like honeypots, fee traps, and freeze mechanisms. The system blocks trades on suspicious tokens automatically, protecting your capital from fraudulent projects and giving you peace of mind when trading emerging tokens.
+
+Q: Is Rust Rocket compliant with regulations?
+A: Yes, Rust Rocket is fully compliant with Liechtenstein's TVTG (Token and Trusted Technology Service Provider Act) regulatory framework. We maintain comprehensive audit trails for all transactions, providing institutional-grade compliance and transparency for users worldwide.
+
+Q: What blockchain networks does Rust Rocket support?
+A: Currently, Rust Rocket primarily supports Solana for its high-speed transactions and low fees. Our architecture is designed to deliver sub-80ms trading execution through dedicated TPU streams on the Solana network, giving you a significant edge in fast-moving market conditions.
+
+Q: Do I need technical knowledge to use the sniper bot?
+A: No technical expertise is required. We've designed Rust Rocket with a zero-setup interface and intuitive controls, making it accessible for traders of all experience levels. The platform handles the complex technical aspects while you focus on your trading strategy.
+
+#COMPANY_INFORMATION
+Rust Rocket is a product by Axiom Enterprise AG, a TVTG-registered company based in Liechtenstein (FL-9490 Vaduz, Landstrasse 123).
+
+#CONTACT_INFORMATION
+Email: hello@rustrocket.io
+Twitter: https://twitter.com/rustrocket
+Discord: https://discord.gg/rustrocket 
