@@ -90,7 +90,10 @@
                         }
                     }
                 }
-            }
+            },
+            safelist: [
+                'translate-x-full', 'translate-x-0'  // mobile drawer
+            ]
         };
     </script>
     
@@ -114,48 +117,9 @@
     </style>
 </head>
 <body class="font-sans text-gray-100 antialiased">
-    <!-- NAVIGATION -->
-    <nav id="navbar" class="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 py-4 bg-spaceBlack/80 backdrop-blur-md">
-        <a href="index.html" class="flex items-center gap-2 group">
-            <img src="assets/logo.svg" alt="Rust Rocket" class="h-6" />
-            <span class="font-semibold tracking-tight">Rust Rocket</span>
-        </a>
-        
-        <div class="hidden md:flex items-center gap-6">
-            <a href="sniper-bot.html" class="text-gray-300 hover:text-white">Sniper Bot</a>
-            <a href="pump-alerts.html" class="text-gray-300 hover:text-white">Pump Alerts</a>
-            <a href="copy-trading.html" class="text-white">Copy Trading</a>
-            <a href="pricing.html" class="text-gray-300 hover:text-white">Pricing</a>
-            <a href="referral.html" class="text-gray-300 hover:text-white">Referral</a>
-            <a href="index.html#join" class="text-gray-300 hover:text-white">Join</a>
-        </div>
-        
-        <div class="flex items-center gap-4">
-            <a href="/dashboard.html" class="px-6 py-2 rounded-full bg-gradient-to-r from-neonGreen/90 to-neonGreen text-spaceBlack font-medium hover:opacity-90 transition-opacity hidden md:block">Dashboard →</a>
-            <button id="menuToggle" class="md:hidden p-2">
-                <i class="icon-menu"></i>
-            </button>
-        </div>
-    </nav>
+    <div id="navContainer"></div>
     
-    <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="fixed inset-0 z-50 bg-spaceBlack/95 transform translate-x-full transition-transform duration-300 md:hidden">
-        <div class="flex justify-end p-6">
-            <button id="closeMenu" class="p-2">
-                <i class="icon-x"></i>
-            </button>
-        </div>
-        <div class="flex flex-col items-center gap-6 p-6 text-xl">
-            <a href="sniper-bot.html" class="text-gray-300 hover:text-white">Sniper Bot</a>
-            <a href="pump-alerts.html" class="text-gray-300 hover:text-white">Pump Alerts</a>
-            <a href="copy-trading.html" class="text-white">Copy Trading</a>
-            <a href="pricing.html" class="text-gray-300 hover:text-white">Pricing</a>
-            <a href="referral.html" class="text-gray-300 hover:text-white">Referral</a>
-            <a href="index.html#join" class="text-gray-300 hover:text-white">Join</a>
-            <a href="/dashboard.html" class="mt-6 px-8 py-3 rounded-full bg-gradient-to-r from-neonGreen/90 to-neonGreen text-spaceBlack font-medium">Dashboard →</a>
-        </div>
-    </div>
-    
+    <!-- content starts here -->
     <!-- HERO -->
     <section class="pt-32 pb-16">
         <div class="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -379,30 +343,9 @@
         </div>
     </footer>
 
-    <!-- JS -->
-    <script>
-        // Mobile menu functionality
-        const menuToggle = document.getElementById('menuToggle');
-        const closeMenu = document.getElementById('closeMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.remove('translate-x-full');
-        });
-        
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
-        });
-        
-        // Simple navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
-            } else {
-                navbar.classList.remove('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
-            }
-        });
+    <script type="module">
+        import {inject} from '/js/include.js';
+        inject('#navContainer', '/components/nav.html');
     </script>
 </body>
 </html> 

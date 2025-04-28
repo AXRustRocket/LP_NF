@@ -34,13 +34,23 @@
                         neonGreen: '#2AFF62',
                     }
                 }
-            }
+            },
+            safelist: [
+                'translate-x-full', 'translate-x-0'  // mobile drawer
+            ]
         };
     </script>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <script type="module">
+        import {inject} from '/js/include.js';
+        document.addEventListener('DOMContentLoaded', function() {
+            inject('#navContainer', '/components/nav.html');
+        });
+    </script>
     
     <style>
         body {
@@ -69,7 +79,10 @@
 </head>
 
 <body class="font-sans text-gray-100 antialiased">
-    <div class="min-h-screen flex flex-col items-center justify-center px-4">
+    <!-- Navigation Container -->
+    <div id="navContainer"></div>
+    
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 pt-16">
         <div class="text-center mb-8 animate-rocket">
             <div class="relative inline-block">
                 <img src="assets/logo.svg" alt="Rust Rocket" class="h-24 md:h-32 mx-auto" />
