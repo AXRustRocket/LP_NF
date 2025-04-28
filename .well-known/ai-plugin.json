@@ -9,9 +9,9 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://rust-rocket.com/openapi.yaml"
+    "url": "https://rustrocket.io/openapi.yaml"
   },
-  "logo_url": "https://rust-rocket.com/logo.png",
-  "contact_email": "support@rust-rocket.com",
-  "legal_info_url": "https://rust-rocket.com/legal.html"
+  "logo_url": "https://rustrocket.io/logo.png",
+  "contact_email": "support@rustrocket.io",
+  "legal_info_url": "https://rustrocket.io/legal.html"
 } 
