@@ -195,21 +195,16 @@
             box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
         }
         
+        /* Glass Card Utility */
         .glass-card {
-            backdrop-filter: blur(12px);
-            background: rgba(11, 22, 36, 0.25);
-            border: 1px solid rgba(42, 255, 98, 0.08);
-            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
-            transition: transform 0.4s cubic-bezier(0.3, 0.6, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-            @apply rounded-2xl bg-spaceDark/30 border border-neonGreen/10 p-8 backdrop-blur;
+          @apply backdrop-blur-lg bg-spaceDark/40 rounded-2xl border border-white/5 transition-all;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-card:hover {
+          @apply border-neonGreen/20;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 8px rgba(47, 255, 123, 0.05);
         }
         
-        .glass-card:hover {
-            transform: translateY(-6px) rotateX(2deg);
-            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
-            border-color: rgba(42, 255, 98, 0.2);
-        }
-
         [data-testid="latency"] span,
         [data-testid="treasury"] span {
             font-variant-numeric: tabular-nums;
@@ -307,174 +302,186 @@
     </style>
 
     <!-- BEGIN HERO -->
-    <section id="hero" class="relative min-h-screen flex flex-col md:flex-row items-center justify-center gap-14 px-6 pt-24 min-h-[500px]">
+    <section id="hero" class="relative min-h-screen px-6 pt-24 min-h-[500px]">
       <div id="particleCanvas" class="absolute inset-0 z-0" aria-hidden="true"></div>
-      <!-- COPY -->
-      <div class="flex-1 max-w-xl z-10">
-        <h1 class="text-5xl lg:text-6xl font-extrabold leading-tight text-center">
-          Meme-Coin Sniper Bot – Trade Pumps in <span class="text-neonGreen">&lt;80 ms</span>
-        </h1>
-        <p class="mt-6 text-xl text-center text-gray-300">Lightning-fast trading infrastructure with advanced rug protection. Get early access to the most promising meme-coins.</p>
+      
+      <!-- Hero Wrapper for 2-column layout -->
+      <div class="container mx-auto max-w-7xl flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-14">
+        
+        <!-- Left Column: Copy + CTA + Features -->
+        <div class="w-full lg:w-1/2 z-10">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+            Meme-Coin Sniper Bot – Trade Pumps in <span class="text-neonGreen">&lt;80 ms</span>
+          </h1>
+          <p class="text-lg md:text-xl text-gray-300 mb-8">Lightning-fast trading infrastructure with advanced rug protection. Get early access to the most promising meme-coins.</p>
 
-        <!-- Waitlist form -->
-        <form id="heroForm" class="mt-12 flex w-full max-w-md mx-auto">
-          <label for="hero-email" class="sr-only">Your email address</label>
-          <input type="email" id="hero-email" placeholder="Enter your email"
-                 class="flex-1 px-4 py-3 rounded-l-full bg-white/10 border border-white/10
-                        focus:outline-none focus:border-neonGreen/50 focus-visible:ring-2 focus-visible:ring-neonGreen/30" required />
-          <button type="submit"
-                  class="px-6 py-3 relative isolate font-semibold rounded-r-full bg-neonGreen text-spaceBlack shadow-lg 
-                         hover:bg-neonGreen/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-neonGreen"
-                  role="button"
-                  aria-label="Subscribe to waitlist">
-            Subscribe
-          </button>
-        </form>
+          <!-- Waitlist form -->
+          <form id="heroForm" class="flex w-full max-w-md mb-12">
+            <label for="hero-email" class="sr-only">Your email address</label>
+            <input type="email" id="hero-email" placeholder="Enter your email"
+                  class="flex-1 px-4 py-3 rounded-l-full bg-white/10 border border-white/10
+                          focus:outline-none focus:border-neonGreen/50 focus-visible:ring-2 focus-visible:ring-neonGreen/30" required />
+            <button type="submit"
+                    class="px-6 py-3 relative isolate font-semibold rounded-r-full bg-neonGreen text-spaceBlack shadow-lg 
+                          hover:bg-neonGreen/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-neonGreen"
+                    role="button"
+                    aria-label="Subscribe to waitlist">
+              Subscribe
+            </button>
+          </form>
 
-        <!-- Feedback Message -->
-        <p id="heroFormFeedback" class="mt-4 text-sm text-neonGreen text-center hidden">Thank you! We'll be in touch soon.</p>
+          <!-- Feedback Message -->
+          <p id="heroFormFeedback" class="mt-4 text-sm text-neonGreen text-center hidden">Thank you! We'll be in touch soon.</p>
 
-        <!-- WHY RUST ROCKET FEATURES -->
-        <div class="mt-20 md:mt-28" id="heroFeatures">
-          <p class="text-xs tracking-[.25em] text-neonGreen/70 uppercase">Built • Shipping • Evolving</p>
-          <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">The fastest fully-regulated sniper infra.<br class="hidden sm:block"> See what's live & what lands next.</h2>
-
-          <!-- LIVE grid -->
-          <div class="grid md:grid-cols-4 gap-6 mt-16" id="liveFeatures">
-            <article class="glass-card p-6 lg:p-8 ring-neonGreen/10">
-              <i class="icon-zap text-neonGreen text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Speed</h3>
-              <p class="text-gray-300"><strong>&lt;80 ms</strong> private relay latency – faster than 99% of public RPC bots.</p>
-            </article>
-            
-            <article class="glass-card p-6 lg:p-8 ring-neonGreen/10">
-              <i class="icon-shield-check text-neonGreen text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Rug-Shield AI</h3>
-              <p class="text-gray-300"><strong>Contract analysis</strong> that prevents honeypots, fee traps & other meme coin scams.</p>
-            </article>
-            
-            <article class="glass-card p-6 lg:p-8 ring-neonGreen/10">
-              <i class="icon-radio-tower text-neonGreen text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Private TPU Relay</h3>
-              <p class="text-gray-300"><strong>Edge servers</strong> with optimized routes for faster transaction confirmation.</p>
-            </article>
-            
-            <article class="glass-card p-6 lg:p-8 ring-neonGreen/10">
-              <i class="icon-wallet text-neonGreen text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Open Fee Wallet</h3>
-              <p class="text-gray-300"><strong>Transparent finances</strong> with on-chain verification of all collected fees.</p>
-            </article>
-          </div>
-
-          <!-- COMING grid -->
-          <div class="grid md:grid-cols-4 gap-6 mt-20" id="nextFeatures">
-            <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
-              <i class="icon-bot text-rocketPurple text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Copy-Trading</h3>
-              <p class="text-gray-300">Mirror top wallets – automatic risk management.</p>
-              <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q4 2025</span>
-            </article>
-            
-            <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
-              <i class="icon-recycle text-rocketPurple text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Liquidator</h3>
-              <p class="text-gray-300">Automated liquidation protection for leveraged positions.</p>
-              <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q1 2026</span>
-            </article>
-            
-            <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
-              <i class="icon-bar-chart-2 text-rocketPurple text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">MEV-Analytics</h3>
-              <p class="text-gray-300">Real-time tracking of sandwich attacks and frontrunning.</p>
-              <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q2 2026</span>
-            </article>
-            
-            <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
-              <i class="icon-circle-dollar-sign text-rocketPurple text-3xl mb-4"></i>
-              <h3 class="font-semibold mb-2">Validator Staking</h3>
-              <p class="text-gray-300">Permissionless staking pool with infrastructure rebates.</p>
-              <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q3 2026</span>
-            </article>
-          </div>
-
-          <!-- Marquee -->
-          <div class="mt-12 sm:mt-16 max-w-5xl mx-auto whitespace-nowrap overflow-hidden relative min-h-[2rem]">
-            <div class="inline-block animate-[marquee_20s_linear_infinite]">
-              <span class="text-gray-300">Median Latency 74 ms • 2260 Traders • 68.7 M US$ Volume • TVTG-registered • Open Treasury ↗</span>
+          <!-- Feature Cards (directly under CTA, 2x2 grid on larger screens) -->
+          <div class="mt-6">
+            <!-- Feature cards that scroll horizontally on mobile, 2x2 grid on larger screens -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 overflow-x-auto sm:overflow-visible">
+              <article class="glass-card p-5 min-w-[260px]">
+                <i class="icon-zap text-neonGreen text-3xl mb-3"></i>
+                <h3 class="font-semibold mb-2">Speed</h3>
+                <p class="text-gray-300 text-sm"><strong>&lt;80 ms</strong> private relay latency – faster than 99% of public RPC bots.</p>
+              </article>
+              
+              <article class="glass-card p-5 min-w-[260px]">
+                <i class="icon-shield-check text-neonGreen text-3xl mb-3"></i>
+                <h3 class="font-semibold mb-2">Rug-Shield AI</h3>
+                <p class="text-gray-300 text-sm"><strong>Contract analysis</strong> that prevents honeypots, fee traps & other meme coin scams.</p>
+              </article>
+              
+              <article class="glass-card p-5 min-w-[260px]">
+                <i class="icon-radio-tower text-neonGreen text-3xl mb-3"></i>
+                <h3 class="font-semibold mb-2">Private TPU Relay</h3>
+                <p class="text-gray-300 text-sm"><strong>Edge servers</strong> with optimized routes for faster transaction confirmation.</p>
+              </article>
+              
+              <article class="glass-card p-5 min-w-[260px]">
+                <i class="icon-wallet text-neonGreen text-3xl mb-3"></i>
+                <h3 class="font-semibold mb-2">Open Fee Wallet</h3>
+                <p class="text-gray-300 text-sm"><strong>Transparent finances</strong> with on-chain verification of all collected fees.</p>
+              </article>
             </div>
           </div>
+        </div>
 
-          <!-- FAQ Section -->
-          <div class="mt-24 max-w-3xl mx-auto">
-            <h3 class="text-xl font-bold mb-8">Häufig gestellte Fragen</h3>
-            
-            <div class="space-y-6">
-              <div class="glass-card p-6 text-left">
-                <h4 class="font-semibold text-lg mb-2">Was macht den Rust Rocket Sniper Bot so schnell?</h4>
-                <p class="text-gray-300">Unser Bot nutzt eine eigene Rust-basierte Architektur mit privaten TPU-Relays für Transaktionsausführung unter 80 ms – deutlich schneller als herkömmliche RPC-Bots, die oft 200-500 ms benötigen.</p>
-              </div>
-              
-              <div class="glass-card p-6 text-left">
-                <h4 class="font-semibold text-lg mb-2">Wie schützt Rug-Shield-AI vor Token-Scams?</h4>
-                <p class="text-gray-300">Unsere KI analysiert Smart Contracts in Echtzeit und blockiert Transaktionen bei Erkennung von Honeypots, Fee-Traps und anderen Betrugsmustern, bevor dein Kapital gefährdet wird.</p>
-              </div>
-              
-              <div class="glass-card p-6 text-left">
-                <h4 class="font-semibold text-lg mb-2">Was bedeutet TVTG-Registrierung für Nutzer?</h4>
-                <p class="text-gray-300">Als TVTG-registriertes Unternehmen in Liechtenstein unterliegt Rust Rocket strengen regulatorischen Anforderungen, was rechtliche Sicherheit und volle Transparenz für alle Nutzer bietet.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- JSON-LD for WhyNow FAQs -->
-          <script type="application/ld+json">
-          {
-            "@context":"https://schema.org",
-            "@type":"FAQPage",
-            "mainEntity":[
-              {
-                "@type":"Question",
-                "name":"Was macht den Rust Rocket Sniper Bot so schnell?",
-                "acceptedAnswer":{
-                  "@type":"Answer",
-                  "text":"Unser Bot nutzt eine eigene Rust-basierte Architektur mit privaten TPU-Relays für Transaktionsausführung unter 80 ms – deutlich schneller als herkömmliche RPC-Bots, die oft 200-500 ms benötigen."
-                }
-              },
-              {
-                "@type":"Question",
-                "name":"Wie schützt Rug-Shield-AI vor Token-Scams?",
-                "acceptedAnswer":{
-                  "@type":"Answer",
-                  "text":"Unsere KI analysiert Smart Contracts in Echtzeit und blockiert Transaktionen bei Erkennung von Honeypots, Fee-Traps und anderen Betrugsmustern, bevor dein Kapital gefährdet wird."
-                }
-              },
-              {
-                "@type":"Question",
-                "name":"Was bedeutet TVTG-Registrierung für Nutzer?",
-                "acceptedAnswer":{
-                  "@type":"Answer",
-                  "text":"Als TVTG-registriertes Unternehmen in Liechtenstein unterliegt Rust Rocket strengen regulatorischen Anforderungen, was rechtliche Sicherheit und volle Transparenz für alle Nutzer bietet."
-                }
-              }
-            ]
-          }
-          </script>
+        <!-- Right Column: Visualization (hidden on mobile) -->
+        <div class="hidden lg:block w-1/2 relative z-10 min-h-[600px]">
+          <div class="w-80 h-80 mx-auto rounded-full bg-gradient-to-br from-rustBlue/30 to-rocketPurple/20
+                    blur-2xl opacity-70 animate-pulse" aria-hidden="true"></div>
+          <!-- swap with Lottie or tsParticles canvas -->
+          <canvas id="orbitVisual" class="absolute inset-0" aria-hidden="true"></canvas>
         </div>
       </div>
 
-      <!-- VISUAL -->
-      <div class="flex-1 hidden md:flex items-center justify-center relative z-10">
-        <div class="w-80 h-80 rounded-full bg-gradient-to-br from-rustBlue/30 to-rocketPurple/20
-                    blur-2xl opacity-70 animate-pulse" aria-hidden="true"></div>
-        <!-- swap with Lottie or tsParticles canvas -->
-        <canvas id="orbitVisual" class="absolute inset-0" aria-hidden="true"></canvas>
+      <!-- Mobile Scroll Indicator (visible only on mobile) -->
+      <div class="flex justify-center mt-8 lg:hidden">
+        <a href="#heroFeatures" class="flex flex-col items-center animate-bounce focus:outline-none focus-visible:ring-2 focus-visible:ring-neonGreen/50 rounded-full p-2">
+          <span class="text-xs text-white/60 mb-2">Entdecke mehr</span>
+          <i class="icon-chevron-down text-neonGreen text-2xl" aria-hidden="true"></i>
+        </a>
       </div>
-      
-      <!-- Scroll Down Indicator -->
-      <a href="#heroFeatures" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce focus:outline-none focus-visible:ring-2 focus-visible:ring-neonGreen/50 rounded-full p-2">
-        <span class="text-xs text-white/60 mb-2">Entdecke mehr</span>
-        <i class="icon-chevron-down text-neonGreen text-2xl" aria-hidden="true"></i>
-      </a>
+
+      <!-- Marquee moved to bottom of hero section -->
+      <div class="mt-12 sm:mt-16 max-w-5xl mx-auto whitespace-nowrap overflow-hidden relative min-h-[2rem]">
+        <div class="inline-block animate-[marquee_20s_linear_infinite]">
+          <span class="text-gray-300">Median Latency 74 ms • 2260 Traders • 68.7 M US$ Volume • TVTG-registered • Open Treasury ↗</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMING NEXT FEATURES moved to separate section below hero -->
+    <section id="heroFeatures" class="py-24 px-6">
+      <div class="container mx-auto max-w-7xl">
+        <p class="text-xs tracking-[.25em] text-neonGreen/70 uppercase">Built • Shipping • Evolving</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">The fastest fully-regulated sniper infra.<br class="hidden sm:block"> See what's live & what lands next.</h2>
+
+        <!-- COMING grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16" id="nextFeatures">
+          <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
+            <i class="icon-bot text-rocketPurple text-3xl mb-4"></i>
+            <h3 class="font-semibold mb-2">Copy-Trading</h3>
+            <p class="text-gray-300">Mirror top wallets – automatic risk management.</p>
+            <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q4 2025</span>
+          </article>
+          
+          <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
+            <i class="icon-recycle text-rocketPurple text-3xl mb-4"></i>
+            <h3 class="font-semibold mb-2">Liquidator</h3>
+            <p class="text-gray-300">Automated liquidation protection for leveraged positions.</p>
+            <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q1 2026</span>
+          </article>
+          
+          <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
+            <i class="icon-bar-chart-2 text-rocketPurple text-3xl mb-4"></i>
+            <h3 class="font-semibold mb-2">MEV-Analytics</h3>
+            <p class="text-gray-300">Real-time tracking of sandwich attacks and frontrunning.</p>
+            <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q2 2026</span>
+          </article>
+          
+          <article class="rounded-2xl bg-spaceDark/40 border border-rocketPurple/20 p-6 backdrop-blur">
+            <i class="icon-circle-dollar-sign text-rocketPurple text-3xl mb-4"></i>
+            <h3 class="font-semibold mb-2">Validator Staking</h3>
+            <p class="text-gray-300">Permissionless staking pool with infrastructure rebates.</p>
+            <span class="mt-3 inline-block rounded-full bg-rocketPurple/20 px-3 py-0.5 text-xs text-rocketPurple">Q3 2026</span>
+          </article>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="mt-24 max-w-3xl mx-auto">
+          <h3 class="text-xl font-bold mb-8">Häufig gestellte Fragen</h3>
+          
+          <div class="space-y-6">
+            <div class="glass-card p-6 text-left">
+              <h4 class="font-semibold text-lg mb-2">Was macht den Rust Rocket Sniper Bot so schnell?</h4>
+              <p class="text-gray-300">Unser Bot nutzt eine eigene Rust-basierte Architektur mit privaten TPU-Relays für Transaktionsausführung unter 80 ms – deutlich schneller als herkömmliche RPC-Bots, die oft 200-500 ms benötigen.</p>
+            </div>
+            
+            <div class="glass-card p-6 text-left">
+              <h4 class="font-semibold text-lg mb-2">Wie schützt Rug-Shield-AI vor Token-Scams?</h4>
+              <p class="text-gray-300">Unsere KI analysiert Smart Contracts in Echtzeit und blockiert Transaktionen bei Erkennung von Honeypots, Fee-Traps und anderen Betrugsmustern, bevor dein Kapital gefährdet wird.</p>
+            </div>
+            
+            <div class="glass-card p-6 text-left">
+              <h4 class="font-semibold text-lg mb-2">Was bedeutet TVTG-Registrierung für Nutzer?</h4>
+              <p class="text-gray-300">Als TVTG-registriertes Unternehmen in Liechtenstein unterliegt Rust Rocket strengen regulatorischen Anforderungen, was rechtliche Sicherheit und volle Transparenz für alle Nutzer bietet.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JSON-LD for WhyNow FAQs -->
+        <script type="application/ld+json">
+        {
+          "@context":"https://schema.org",
+          "@type":"FAQPage",
+          "mainEntity":[
+            {
+              "@type":"Question",
+              "name":"Was macht den Rust Rocket Sniper Bot so schnell?",
+              "acceptedAnswer":{
+                "@type":"Answer",
+                "text":"Unser Bot nutzt eine eigene Rust-basierte Architektur mit privaten TPU-Relays für Transaktionsausführung unter 80 ms – deutlich schneller als herkömmliche RPC-Bots, die oft 200-500 ms benötigen."
+              }
+            },
+            {
+              "@type":"Question",
+              "name":"Wie schützt Rug-Shield-AI vor Token-Scams?",
+              "acceptedAnswer":{
+                "@type":"Answer",
+                "text":"Unsere KI analysiert Smart Contracts in Echtzeit und blockiert Transaktionen bei Erkennung von Honeypots, Fee-Traps und anderen Betrugsmustern, bevor dein Kapital gefährdet wird."
+              }
+            },
+            {
+              "@type":"Question",
+              "name":"Was bedeutet TVTG-Registrierung für Nutzer?",
+              "acceptedAnswer":{
+                "@type":"Answer",
+                "text":"Als TVTG-registriertes Unternehmen in Liechtenstein unterliegt Rust Rocket strengen regulatorischen Anforderungen, was rechtliche Sicherheit und volle Transparenz für alle Nutzer bietet."
+              }
+            }
+          ]
+        }
+        </script>
+      </div>
     </section>
 
     <!-- BEGIN DEMO STRIP -->
