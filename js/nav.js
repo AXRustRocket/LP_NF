@@ -53,7 +53,74 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Desktop dropdown toggle
+    // Desktop dropdown toggle - FIXED
+    const navMenuBtn = document.getElementById('navMenuBtn');
+    const navDropdown = document.getElementById('navDropdown');
+    
+    if (navMenuBtn && navDropdown) {
+        // Store dropdown state
+        let dropdownOpen = false;
+        
+        // Optimized functions
+        function openDropdown() {
+            if (!dropdownOpen) {
+                navDropdown.classList.remove('hidden');
+                navDropdown.dataset.state = 'open';
+                navMenuBtn.setAttribute('aria-expanded', 'true');
+                dropdownOpen = true;
+            }
+        }
+        
+        function closeDropdown() {
+            if (dropdownOpen) {
+                navDropdown.classList.add('hidden');
+                navDropdown.dataset.state = 'closed';
+                navMenuBtn.setAttribute('aria-expanded', 'false');
+                dropdownOpen = false;
+            }
+        }
+        
+        // Initialize hidden state
+        navDropdown.classList.add('hidden');
+        navDropdown.dataset.state = 'closed';
+        navMenuBtn.setAttribute('aria-expanded', 'false');
+
+        // Toggle dropdown
+        navMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownOpen ? closeDropdown() : openDropdown();
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && dropdownOpen) {
+                closeDropdown();
+            }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (dropdownOpen && !navMenuBtn.contains(e.target) && !navDropdown.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        // Close when dropdown links are clicked
+        const dropdownLinks = navDropdown.querySelectorAll('a');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', closeDropdown);
+        });
+    } else {
+        // Debug error logging for missing elements
+        if (!navMenuBtn) {
+            console.error('Navigation error: #navMenuBtn element not found');
+        }
+        if (!navDropdown) {
+            console.error('Navigation error: #navDropdown element not found');
+        }
+    }
+    
+    // Legacy dropdown toggle (backup for old implementation)
     const menuBtnDesk = document.querySelector('#menuBtnDesk');
     const deskDrop = document.querySelector('#deskDrop');
     

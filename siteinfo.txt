@@ -35,6 +35,6 @@ A: No technical expertise is required. We've designed Rust Rocket with a zero-se
 Rust Rocket is a product by Axiom Enterprise AG, a TVTG-registered company based in Liechtenstein (FL-9490 Vaduz, Landstrasse 123).
 
 #CONTACT_INFORMATION
-Email: hello@rustrocket.io
+Email: info@rust-rocket.com
 Twitter: https://twitter.com/rustrocket
 Discord: https://discord.gg/rustrocket 
