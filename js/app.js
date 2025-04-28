@@ -3,31 +3,11 @@
  * Component loading and core functionality
  */
 
-// Debug flag
-window.DEBUG = true;
 console.log('app.js loaded');
 
 // DOM ready event
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded');
-    
-    // Find placeholder elements
-    const featuresSlot = document.getElementById('featuresSlot');
-    const roadmapSlot = document.getElementById('roadmapSlot');
-    const plansSlot = document.getElementById('plansSlot');
-    
-    console.log('Found components:', { 
-        featuresSlot: !!featuresSlot, 
-        roadmapSlot: !!roadmapSlot, 
-        plansSlot: !!plansSlot 
-    });
-    
-    // Check if navbar menu buttons exist
-    const menuBtn = document.getElementById('menuBtn');
-    const menuBtnDesk = document.getElementById('menuBtnDesk');
-    console.log('Menu buttons:', { menuBtn: !!menuBtn, menuBtnDesk: !!menuBtnDesk });
-    
-    // Initialize navbar transparency
+    // Initialize navbar transparency immediately
     const navbar = document.querySelector('#navbar');
     if (navbar) {
         window.addEventListener('scroll', function() {
@@ -39,8 +19,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize form handlers
+    // Initialize form handlers immediately for better UX
     setupFormHandlers();
+    
+    // Use requestIdleCallback for non-critical initialization
+    const idleCallback = window.requestIdleCallback || function(callback) {
+        const start = Date.now();
+        return setTimeout(function() {
+            callback({
+                didTimeout: false,
+                timeRemaining: function() {
+                    return Math.max(0, 50 - (Date.now() - start));
+                }
+            });
+        }, 1);
+    };
+    
+    // Defer non-critical initialization
+    idleCallback(() => {
+        // Find placeholder elements
+        const featuresSlot = document.getElementById('featuresSlot');
+        const roadmapSlot = document.getElementById('roadmapSlot');
+        const plansSlot = document.getElementById('plansSlot');
+        
+        console.log('Found components:', { 
+            featuresSlot: !!featuresSlot, 
+            roadmapSlot: !!roadmapSlot, 
+            plansSlot: !!plansSlot 
+        });
+        
+        // Check if navbar menu buttons exist
+        const menuBtn = document.getElementById('menuBtn');
+        const menuBtnDesk = document.getElementById('menuBtnDesk');
+        console.log('Menu buttons:', { menuBtn: !!menuBtn, menuBtnDesk: !!menuBtnDesk });
+    });
 });
 
 /**
@@ -50,33 +62,61 @@ function setupFormHandlers() {
     // Hero form
     const heroForm = document.getElementById('heroForm');
     if (heroForm) {
-        console.log('Setting up hero form handler');
         heroForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            alert('Thank you for subscribing to our waitlist!');
-            document.getElementById('heroFormFeedback').classList.remove('hidden');
+            
+            // Show feedback immediately
+            const feedbackElement = document.getElementById('heroFormFeedback');
+            if (feedbackElement) {
+                feedbackElement.classList.remove('hidden');
+            }
+            
+            // Submit form data asynchronously
+            const email = document.getElementById('hero-email').value;
+            setTimeout(() => {
+                console.log('Form submitted with email:', email);
+                // Here you would normally send the data to a server
+            }, 0);
         });
     }
     
     // Waitlist form
     const waitlistForm = document.getElementById('waitlistForm');
     if (waitlistForm) {
-        console.log('Setting up waitlist form handler');
         waitlistForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            alert('Thank you for joining our waitlist!');
-            document.getElementById('waitlistFormFeedback').classList.remove('hidden');
+            
+            // Show feedback immediately
+            const feedbackElement = document.getElementById('waitlistFormFeedback');
+            if (feedbackElement) {
+                feedbackElement.classList.remove('hidden');
+            }
+            
+            // Submit form data asynchronously
+            setTimeout(() => {
+                console.log('Waitlist form submitted');
+                // Here you would normally send the data to a server
+            }, 0);
         });
     }
     
     // Contact form
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        console.log('Setting up contact form handler');
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            alert('Thank you for your message! We will be in touch soon.');
-            document.getElementById('contactFormFeedback').classList.remove('hidden');
+            
+            // Show feedback immediately
+            const feedbackElement = document.getElementById('contactFormFeedback');
+            if (feedbackElement) {
+                feedbackElement.classList.remove('hidden');
+            }
+            
+            // Submit form data asynchronously
+            setTimeout(() => {
+                console.log('Contact form submitted');
+                // Here you would normally send the data to a server
+            }, 0);
         });
     }
 }

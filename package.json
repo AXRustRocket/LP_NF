@@ -19,6 +19,8 @@
     "google-closure-compiler": "^20240317.0.0",
     "lighthouse": "^12.6.0",
     "serve": "^14.2.0",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-imagetools": "^7.0.5",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-pwa": "^1.0.0"
   }
 }
