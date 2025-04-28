@@ -1,664 +1,405 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copy Trading | RustRocket</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <title>Copy Trading Software für Solana | Rust Rocket</title>
+    <meta name="description" content="Automatisiertes Copy Trading für Solana - Kopieren Sie die Trades erfolgreicher Händler mit unserem Rust-basierten Tool mit <80ms Latenz">
+    <meta name="keywords" content="Copy Trading, Solana, Meme-Coin Trading, Copy Trading Software, automatisiertes Trading, TVTG, Liechtenstein">
+    <meta name="ai-summary" content="Rust Rocket bietet eine hochperformante Copy Trading Lösung für Solana mit ultraniedriger Latenz, intelligenten Kopierfunktionen und voller TVTG-Compliance.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image" type="image/svg+xml">
+    <meta name="theme-color" content="#04070D">
     
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustrocket.io/copy-trading.html">
+    <meta property="og:title" content="Copy Trading Software für Solana | Rust Rocket">
+    <meta property="og:description" content="Automatisiertes Copy Trading für Solana - Kopieren Sie die Trades erfolgreicher Händler mit unserem Rust-basierten Tool mit <80ms Latenz">
+    <meta property="og:site_name" content="Rust Rocket – Fast. Fair. Fully Audited.">
+    <meta property="og:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@rustrocket">
+    <meta name="twitter:title" content="Copy Trading Software für Solana | Rust Rocket">
+    <meta name="twitter:description" content="Automatisiertes Copy Trading für Solana mit <80ms Latenz - Kopieren Sie die Trades der besten Trader">
+    <meta name="twitter:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="canonical" href="https://rustrocket.io/copy-trading.html">
+    <link rel="alternate" hreflang="en" href="https://rustrocket.io/en/copy-trading.html">
+    <link rel="alternate" hreflang="x-default" href="https://rustrocket.io/copy-trading.html">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rust Rocket Copy Trading",
+        "applicationCategory": "FinanceTool",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Automatisiertes Copy Trading für Solana mit ultraniedriger Latenz und TVTG-Compliance",
+        "url": "https://rustrocket.io/copy-trading.html",
+        "logo": "https://rustrocket.io/assets/logo.svg",
+        "sameAs": [
+            "https://twitter.com/rustrocket"
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
     <script>
         tailwind.config = {
             theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
                 extend: {
                     colors: {
-                        'navy': '#1A1F35',
-                        'silver': '#D1D5DB',
-                        'neon-blue': '#00B7EB',
-                        'neon-green': '#39FF14',
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        neonGreen: '#2AFF62',
                     },
-                    fontFamily: {
-                        'sans': ['Montserrat', 'sans-serif'],
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
                     },
-                },
-            },
-        }
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        };
     </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
     
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #1A1F35;
-            color: #D1D5DB;
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
             overflow-x: hidden;
         }
         
-        .hero-overlay {
-            background: radial-gradient(circle at center, rgba(26, 31, 53, 0.3) 0%, rgba(26, 31, 53, 0.9) 100%);
-        }
-        
-        .glow {
-            box-shadow: 0 0 15px rgba(0, 183, 235, 0.6);
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .glow:hover {
-            box-shadow: 0 0 25px rgba(0, 183, 235, 0.8);
-        }
-        
-        .glow-green {
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .glow-green:hover {
-            box-shadow: 0 0 25px rgba(57, 255, 20, 0.8);
-        }
-        
-        .card {
-            background: linear-gradient(145deg, rgba(35, 41, 70, 0.9), rgba(26, 31, 53, 0.9));
-            border: 1px solid rgba(209, 213, 219, 0.1);
-            backdrop-filter: blur(5px);
-        }
-        
-        .hologram {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hologram::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, 
-                rgba(0, 183, 235, 0) 0%, 
-                rgba(0, 183, 235, 0.1) 50%, 
-                rgba(57, 255, 20, 0) 100%);
-            animation: hologramEffect 6s linear infinite;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        
-        .node {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #00B7EB;
-            position: absolute;
-            animation: pulse 2s infinite;
-        }
-        
-        .earth-bg {
-            background-image: url('https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.3) saturate(1.2);
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 183, 235, 0.7);
-            }
-            70% {
-                transform: scale(1.5);
-                box-shadow: 0 0 0 10px rgba(0, 183, 235, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 183, 235, 0);
-            }
-        }
-        
-        @keyframes hologramEffect {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        .crypto-bg {
-            position: relative;
-        }
-        
-        .crypto-bg::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSIjMDBCN0VCIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=');
-            background-repeat: repeat;
-            opacity: 0.05;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .liechtenstein-flag {
-            height: 16px;
-            width: 24px;
-            background: linear-gradient(to bottom, #0033A0 50%, #CE1126 50%);
-            display: inline-block;
-            margin-right: 8px;
-            vertical-align: middle;
-            position: relative;
-        }
-        
-        .liechtenstein-flag::after {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 6px;
-            width: 4px;
-            height: 4px;
-            background: #FFCE00;
-            border-radius: 50%;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        nav {
-            background: linear-gradient(to right, rgba(26, 31, 53, 0.95), rgba(35, 41, 70, 0.95));
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 183, 235, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #00B7EB;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: #00B7EB;
-        }
-        
-        .mathematical-formula {
-            font-family: 'Courier New', monospace;
-            background: rgba(26, 31, 53, 0.6);
-            border: 1px solid rgba(0, 183, 235, 0.3);
-            border-radius: 4px;
-            padding: 1rem;
-            overflow-x: auto;
-        }
-        
-        /* Copy Trading specific animations and effects */
-        .trader-connection {
-            stroke-dasharray: 10;
-            animation: traderFlow 3s linear infinite;
-        }
-        
-        @keyframes traderFlow {
-            to { stroke-dashoffset: -30; }
-        }
-        
-        .performance-chart {
-            animation: chartGrow 2s ease-out forwards;
-        }
-        
-        @keyframes chartGrow {
-            from { stroke-dashoffset: 1000; stroke-dasharray: 1000; }
-            to { stroke-dashoffset: 0; stroke-dasharray: 1000; }
-        }
-        
-        .mirror-animation {
-            animation: mirrorPulse 3s infinite;
-        }
-        
-        @keyframes mirrorPulse {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
-        }
-        
-        .signal-wave {
-            animation: signalWave 2s infinite;
-        }
-        
-        @keyframes signalWave {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.5); opacity: 0; }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
         }
     </style>
 </head>
-<body>
-    <!-- Header / Navigation -->
-    <nav class="fixed w-full z-50 py-4">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <div class="liechtenstein-flag"></div>
-                    <a href="index.html" class="text-white font-bold text-xl">
-                        RustRocket <span class="text-sm font-normal text-silver"></span>
-                    </a>
-                </div>
-                
-                <div class="hidden md:flex space-x-8">
-                    <a href="hft.html" class="nav-link text-silver font-medium">HFT</a>
-                    <a href="scalping.html" class="nav-link text-silver font-medium">Scalping</a>
-                    <a href="arbitrage.html" class="nav-link text-silver font-medium">Arbitrage</a>
-                    <a href="copy-trading.html" class="nav-link text-white font-medium active">Copy Trading</a>
-                    <a href="frontrunning.html" class="nav-link text-silver font-medium">Frontrunning</a>
-                    <a href="sandwich-trading.html" class="nav-link text-silver font-medium">Sandwich Trading</a>
-                </div>
-                
-                <div class="md:hidden">
-                    <button id="mobileMenuBtn" class="text-white">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
+<body class="font-sans text-gray-100 antialiased">
+    <!-- NAVIGATION -->
+    <nav id="navbar" class="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 py-4 bg-spaceBlack/80 backdrop-blur-md">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <img src="/assets/logo.svg" alt="Rust Rocket" class="h-6" />
+            <span class="font-semibold tracking-tight">Rust Rocket</span>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-6">
+            <a href="sniper-bot.html" class="text-gray-300 hover:text-white">Sniper Bot</a>
+            <a href="pump-alerts.html" class="text-gray-300 hover:text-white">Pump Alerts</a>
+            <a href="copy-trading.html" class="text-white">Copy Trading</a>
+            <a href="pricing.html" class="text-gray-300 hover:text-white">Pricing</a>
+            <a href="referral.html" class="text-gray-300 hover:text-white">Referral</a>
+            <a href="index.html#join" class="text-gray-300 hover:text-white">Join</a>
         </div>
         
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden w-full bg-navy/95 backdrop-blur-md border-t border-neon-blue/20 py-4">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col space-y-4">
-                    <a href="hft.html" class="nav-link text-silver font-medium">HFT</a>
-                    <a href="scalping.html" class="nav-link text-silver font-medium">Scalping</a>
-                    <a href="arbitrage.html" class="nav-link text-silver font-medium">Arbitrage</a>
-                    <a href="copy-trading.html" class="nav-link text-white font-medium active">Copy Trading</a>
-                    <a href="frontrunning.html" class="nav-link text-silver font-medium">Frontrunning</a>
-                    <a href="sandwich-trading.html" class="nav-link text-silver font-medium">Sandwich Trading</a>
-                </div>
-            </div>
+        <div class="flex items-center gap-4">
+            <a href="/dashboard.html" class="px-6 py-2 rounded-full bg-gradient-to-r from-neonGreen/90 to-neonGreen text-spaceBlack font-medium hover:opacity-90 transition-opacity hidden md:block">Dashboard →</a>
+            <button id="menuToggle" class="md:hidden p-2">
+                <i class="icon-menu"></i>
+            </button>
         </div>
     </nav>
     
-    <!-- Hero Section -->
-    <section class="h-screen relative overflow-hidden pt-16">
-        <!-- Background with global nodes animation -->
-        <div class="earth-bg absolute inset-0"></div>
-        
-        <!-- Global nodes (major financial centers) -->
-        <div id="nodes-container" class="absolute inset-0">
-            <!-- Generated by JavaScript -->
-        </div>
-        
-        <!-- Hero content overlay -->
-        <div class="hero-overlay absolute inset-0 flex flex-col justify-center items-center px-4 z-10">
-            <div class="max-w-5xl mx-auto text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">
-                    Amplified <span class="text-neon-blue">Copy Trading</span> with RustRocket
-                </h1>
-                
-                <p class="text-xl md:text-2xl text-silver mb-8">
-                    Mirror the Masters, Magnify Your Returns
-                </p>
-                
-                <button id="heroJoinBtn" class="glow bg-gradient-to-r from-neon-blue to-neon-green text-navy font-bold py-3 px-8 rounded-lg text-lg hover:scale-105 transition-all duration-300">
-                    Join Waitlist
-                </button>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Technique Description Section -->
-    <section class="py-16 relative overflow-hidden crypto-bg">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <!-- Definition -->
-            <div class="mb-16 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-white">
-                    What is <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-green">Copy Trading</span>?
-                </h2>
-                
-                <p class="text-silver text-lg leading-relaxed mb-6">
-                    Copy Trading is a sophisticated strategy that allows traders to automatically replicate the positions of experienced investors in real-time. RustRocket's advanced copy trading platform takes this concept to a new level, offering ultra-low latency mirroring of elite trader positions across multiple blockchain networks and trading venues. Our proprietary signal detection algorithm identifies the most profitable traders to follow based on real-time performance metrics, risk-adjusted returns, and historical consistency. When these "master traders" execute a transaction, our system instantly replicates it in your account with precision scaling based on your risk preferences and capital allocation strategy. This allows you to harness the expertise of blockchain's top performers without requiring advanced technical knowledge or 24/7 market monitoring.
-                </p>
-            </div>
-            
-            <!-- Mathematical/Logical Foundation -->
-            <div class="mb-16 fade-in">
-                <h2 class="text-3xl font-bold mb-8 text-white">
-                    <span class="text-neon-blue">Technical</span> Foundation
-                </h2>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div>
-                        <p class="text-silver text-lg leading-relaxed mb-6">
-                            RustRocket's copy trading system leverages advanced mathematics and statistical models to optimize trader selection and position mirroring:
-                        </p>
-                        
-                        <div class="mathematical-formula mb-6">
-                            <span class="text-neon-blue">Trader Selection Model:</span><br>
-                            <span class="text-silver">TS = (α × SR) + (β × WR) + (γ × C) - (δ × D)</span><br>
-                            <span class="text-silver">Where:</span><br>
-                            <span class="text-silver">TS = Trader Score</span><br>
-                            <span class="text-silver">SR = Sharpe Ratio</span><br>
-                            <span class="text-silver">WR = Win Rate</span><br>
-                            <span class="text-silver">C = Consistency</span><br>
-                            <span class="text-silver">D = Drawdown</span><br>
-                            <span class="text-silver">α, β, γ, δ = Weighting parameters</span>
-                        </div>
-                        
-                        <p class="text-silver text-lg leading-relaxed mb-6">
-                            Position sizing is optimized based on your risk preferences and the master trader's historical performance:
-                        </p>
-                        
-                        <div class="mathematical-formula mb-6">
-                            <span class="text-neon-blue">Optimal Position Size = Base Capital × Risk Multiplier × Confidence Factor</span><br><br>
-                            
-                            <span class="text-neon-blue">Signal Processing Performance:</span><br>
-                            <span class="text-neon-green">5.2ms average signal detection</span><br>
-                            <span class="text-neon-green">9.8ms average trade execution</span><br>
-                            <span class="text-neon-green">99.93% mirroring accuracy</span>
-                        </div>
-                    </div>
-                    
-                    <div class="h-96 bg-navy/40 rounded-lg overflow-hidden relative card">
-                        <div class="absolute inset-0 p-4">
-                            <!-- Copy Trading Dashboard Mockup -->
-                            <div class="absolute top-0 left-0 right-0 h-10 bg-navy/70 rounded-t flex items-center px-4">
-                                <span class="text-neon-blue text-sm">RustRocket Copy Trading Dashboard</span>
-                                <span class="ml-auto text-silver text-xs">Master Trader Network</span>
-                            </div>
-                            
-                            <div class="absolute top-12 left-0 right-0 bottom-0 p-3">
-                                <div class="w-full h-full relative">
-                                    <!-- Copy Trading Visualization -->
-                                    <svg width="100%" height="100%" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Master Traders Nodes -->
-                                        <circle cx="150" cy="80" r="20" fill="#1A1F35" stroke="#00B7EB" stroke-width="2">
-                                            <animate attributeName="r" values="20;22;20" dur="3s" repeatCount="indefinite" />
-                                        </circle>
-                                        <text x="150" y="85" text-anchor="middle" fill="#00B7EB" font-size="10">TRADER 1</text>
-                                        
-                                        <circle cx="120" cy="160" r="16" fill="#1A1F35" stroke="#00B7EB" stroke-width="2">
-                                            <animate attributeName="r" values="16;18;16" dur="3.2s" repeatCount="indefinite" />
-                                        </circle>
-                                        <text x="120" y="165" text-anchor="middle" fill="#00B7EB" font-size="9">TRADER 2</text>
-                                        
-                                        <circle cx="190" cy="140" r="18" fill="#1A1F35" stroke="#00B7EB" stroke-width="2">
-                                            <animate attributeName="r" values="18;20;18" dur="3.5s" repeatCount="indefinite" />
-                                        </circle>
-                                        <text x="190" y="145" text-anchor="middle" fill="#00B7EB" font-size="9">TRADER 3</text>
-                                        
-                                        <!-- Your Account Node -->
-                                        <circle cx="450" cy="150" r="30" fill="#1A1F35" stroke="#39FF14" stroke-width="2" class="mirror-animation" />
-                                        <text x="450" y="145" text-anchor="middle" fill="#39FF14" font-size="10">YOUR</text>
-                                        <text x="450" y="160" text-anchor="middle" fill="#39FF14" font-size="10">ACCOUNT</text>
-                                        
-                                        <!-- Signal Transmission Lines -->
-                                        <path d="M170,80 Q300,10 430,150" fill="none" stroke="#00B7EB" stroke-width="1.5" stroke-dasharray="5,5" class="trader-connection" />
-                                        <circle cx="300" cy="55" r="5" fill="none" stroke="#00B7EB" stroke-width="1">
-                                            <animate attributeName="r" values="5;15;5" dur="2s" repeatCount="indefinite" class="signal-wave" />
-                                        </circle>
-                                        
-                                        <path d="M136,160 Q290,180 420,150" fill="none" stroke="#00B7EB" stroke-width="1.5" stroke-dasharray="5,5" class="trader-connection" />
-                                        <circle cx="290" cy="170" r="5" fill="none" stroke="#00B7EB" stroke-width="1">
-                                            <animate attributeName="r" values="5;15;5" dur="2s" repeatCount="indefinite" class="signal-wave" />
-                                        </circle>
-                                        
-                                        <path d="M208,140 Q320,140 420,150" fill="none" stroke="#00B7EB" stroke-width="1.5" stroke-dasharray="5,5" class="trader-connection" />
-                                        <circle cx="300" cy="140" r="5" fill="none" stroke="#00B7EB" stroke-width="1">
-                                            <animate attributeName="r" values="5;15;5" dur="2s" repeatCount="indefinite" class="signal-wave" />
-                                        </circle>
-                                        
-                                        <!-- Performance Charts -->
-                                        <polyline points="450,210 455,205 460,207 465,200 470,190 475,195 480,185 485,180 490,178 495,170 500,165" 
-                                                fill="none" 
-                                                stroke="#39FF14" 
-                                                stroke-width="2"
-                                                class="performance-chart" />
-                                                
-                                        <text x="475" y="220" text-anchor="middle" fill="#39FF14" font-size="8">PERFORMANCE</text>
-                                        
-                                        <!-- Status Display -->
-                                        <rect x="380" y="240" width="140" height="40" rx="5" fill="#1A1F35" stroke="#00B7EB" stroke-width="1" />
-                                        <text x="450" y="260" text-anchor="middle" fill="#00B7EB" font-size="10">SIGNALS RECEIVED</text>
-                                        <text x="450" y="275" text-anchor="middle" fill="#39FF14" font-size="12">42 / 42 (100%)</text>
-                                    </svg>
-                                    
-                                    <!-- Stats overlay -->
-                                    <div class="absolute bottom-2 left-2 bg-navy/80 rounded px-3 py-2">
-                                        <div class="text-xs text-silver mb-1">Signal Latency: <span class="text-neon-blue">5.2ms</span></div>
-                                        <div class="text-xs text-silver mb-1">Execution Time: <span class="text-neon-blue">9.8ms</span></div>
-                                        <div class="text-xs text-silver">Mirroring Accuracy: <span class="text-neon-green">99.93%</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- RustRocket Advantage -->
-            <div class="mb-16 fade-in">
-                <h2 class="text-3xl font-bold mb-8 text-white">
-                    The <span class="text-neon-blue">RustRocket</span> Advantage
-                </h2>
-                
-                <div class="card rounded-xl p-8 shadow-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="text-center">
-                            <div class="text-5xl text-neon-blue font-bold mb-2">5.2ms</div>
-                            <p class="text-silver">Signal Detection</p>
-                        </div>
-                        
-                        <div class="text-center">
-                            <div class="text-5xl text-neon-blue font-bold mb-2">99.93%</div>
-                            <p class="text-silver">Mirroring Accuracy</p>
-                        </div>
-                        
-                        <div class="text-center">
-                            <div class="text-5xl text-neon-blue font-bold mb-2">+78%</div>
-                            <p class="text-silver">Average Performance Gain</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8">
-                        <p class="text-silver text-lg leading-relaxed">
-                            RustRocket's copy trading platform delivers unmatched advantages through our proprietary three-layer architecture. Our signal detection layer monitors thousands of elite trader wallets, identifying high-value transactions with an industry-leading latency of just 5.2ms. Our position optimization layer then analyzes these signals using our proprietary mathematical models to determine ideal position sizes based on your risk profile and capital allocation. Finally, our execution layer simultaneously places your trades across multiple platforms with 99.93% mirroring accuracy, ensuring you capture the same pricing advantages as the most successful traders. This technological edge translates to copy trading performance that averages 78% higher returns compared to traditional copy trading platforms, especially in volatile market conditions.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Benefits Section -->
-    <section class="py-16 relative overflow-hidden">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white fade-in">
-                Key <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-green">Benefits</span>
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Benefit 1 -->
-                <div class="card rounded-xl p-8 shadow-lg hologram fade-in">
-                    <div class="w-20 h-20 rounded-full bg-navy flex items-center justify-center mb-6 mx-auto">
-                        <i class="fas fa-user-tie text-4xl text-neon-blue"></i>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold mb-4 text-white text-center">Elite Signal Network</h3>
-                    
-                    <p class="text-silver text-center">
-                        Connect to our curated network of top-performing blockchain traders, selected through rigorous performance analysis and verified trading history across multiple market cycles.
-                    </p>
-                </div>
-                
-                <!-- Benefit 2 -->
-                <div class="card rounded-xl p-8 shadow-lg hologram fade-in" style="animation-delay: 0.2s;">
-                    <div class="w-20 h-20 rounded-full bg-navy flex items-center justify-center mb-6 mx-auto">
-                        <i class="fas fa-bolt text-4xl text-neon-blue"></i>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold mb-4 text-white text-center">Ultra-Low Latency</h3>
-                    
-                    <p class="text-silver text-center">
-                        Experience the fastest signal detection and execution in crypto copy trading, with our 5.2ms average signal detection and 9.8ms execution time ensuring you never miss a profitable opportunity.
-                    </p>
-                </div>
-                
-                <!-- Benefit 3 -->
-                <div class="card rounded-xl p-8 shadow-lg hologram fade-in" style="animation-delay: 0.4s;">
-                    <div class="w-20 h-20 rounded-full bg-navy flex items-center justify-center mb-6 mx-auto">
-                        <i class="fas fa-sliders-h text-4xl text-neon-blue"></i>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold mb-4 text-white text-center">Intelligent Position Sizing</h3>
-                    
-                    <p class="text-silver text-center">
-                        Our AI-powered position sizing algorithm optimizes your capital allocation based on your risk tolerance, portfolio balance, and the specific trader's historical performance metrics.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="py-16 relative overflow-hidden bg-gradient-to-b from-navy to-navy/80">
-        <div class="container mx-auto px-4 max-w-4xl text-center">
-            <h2 class="text-3xl md:text-5xl font-bold mb-8 text-white fade-in">
-                Mirror the <span class="text-neon-blue">Crypto Elite</span> – Limited Access Available
-            </h2>
-            
-            <p class="text-xl text-silver mb-12 fade-in">
-                Join the exclusive group of traders using RustRocket's advanced copy trading technology.
-            </p>
-            
-            <button id="ctaJoinBtn" class="glow-green bg-gradient-to-r from-neon-blue to-neon-green text-navy font-bold py-4 px-10 rounded-lg text-xl hover:scale-105 transition-all duration-300 fade-in">
-                Join Waitlist
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 bg-spaceBlack/95 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="closeMenu" class="p-2">
+                <i class="icon-x"></i>
             </button>
         </div>
+        <div class="flex flex-col items-center gap-6 p-6 text-xl">
+            <a href="sniper-bot.html" class="text-gray-300 hover:text-white">Sniper Bot</a>
+            <a href="pump-alerts.html" class="text-gray-300 hover:text-white">Pump Alerts</a>
+            <a href="copy-trading.html" class="text-white">Copy Trading</a>
+            <a href="pricing.html" class="text-gray-300 hover:text-white">Pricing</a>
+            <a href="referral.html" class="text-gray-300 hover:text-white">Referral</a>
+            <a href="index.html#join" class="text-gray-300 hover:text-white">Join</a>
+            <a href="/dashboard.html" class="mt-6 px-8 py-3 rounded-full bg-gradient-to-r from-neonGreen/90 to-neonGreen text-spaceBlack font-medium">Dashboard →</a>
+        </div>
+    </div>
+    
+    <!-- HERO -->
+    <section class="pt-32 pb-16">
+        <div class="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Automatisiertes Copy Trading für Solana</h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Kopieren Sie die Strategien erfolgreicher Trader mit ultraschneller Ausführung und intelligenter Kapitalallokation. Entwickelt für maximale Performance und Sicherheit.</p>
+                <div class="flex flex-wrap justify-center gap-4 mt-10">
+                    <a href="/pricing.html" class="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition">Preispläne ansehen</a>
+                    <a href="index.html#join" class="px-8 py-3 bg-neonGreen text-spaceBlack hover:bg-neonGreen/90 rounded-lg transition">Warteliste beitreten</a>
+                </div>
+            </div>
+        </div>
     </section>
     
-    <!-- Footer -->
-    <footer class="py-12 bg-navy/90 border-t border-neon-blue/20">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <div class="flex items-center mb-6 md:mb-0">
-                    <div class="liechtenstein-flag"></div>
-                    <span class="text-white font-bold">
-                        RustRocket <span class="text-sm font-normal text-silver"></span>
-                    </span>
+    <!-- FEATURES -->
+    <section class="py-20 bg-spaceDark">
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Unsere Copy Trading Funktionen</h2>
+            
+            <div class="space-y-16">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Blitzschnelle Ausführung</h3>
+                        <p class="text-gray-300 mb-4">Unsere in Rust geschriebene Copy Trading Plattform erreicht eine p95-Latenz unter 80ms. Ihre kopierten Trades werden nahezu gleichzeitig mit denen des Lead-Traders ausgeführt, wodurch Preisabweichungen minimiert werden.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Dedizierte RPC-Nodes für minimale Latenz</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Optimierte Transaktionsrouten</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Parallele Orderausführung für mehrere Follower</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="glass-card rounded-xl overflow-hidden">
+                            <img src="https://via.placeholder.com/500x300?text=Fast+Execution" alt="Ultraschnelle Ausführung beim Copy Trading" class="w-full" width="500" height="300" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Intelligente Kapitalallokation</h3>
+                        <p class="text-gray-300 mb-4">Unser KI-gestütztes System passt Positionsgrößen, Risikostufen und Handelsparameter automatisch an Ihr Kapital an. Wählen Sie zwischen prozentualem oder fixem Kapitalfolging mit flexiblen Risikostufen.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Automatische Positionsgrößenanpassung</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Individuelle Risikoprofile konfigurierbar</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Verlustbegrenzung durch Stop-Loss-Synchronisation</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="glass-card rounded-xl overflow-hidden">
+                            <img src="https://via.placeholder.com/500x300?text=Smart+Allocation" alt="Intelligente Kapitalallokation beim Copy Trading" class="w-full" width="500" height="300" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Kuratierte Top-Trader</h3>
+                        <p class="text-gray-300 mb-4">Folgen Sie den besten Krypto-Tradern mit nachgewiesener Performance. Unsere Plattform bietet detaillierte Statistiken, Erfolgsquoten und Risikoprofile für jeden Lead-Trader, um informierte Entscheidungen zu ermöglichen.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Verifizierte on-chain Performance-Daten</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Transparente Erfolgsmetriken</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="icon-check text-neonGreen mt-1 mr-2"></i>
+                                <span>Diversifizierung durch Multi-Trader-Following</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="glass-card rounded-xl overflow-hidden">
+                            <img src="https://via.placeholder.com/500x300?text=Top+Traders" alt="Kuratierte Top-Trader auf der Copy Trading Plattform" class="w-full" width="500" height="300" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- BENEFITS -->
+    <section class="py-20">
+        <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Vorteile des Copy Tradings mit Rust Rocket</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 mx-auto bg-neonGreen/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="icon-clock text-neonGreen text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Zeitersparnis</h3>
+                    <p class="text-gray-400">Profitieren Sie von erfolgreichen Trading-Strategien ohne eigenen Zeitaufwand für Analyse und Ausführung</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 mx-auto bg-neonGreen/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="icon-trending-up text-neonGreen text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lernen vom Besten</h3>
+                    <p class="text-gray-400">Verbessern Sie Ihre eigenen Trading-Fähigkeiten, indem Sie die Strategien erfolgreicher Händler beobachten und verstehen</p>
+                </div>
+                
+                <div class="glass-card rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 mx-auto bg-neonGreen/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="icon-scale text-neonGreen text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">TVTG-konform</h3>
+                    <p class="text-gray-400">Vollständig reguliert nach Liechtensteiner Token-Gesetz mit transparenten Audit-Trails</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="py-20">
+        <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">Bereit für professionelles Copy Trading?</h2>
+            <p class="text-xl text-gray-300 mb-8">Tragen Sie sich in unsere Warteliste ein und erhalten Sie frühzeitigen Zugang zu unserer Copy Trading Plattform.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/pricing.html" class="px-8 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition">Preispläne ansehen</a>
+                <a href="index.html#join" class="px-8 py-3 bg-neonGreen text-spaceBlack hover:bg-neonGreen/90 rounded-lg transition">Warteliste beitreten</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- RELATED PAGES -->
+    <section class="py-16 bg-spaceDark">
+        <div class="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-center mb-10">Entdecken Sie mehr von Rust Rocket</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <a href="/sniper-bot.html" class="glass-card rounded-xl p-6 hover:border-neonGreen/30">
+                    <h3 class="text-xl font-semibold mb-3">Solana Sniper Bot</h3>
+                    <p class="text-gray-400 mb-4">Nutzen Sie ultraschnelle Trading-Ausführung mit fortschrittlichem Rug-Schutz für erfolgreiche Meme-Coin Trades.</p>
+                    <div class="flex items-center text-neonGreen">
+                        <span>Mehr erfahren</span>
+                        <i class="icon-arrow-right ml-2"></i>
+                    </div>
+                </a>
+                
+                <a href="/pump-alerts.html" class="glass-card rounded-xl p-6 hover:border-neonGreen/30">
+                    <h3 class="text-xl font-semibold mb-3">Krypto Pump Signale</h3>
+                    <p class="text-gray-400 mb-4">Erhalten Sie Echtzeitwarnungen und Analysen zu vielversprechenden Token, bevor sie explodieren.</p>
+                    <div class="flex items-center text-neonGreen">
+                        <span>Mehr erfahren</span>
+                        <i class="icon-arrow-right ml-2"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="flex items-center gap-2 group mb-4">
+                        <img src="/assets/logo.svg" alt="Rust Rocket Meme-Coin Sniper Bot" class="h-6" />
+                        <span class="font-semibold tracking-tight">Rust Rocket</span>
+                    </a>
+                    <p class="text-sm text-gray-400">Fast. Fair. Fully Audited.</p>
                 </div>
                 
                 <div>
-                    <p class="text-silver text-sm text-center md:text-right mb-4">Join Our Community</p>
-                    <div class="flex space-x-6">
-                        <a href="https://x.com/Rust_XRocket" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-neon-blue transition-colors">
-                            <i class="fab fa-twitter text-xl"></i>
-                        </a>
-                        <a href="https://discord.gg/rustrocket" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-[#5865F2] transition-colors">
-                            <i class="fab fa-discord text-xl"></i>
-                        </a>
-                        <a href="https://t.me/rustrocket" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-[#0088cc] transition-colors">
-                            <i class="fab fa-telegram text-xl"></i>
-                        </a>
-                    </div>
+                    <h4 class="font-medium mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="sniper-bot.html" class="text-sm text-gray-400 hover:text-white">Solana Sniper Bot</a></li>
+                        <li><a href="pump-alerts.html" class="text-sm text-gray-400 hover:text-white">Pump Alerts</a></li>
+                        <li><a href="copy-trading.html" class="text-sm text-gray-400 hover:text-white">Copy Trading</a></li>
+                        <li><a href="pricing.html" class="text-sm text-gray-400 hover:text-white">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="legal/imprint.html" class="text-sm text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="legal/privacy.html" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="legal/terms.html" class="text-sm text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="legal/aml-policy.html" class="text-sm text-gray-400 hover:text-white">AML Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://twitter.com/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
+                        <li><a href="https://discord.gg/rustrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
+                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-silver/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-silver text-sm mb-4 md:mb-0">
-                    © 2025 RustRocket
-                </p>
-                
-                <div class="flex space-x-8">
-                    <a href="#" onclick="return false;" class="text-silver hover:text-neon-blue text-sm transition-colors">Terms of Service</a>
-                    <a href="#" onclick="return false;" class="text-silver hover:text-neon-blue text-sm transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-silver hover:text-neon-blue text-sm transition-colors">Contact</a>
-                </div>
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> Axiom Enterprise AG. All rights reserved.</p>
+                <p class="text-sm text-gray-500 mt-4 md:mt-0">TVTG-registriert • Landstrasse 123, FL-9490 Vaduz</p>
             </div>
         </div>
     </footer>
-    
+
+    <!-- JS -->
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
         });
         
-        // Nodes animation for hero section
-        const nodesContainer = document.getElementById('nodes-container');
-        const financialCenters = [
-            { x: 25, y: 30 }, // New York
-            { x: 45, y: 25 }, // London
-            { x: 53, y: 28 }, // Frankfurt
-            { x: 75, y: 30 }, // Tokyo
-            { x: 82, y: 45 }, // Hong Kong
-            { x: 30, y: 45 }, // Chicago
-            { x: 20, y: 55 }, // São Paulo
-            { x: 65, y: 60 }, // Singapore
-            { x: 48, y: 22 }, // Zurich
-            { x: 50, y: 38 }, // Liechtenstein
-        ];
-        
-        financialCenters.forEach((center, index) => {
-            const node = document.createElement('div');
-            node.classList.add('node');
-            node.style.left = `${center.x}%`;
-            node.style.top = `${center.y}%`;
-            node.style.animationDelay = `${index * 0.3}s`;
-            nodesContainer.appendChild(node);
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
         });
         
-        // Join Waitlist button functionality
-        function showWaitlistAlert() {
-            alert('Thank you for joining the RustRocket waitlist!');
-        }
-        
-        document.getElementById('heroJoinBtn').addEventListener('click', showWaitlistAlert);
-        document.getElementById('ctaJoinBtn').addEventListener('click', showWaitlistAlert);
-        
-        // Fade-in animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        function checkFade() {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('visible');
-                }
-            });
-        }
-        
-        // Initialize fade check
-        checkFade();
-        
-        // Check fade on scroll
-        window.addEventListener('scroll', checkFade);
+        // Simple navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
+            } else {
+                navbar.classList.remove('bg-spaceBlack/80', 'backdrop-blur-md', 'border-b', 'border-white/5');
+            }
+        });
     </script>
 </body>
 </html> 
