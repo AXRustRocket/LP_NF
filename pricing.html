@@ -9,6 +9,101 @@
     <!-- Favicon & Manifest -->
     <link rel="manifest" href="/manifest.webmanifest">
     
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rust Rocket Sniper Bot",
+        "operatingSystem": "Web",
+        "applicationCategory": "FinancialApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "SOL"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "247"
+        }
+    }
+    </script>
+    
+    <!-- Structured Data: Product with Pricing -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Rust Rocket Sniper Bot",
+        "description": "Ultraschneller Meme-Coin Trading Bot mit fortschrittlichem Rug-Schutz und vollständiger TVTG-Compliance",
+        "image": "https://rustrocket.io/assets/logo.svg",
+        "brand": {
+            "@type": "Brand",
+            "name": "Rust Rocket"
+        },
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "SOL",
+            "lowPrice": "0",
+            "highPrice": "99",
+            "offerCount": "4",
+            "offers": [
+                {
+                    "@type": "Offer",
+                    "name": "Starter Plan",
+                    "price": "0",
+                    "priceCurrency": "SOL",
+                    "description": "Basisversion mit Tip-basiertem Modell"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Trader Plan",
+                    "price": "19",
+                    "priceCurrency": "SOL",
+                    "description": "Erweiterte Trading-Funktionen mit Rug-Shield-AI"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Turbo Plan",
+                    "price": "49",
+                    "priceCurrency": "SOL",
+                    "description": "Premium Features mit niedrigerer Latenz und Pump-Alerts"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Rapid Plan",
+                    "price": "99",
+                    "priceCurrency": "SOL",
+                    "description": "Enterprise-Grade mit individueller RPC-Node und API-Zugang"
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://rustrocket.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Pricing",
+                "item": "https://rustrocket.io/pricing.html"
+            }
+        ]
+    }
+    </script>
+    
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.4"></script>
     <script>

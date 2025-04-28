@@ -9,6 +9,49 @@
     <!-- Favicon & Manifest -->
     <link rel="manifest" href="/manifest.webmanifest">
     
+    <!-- Structured Data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rust Rocket Sniper Bot",
+        "operatingSystem": "Web",
+        "applicationCategory": "FinancialApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "SOL"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "247"
+        }
+    }
+    </script>
+    
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://rustrocket.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Referral Program",
+                "item": "https://rustrocket.io/referral.html"
+            }
+        ]
+    }
+    </script>
+    
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.4"></script>
     <script>

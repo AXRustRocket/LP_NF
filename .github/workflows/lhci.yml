@@ -24,8 +24,10 @@ jobs:
       - name: Build project
         run: npm run build
       
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli@0.12.x
+      - name: Install Lighthouse CI and structured-data-testing
+        run: |
+          npm install -g @lhci/cli@0.12.x
+          npm install -g schema-validator
       
       - name: Run Lighthouse against static site
         run: |
@@ -33,6 +35,15 @@ jobs:
             --collect.url=http://localhost:8080/sniper-bot.html \
             --collect.url=http://localhost:8080/pricing.html \
             --collect.settings.preset=desktop
+      
+      - name: Validate structured data
+        run: |
+          echo "Validating index.html schema..."
+          schema-validator index.html
+          echo "Validating sniper-bot.html schema..."
+          schema-validator sniper-bot.html
+          echo "Validating pricing.html schema..."
+          schema-validator pricing.html
       
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v3
