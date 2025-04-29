@@ -1,6 +1,11 @@
 // Dashboard.js - Handles dashboard interactions
+import { fetchSignal } from './signals.js';
+import Chart from 'https://cdn.jsdelivr.net/npm/chart.js/+esm';
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize signals display with default token (WIF)
+    initSignalsDisplay();
+    
     // Form handling for the waitlist
     const waitlistForm = document.getElementById('hubWaitlist');
     
@@ -70,7 +75,131 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(metricsSection);
     }
     
-    // Wallet connect simulation
+    // Signal handling - Fetch and display token signals
+    async function initSignalsDisplay() {
+        try {
+            // Default to WIF token
+            await loadTokenSignal('WIF');
+            
+            // Setup token switcher if it exists
+            const tokenSwitcher = document.getElementById('token-switcher');
+            if (tokenSwitcher) {
+                tokenSwitcher.addEventListener('change', function(e) {
+                    loadTokenSignal(e.target.value);
+                });
+            }
+            
+            // Set up auto-refresh every 15 seconds
+            setInterval(() => {
+                const activeToken = tokenSwitcher ? tokenSwitcher.value : 'WIF';
+                loadTokenSignal(activeToken);
+            }, 15000);
+            
+        } catch (error) {
+            console.error('Error initializing signals display:', error);
+        }
+    }
+    
+    // Load token signal data and update UI
+    async function loadTokenSignal(token) {
+        try {
+            const signalData = await fetchSignal(token);
+            updateSignalDisplay(signalData);
+        } catch (error) {
+            console.error(`Error loading ${token} signal:`, error);
+        }
+    }
+    
+    // Update the UI with signal data
+    function updateSignalDisplay(data) {
+        // Update KPI tiles
+        updateElement('sig-price', formatCurrency(data.market_data.price_usd, true));
+        updateElement('sig-volume', formatCurrency(data.market_data.volume_24h_usd));
+        updateElement('sig-latency', `${data.rust_rocket_metrics.latency_ms} ms`);
+        updateElement('sig-sentiment', data.sentiment.overall_sentiment);
+        
+        // Update token name/symbol
+        updateElement('sig-token-name', data.token.name);
+        updateElement('sig-token-symbol', data.token.symbol);
+        
+        // Draw sparkline chart if canvas exists
+        const sparkCanvas = document.getElementById('sig-spark');
+        if (sparkCanvas && data.market_data.sparklineData) {
+            drawSparkline(sparkCanvas, data.market_data.sparklineData);
+        }
+        
+        // Update last fetched timestamp
+        updateElement('sig-last-updated', new Date().toLocaleTimeString());
+    }
+    
+    // Helper: Update element text content if element exists
+    function updateElement(id, value) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value;
+        }
+    }
+    
+    // Helper: Format currency values
+    function formatCurrency(value, showDecimals = false) {
+        if (value >= 1000000) {
+            return `$${(value / 1000000).toFixed(1)}M`;
+        } else if (value >= 1000) {
+            return `$${(value / 1000).toFixed(1)}K`;
+        } else if (showDecimals && value < 0.001) {
+            return `$${value.toExponential(2)}`;
+        } else if (showDecimals) {
+            return `$${value.toFixed(6)}`;
+        } else {
+            return `$${value.toFixed(2)}`;
+        }
+    }
+    
+    // Draw sparkline chart with Chart.js
+    function drawSparkline(canvas, sparklineData) {
+        // Destroy existing chart if any
+        if (window.signalChart) {
+            window.signalChart.destroy();
+        }
+        
+        // Create new chart
+        window.signalChart = new Chart(canvas, {
+            type: 'line',
+            data: {
+                labels: sparklineData.map((_, i) => i),
+                datasets: [{
+                    data: sparklineData,
+                    borderColor: '#2AFF62',
+                    borderWidth: 2,
+                    tension: 0.2,
+                    pointRadius: 0,
+                    fill: true,
+                    backgroundColor: 'rgba(42, 255, 98, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    x: { display: false },
+                    y: { 
+                        display: false,
+                        min: Math.min(...sparklineData) * 0.95,
+                        max: Math.max(...sparklineData) * 1.05
+                    }
+                },
+                animation: {
+                    duration: 500
+                }
+            }
+        });
+    }
+    
+    // Simulate wallet connect
     const walletBtn = document.getElementById('walletBtn');
     if (walletBtn) {
         walletBtn.addEventListener('click', function() {

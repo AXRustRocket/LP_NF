@@ -40,6 +40,40 @@
     }
     </script>
     
+    <!-- FAQ Schema for Dashboard -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What can I do in the Rust Rocket dashboard?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Rust Rocket dashboard provides real-time performance analytics, latency monitoring, trade history, bot configuration options, and access to the Rug Shield settings. Premium users can also access advanced sniper features, configure custom trading parameters, and manage automated trading strategies."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does Rust Rocket achieve <80ms latency?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Rust Rocket achieves ultra-low latency through a combination of private Solana TPU (Transaction Processing Unit) relays, optimized Rust code for transaction processing, strategically placed global nodes, and direct validator connections. This infrastructure ensures that your transactions reach validators faster than public RPC endpoints, giving you a competitive edge when trading meme coins."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I share my trading results with others?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Rust Rocket allows you to share your trading results with others through built-in social sharing features. You can share your successful trades on Twitter, Telegram, or generate a unique referral link. When friends join using your referral link, you earn 20% of their trading fees, creating a passive income stream while growing the community."
+                }
+            }
+        ]
+    }
+    </script>
+    
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.4"></script>
     <script>
@@ -119,6 +153,26 @@
         .sr-only {
             @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
         }
+        
+        .share-button {
+            @apply flex items-center gap-2 py-3 px-6 rounded-full bg-rocketPurple hover:bg-rocketPurple/80 transition-all transform hover:scale-105;
+        }
+        
+        .share-modal {
+            @apply fixed inset-0 z-50 flex items-center justify-center bg-spaceBlack/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300;
+        }
+        
+        .share-modal.active {
+            @apply opacity-100 pointer-events-auto;
+        }
+        
+        .copy-notification {
+            @apply fixed bottom-4 right-4 bg-neonGreen text-spaceBlack px-4 py-2 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300;
+        }
+        
+        .copy-notification.active {
+            @apply translate-y-0 opacity-100;
+        }
     </style>
 </head>
 
@@ -166,6 +220,79 @@
             <span>TVTG-registriert</span> • 
             <span>Private TPU Relay</span> • 
             <span>Open Fee Wallet</span>
+        </div>
+
+        <!-- Trade Results & Share Section - ENHANCED -->
+        <div class="glass-card p-8 mb-16 max-w-5xl mx-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Latest Trade Results</h3>
+                <button id="shareTradeBtn" class="share-button">
+                    <i class="icon-share-2"></i>
+                    Share Your Trade
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Token</p>
+                    <p class="font-semibold">$BONK</p>
+                </div>
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Entry Price</p>
+                    <p class="font-semibold">$0.00002953</p>
+                </div>
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Current P/L</p>
+                    <p class="font-semibold text-neonGreen">+12.5%</p>
+                </div>
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Execution Time</p>
+                    <p class="font-semibold">78ms</p>
+                </div>
+            </div>
+            
+            <p class="text-sm text-white/50">Invite friends to earn 20% referral bonus on their trading fees</p>
+        </div>
+
+        <!-- Signals Section - NEW -->
+        <div class="glass-card p-8 mb-16 max-w-5xl mx-auto">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                    <h3 class="text-xl font-bold">Live Token Signals</h3>
+                    <span class="text-xs text-white/60" id="sig-last-updated"></span>
+                </div>
+                <select id="token-switcher" class="bg-spaceDark/60 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-neonGreen/50">
+                    <option value="WIF">WIF</option>
+                    <option value="example-token">BONK</option>
+                </select>
+            </div>
+            
+            <div id="signals-kpis" class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Price</p>
+                    <p class="font-semibold" id="sig-price">—</p>
+                </div>
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Volume 24h</p>
+                    <p class="font-semibold" id="sig-volume">—</p>
+                </div>
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Latency</p>
+                    <p class="font-semibold" id="sig-latency">—</p>
+                </div>
+                <div class="bg-spaceDark/60 rounded-lg p-4">
+                    <p class="text-sm text-white/70 mb-1">Sentiment</p>
+                    <p class="font-semibold" id="sig-sentiment">—</p>
+                </div>
+            </div>
+            
+            <div class="bg-spaceDark/40 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-medium" id="sig-token-name">Token Name</h4>
+                    <span class="text-xs text-white/60" id="sig-token-symbol">SYMBOL</span>
+                </div>
+                <canvas id="sig-spark" class="w-full h-32"></canvas>
+            </div>
         </div>
 
         <!-- Feature Cards (Section id="hubFeatures") -->
@@ -235,6 +362,52 @@
         </div>
     </section>
 
+    <!-- Share Modal -->
+    <div id="shareModal" class="share-modal">
+        <div class="glass-card p-8 max-w-md mx-4 rounded-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Share Your Trade Results</h3>
+                <button id="closeModalBtn" class="text-white/60 hover:text-white">
+                    <i class="icon-x"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <p class="text-sm text-white/70 mb-4">Share your success with Rust Rocket and earn rewards when friends join using your referral link:</p>
+                
+                <div class="flex mb-4">
+                    <input id="referralLink" type="text" class="flex-1 bg-spaceDark text-white rounded-l-lg px-4 py-2 focus:outline-none" readonly value="https://rustrocket.io/?ref=USER123&utm_source=share&utm_medium=app&utm_campaign=trader_share">
+                    <button id="copyLinkBtn" class="bg-neonGreen text-spaceBlack px-4 py-2 rounded-r-lg hover:bg-neonGreen/90">
+                        <i class="icon-copy"></i>
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <a href="#" id="twitterShareBtn" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-[#1DA1F2] hover:bg-[#1DA1F2]/90 text-white">
+                        <i class="icon-twitter"></i>
+                        Tweet
+                    </a>
+                    <a href="#" id="telegramShareBtn" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-[#26A5E4] hover:bg-[#26A5E4]/90 text-white">
+                        <i class="icon-send"></i>
+                        Telegram
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-4">
+                <p class="text-xs text-white/60">Each successful referral earns you 20% of their trading fees. Track your earnings in the Referrals tab.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Notification -->
+    <div id="copyNotification" class="copy-notification">
+        <p>Referral link copied to clipboard! 🚀</p>
+    </div>
+
+    <!-- AI Onboarding Chatbot Modal Component -->
+    <div id="ai-chatbot-container"></div>
+
     <!-- FOOTER -->
     <footer class="py-16 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -285,12 +458,108 @@
     </footer>
 
     <!-- JS -->
-    <script src="js/dashboard.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/metrics.js"></script>
+    <script src="js/ai-onboarding.js" type="module"></script>
+    <script src="js/dashboard.js" type="module"></script>
     <script type="module">
         import {inject} from './js/include.js';
         inject('#navContainer', './components/nav.html');
+        inject('#ai-chatbot-container', './components/ai-onboarding-chatbot.html');
+        
+        // Share functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const shareBtn = document.getElementById('shareTradeBtn');
+            const modal = document.getElementById('shareModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const copyBtn = document.getElementById('copyLinkBtn');
+            const referralLink = document.getElementById('referralLink');
+            const notification = document.getElementById('copyNotification');
+            const twitterBtn = document.getElementById('twitterShareBtn');
+            const telegramBtn = document.getElementById('telegramShareBtn');
+            
+            // Generate a random user ID (in production, this would be the actual user ID)
+            const userId = 'USER' + Math.floor(Math.random() * 10000);
+            const referralUrl = `https://rustrocket.io/?ref=${userId}&utm_source=share&utm_medium=app&utm_campaign=trader_share`;
+            
+            // Set the referral link
+            referralLink.value = referralUrl;
+            
+            // Open modal
+            shareBtn.addEventListener('click', () => {
+                modal.classList.add('active');
+                
+                // Track event (if analytics available)
+                if (window.plausible) {
+                    window.plausible('share_modal_opened');
+                }
+            });
+            
+            // Close modal
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+            
+            // Copy link to clipboard
+            copyBtn.addEventListener('click', () => {
+                referralLink.select();
+                document.execCommand('copy');
+                
+                // Show notification
+                notification.classList.add('active');
+                
+                // Track event (if analytics available)
+                if (window.plausible) {
+                    window.plausible('referral_link_copied');
+                }
+                
+                // Hide notification after 3 seconds
+                setTimeout(() => {
+                    notification.classList.remove('active');
+                }, 3000);
+            });
+            
+            // Twitter share
+            twitterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tweetText = encodeURIComponent('Just made a 12.5% profit on $BONK in seconds using Rust Rocket! Ultra-fast sniper bot with rug protection. Check it out:');
+                const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(referralUrl)}`;
+                
+                // Track event (if analytics available)
+                if (window.plausible) {
+                    window.plausible('share_twitter', {
+                        token: 'BONK',
+                        profit_percentage: 12.5
+                    });
+                }
+                
+                window.open(tweetUrl, '_blank');
+            });
+            
+            // Telegram share
+            telegramBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const text = encodeURIComponent('Just made a 12.5% profit on $BONK in seconds using Rust Rocket! Ultra-fast sniper bot with rug protection. Check it out:');
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralUrl)}&text=${text}`;
+                
+                // Track event (if analytics available)
+                if (window.plausible) {
+                    window.plausible('share_telegram', {
+                        token: 'BONK', 
+                        profit_percentage: 12.5
+                    });
+                }
+                
+                window.open(telegramUrl, '_blank');
+            });
+        });
     </script>
 </body>
 </html> 

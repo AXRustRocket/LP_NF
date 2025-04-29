@@ -1,0 +1,124 @@
+{
+  "token": {
+    "name": "WIF",
+    "symbol": "WIF",
+    "address": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+    "logo": "https://rustrocket.io/assets/tokens/wif.png",
+    "decimals": 6,
+    "website": "https://dogwifcoin.org",
+    "twitter": "https://twitter.com/dogwifcoin"
+  },
+  "market_data": {
+    "price_usd": 0.000342,
+    "market_cap_usd": 342168000,
+    "volume_24h_usd": 87654321,
+    "price_change_24h_percent": 8.3,
+    "price_change_7d_percent": 21.4,
+    "sparklineData": [0.000290, 0.000295, 0.000310, 0.000305, 0.000320, 0.000325, 0.000330, 0.000335, 0.000342],
+    "ath_usd": 0.000478,
+    "ath_date": "2025-04-15T14:30:00Z",
+    "atl_usd": 0.000058,
+    "atl_date": "2024-12-01T00:00:00Z"
+  },
+  "trading_metrics": {
+    "liquidity_usd": 23456789,
+    "txn_count_24h": 98765,
+    "avg_txn_value_usd": 745.32,
+    "holders_count": 426780,
+    "holders_change_24h": 1876
+  },
+  "sentiment": {
+    "twitter_mentions_24h": 15682,
+    "twitter_sentiment_score": 0.81,
+    "telegram_mentions_24h": 9874,
+    "discord_mentions_24h": 7123,
+    "overall_sentiment": "very positive",
+    "trending_score": 9.2
+  },
+  "alerts": {
+    "pump_probability": 0.68,
+    "whale_activity": "high",
+    "recent_whale_transactions": [
+      {
+        "txid": "5fGvNYqt7AQ3bMeRgwdXQqPVcv2T9Y9Z4mLWZcKXsDdJkDfUFMmxC7n3uLgQkGf6TpVq8NfpW5RL2ycvXHrsZmKf",
+        "value_usd": 1850000,
+        "timestamp": "2025-04-29T08:42:15Z",
+        "type": "buy"
+      },
+      {
+        "txid": "4jUMRNwgHD2zEcpJfmvKqYb8TrC5LnVsB8JwMxStQgRh3X7vZqP9F6WaD2nGyTkLfXA7eNV4KcPz3ShUrJ5tMLRd",
+        "value_usd": 920000,
+        "timestamp": "2025-04-29T07:15:33Z",
+        "type": "buy"
+      }
+    ],
+    "dev_activity": "medium",
+    "unusual_activity": true
+  },
+  "trading_signals": {
+    "entry_points": [
+      {
+        "price_usd": 0.000320,
+        "confidence": "high",
+        "reasoning": "Strong support zone with increasing buy pressure"
+      },
+      {
+        "price_usd": 0.000300,
+        "confidence": "very high",
+        "reasoning": "Major psychological level with previous bounce pattern"
+      }
+    ],
+    "exit_points": [
+      {
+        "price_usd": 0.000380,
+        "confidence": "medium",
+        "reasoning": "First resistance level with profit-taking patterns"
+      },
+      {
+        "price_usd": 0.000450,
+        "confidence": "high",
+        "reasoning": "Previous ATH zone with heavy sell pressure expected"
+      }
+    ],
+    "risk_assessment": {
+      "level": "medium-high",
+      "factors": [
+        "Extremely high social media momentum can lead to volatility",
+        "Recently increased whale accumulation signals potential pump",
+        "Limited project utility increases long-term risk profile"
+      ]
+    }
+  },
+  "market_context": {
+    "solana_ecosystem_health": "strong",
+    "btc_correlation": 0.42,
+    "sol_correlation": 0.89,
+    "related_tokens": [
+      {
+        "symbol": "BONK",
+        "price_change_24h_percent": 6.5
+      },
+      {
+        "symbol": "SAMO",
+        "price_change_24h_percent": 9.8
+      }
+    ],
+    "narratives": [
+      "Dog meme coin revival",
+      "Solana ecosystem expansion",
+      "Influencer dog coin campaign"
+    ]
+  },
+  "rust_rocket_metrics": {
+    "active_traders": 18762,
+    "successful_entries_24h": 3154,
+    "avg_profit_percent_24h": 14.8,
+    "protection_events_triggered": 103,
+    "latency_ms": 28
+  },
+  "metadata": {
+    "last_updated": "2025-04-29T12:45:00Z",
+    "data_source": "Rust Rocket API",
+    "version": "1.0.0"
+  }
+} 

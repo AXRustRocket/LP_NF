@@ -14,6 +14,8 @@ Rust Rocket offers a Meme-Coin Sniper Bot with <80ms latency and advanced rug pr
 - https://rustrocket.io/sniper-bot.html - Solana Sniper Bot details
 - https://rustrocket.io/pump-alerts.html - Crypto Pump Signals
 - https://rustrocket.io/meme-coin-early.html - Early Access Meme Coins
+- https://rustrocket.io/glossary/ - Meme Coin Trading Glossary
+- https://rustrocket.io/blog/meme-coin-risk-guide.md - Meme Coin Risk Guide
 
 #FREQUENTLY_ASKED_QUESTIONS
 Q: What is a Meme-Coin Sniper Bot?
@@ -35,6 +37,14 @@ A: No technical expertise is required. We've designed Rust Rocket with a zero-se
 Rust Rocket is a product by Axiom Enterprise AG, a TVTG-registered company based in Liechtenstein (FL-9490 Vaduz, Landstrasse 123).
 
 #CONTACT_INFORMATION
-Email: info@rust-rocket.com
+Email: hello@rustrocket.io
 Twitter: https://twitter.com/rustrocket
-Discord: https://discord.gg/rustrocket 
+Discord: https://discord.gg/rustrocket
+
+#AI_INFORMATION
+supports_json_feed=true
+glossary_count=30
+signals_api=https://rustrocket.io/signals/
+signals_endpoint=/signals/{token}.json
+chatbot_available=true
+risk_disclaimer_required=true 

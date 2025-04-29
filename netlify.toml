@@ -16,6 +16,11 @@
   force = true
 
 [[redirects]]
+  from = "/signals/:token.json"
+  to   = "/.netlify/functions/signals/:token"
+  status = 200
+
+[[redirects]]
   from = "/terms"
   to = "/legal/terms.html"
   status = 301
