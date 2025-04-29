@@ -55,18 +55,18 @@
   import { inject } from '/js/include.js';
   
   // Inject all dashboard components
-  inject('#kpiContainer', '/components/dashboard/kpi-tiles.html');
-  inject('#stepsPillContainer', '/components/dashboard/steps-pill.html');
-  inject('#signalMetricsContainer', '/components/dashboard/signal-metrics.html');
-  inject('#timelineContainer', '/components/dashboard/timeline.html');
-  inject('#signalCardContainer', '/components/dashboard/signal-card.html');
-  inject('#latestTradeContainer', '/components/dashboard/latest-trade.html');
-  inject('#shareSectionContainer', '/components/dashboard/share-section.html');
-  inject('#signalsListContainer', '/components/dashboard/signals-list.html');
+  inject('#kpiContainer', '/components/dashboard/kpi-tiles');
+  inject('#stepsPillContainer', '/components/dashboard/steps-pill');
+  inject('#signalMetricsContainer', '/components/dashboard/signal-metrics');
+  inject('#timelineContainer', '/components/dashboard/timeline');
+  inject('#signalCardContainer', '/components/dashboard/signal-card');
+  inject('#latestTradeContainer', '/components/dashboard/latest-trade');
+  inject('#shareSectionContainer', '/components/dashboard/share-section');
+  inject('#signalsListContainer', '/components/dashboard/signals-list');
   
   // Inject ribbon ticker at the top level
   const ribbonContainer = document.createElement('div');
   ribbonContainer.id = 'ribbonTickerContainer';
   document.querySelector('#dashboardGrid').insertAdjacentElement('beforebegin', ribbonContainer);
-  inject('#ribbonTickerContainer', '/components/dashboard/ribbon-ticker.html');
+  inject('#ribbonTickerContainer', '/components/dashboard/ribbon-ticker');
 </script> 
