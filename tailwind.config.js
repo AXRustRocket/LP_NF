@@ -1,0 +1,68 @@
+module.exports = {
+  content: ['./**/*.{html,js}'],
+  theme: {
+    fontFamily: {
+      sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+    },
+    extend: {
+      colors: {
+        spaceBlack: '#04070D',
+        spaceDark: '#0B1624',
+        rustBlue: '#0B3D91',
+        rocketPurple: '#7B2CBF',
+        liechtensteinRed: '#D50000',
+        speedYellow: '#FFD600',
+        neonGreen: '#2AFF62',
+        royalPurple: '#6E44FF',
+      },
+      fontSize: {
+        '4.5xl': 'clamp(2.5rem, 5vw, 3.75rem)',
+        '2.5xl': 'clamp(1.75rem, 3vw, 1.875rem)',
+        'lg-fluid': 'clamp(1.125rem, 1.5vw, 1.25rem)',
+      },
+      animation: {
+        'gradient-x': 'gradient-x 8s ease infinite',
+        'float-slow': 'float 6s ease-in-out infinite',
+        'pulseFast': 'pulse 1.5s cubic-bezier(0.4,0,0.6,1) infinite',
+        'pulse-slow': 'pulseSlow 3s cubic-bezier(0.4,0,0.6,1) infinite',
+        'linear-move': 'linear-move 15s linear infinite',
+      },
+      keyframes: {
+        'gradient-x': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'linear-move': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'pulseSlow': { 
+          '0%, 100%': { opacity: '1' }, 
+          '50%': { opacity: '.5' } 
+        }
+      },
+      transitionProperty: {
+        'height': 'height',
+      },
+      boxShadow: {
+        'glow': '0 0 15px rgba(42, 255, 98, 0.5)',
+        'inner-glow': 'inset 0 0 10px rgba(42, 255, 98, 0.15)',
+      },
+      dropShadow: { 
+        'neon': '0 0 12px rgba(42,255,98,.35)' 
+      },
+    }
+  },
+  safelist: [
+    'translate-x-full',
+    'translate-x-0',  // mobile drawer
+    'translate-y-full',
+    'translate-y-0',
+    'animate-pulseFast',
+    'animate-pulse-slow'
+  ]
+}; 

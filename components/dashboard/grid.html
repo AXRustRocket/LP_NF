@@ -1,0 +1,72 @@
+<!-- Dashboard Grid Container -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- KPI Tiles Row -->
+  <div id="kpiContainer" class="mb-8">
+    <!-- KPI tiles component will be injected here -->
+  </div>
+  
+  <!-- Main Dashboard Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Left Column -->
+    <div class="col-span-2">
+      <!-- Steps Pills -->
+      <div id="stepsPillContainer" class="mb-6">
+        <!-- Steps pill component will be injected here -->
+      </div>
+      
+      <!-- Signal Metrics -->
+      <div id="signalMetricsContainer" class="mb-6">
+        <!-- Signal metrics component will be injected here -->
+      </div>
+      
+      <!-- Timeline -->
+      <div id="timelineContainer" class="mb-6">
+        <!-- Timeline component will be injected here -->
+      </div>
+    </div>
+    
+    <!-- Right Column -->
+    <div>
+      <!-- Signal Card -->
+      <div id="signalCardContainer" class="mb-6">
+        <!-- Signal card component will be injected here -->
+      </div>
+      
+      <!-- Latest Trade -->
+      <div id="latestTradeContainer" class="mb-6">
+        <!-- Latest trade component will be injected here -->
+      </div>
+      
+      <!-- Share Section -->
+      <div id="shareSectionContainer">
+        <!-- Share section component will be injected here -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- Signals List -->
+  <div id="signalsListContainer">
+    <!-- Signals list component will be injected here -->
+  </div>
+</div>
+
+<!-- Component Injection Script -->
+<script type="module">
+  import { inject } from '/js/include.js';
+  
+  // Inject all dashboard components
+  inject('#kpiContainer', '/components/dashboard/kpi-tiles.html');
+  inject('#stepsPillContainer', '/components/dashboard/steps-pill.html');
+  inject('#signalMetricsContainer', '/components/dashboard/signal-metrics.html');
+  inject('#timelineContainer', '/components/dashboard/timeline.html');
+  inject('#signalCardContainer', '/components/dashboard/signal-card.html');
+  inject('#latestTradeContainer', '/components/dashboard/latest-trade.html');
+  inject('#shareSectionContainer', '/components/dashboard/share-section.html');
+  inject('#signalsListContainer', '/components/dashboard/signals-list.html');
+  
+  // Inject ribbon ticker at the top level
+  const ribbonContainer = document.createElement('div');
+  ribbonContainer.id = 'ribbonTickerContainer';
+  document.querySelector('#dashboardGrid').insertAdjacentElement('beforebegin', ribbonContainer);
+  inject('#ribbonTickerContainer', '/components/dashboard/ribbon-ticker.html');
+</script> 

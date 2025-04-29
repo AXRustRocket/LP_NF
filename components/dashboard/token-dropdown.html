@@ -1,0 +1,46 @@
+<!-- Token Dropdown Component -->
+<div class="relative inline-block w-48 mb-6">
+  <label id="token-listbox-label" class="block text-sm font-medium text-white/70 mb-2">
+    Select Token
+  </label>
+  <div>
+    <button type="button" class="relative w-full bg-spaceDark/60 rounded-lg py-2 pl-3 pr-10 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-neonGreen/50 focus:border-neonGreen/50" 
+      aria-haspopup="listbox" 
+      aria-expanded="false"
+      aria-labelledby="token-listbox-label"
+      id="token-dropdown-button">
+      <!-- Selected token - if WIF -->
+      <div class="flex items-center">
+        <div class="w-6 h-6 rounded-full bg-rocketPurple/20 flex items-center justify-center text-xs mr-2">W</div>
+        <span class="block truncate font-medium">WIF</span>
+      </div>
+      <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+        <i class="icon-chevron-down text-white/50"></i>
+      </span>
+    </button>
+
+    <!-- Dropdown menu, hidden by default -->
+    <div id="token-listbox" class="absolute w-full mt-1 bg-spaceDark/90 backdrop-blur-md rounded-md shadow-lg max-h-60 overflow-auto z-10 hidden" role="listbox" aria-labelledby="token-listbox-label">
+      <ul class="py-1">
+        <!-- WIF Option -->
+        <li id="token-option-WIF" class="text-white relative cursor-pointer select-none py-2 pl-3 pr-9 bg-neonGreen/10" role="option" aria-selected="true" data-token="WIF">
+          <div class="flex items-center">
+            <div class="w-6 h-6 rounded-full bg-rocketPurple/20 flex items-center justify-center text-xs mr-2">W</div>
+            <span class="block truncate font-medium">WIF</span>
+          </div>
+          <span class="absolute inset-y-0 right-0 flex items-center pr-4">
+            <i class="icon-check text-neonGreen"></i>
+          </span>
+        </li>
+        
+        <!-- BONK Option -->
+        <li id="token-option-BONK" class="text-white relative cursor-pointer select-none py-2 pl-3 pr-9 hover:bg-white/5" role="option" aria-selected="false" data-token="example-token">
+          <div class="flex items-center">
+            <div class="w-6 h-6 rounded-full bg-rocketPurple/20 flex items-center justify-center text-xs mr-2">B</div>
+            <span class="block truncate font-medium">BONK</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div> 

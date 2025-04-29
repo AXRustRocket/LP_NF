@@ -89,22 +89,47 @@
                         rustBlue: '#0B3D91',
                         rocketPurple: '#7B2CBF',
                         neonGreen: '#2AFF62',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        royalPurple: '#6E44FF',
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-slow': 'pulseSlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'shimmer': 'shimmer 2s infinite linear',
                         'spin-slow': 'spin 6s linear infinite',
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'pulseFast': 'pulse 1.5s cubic-bezier(0.4,0,0.6,1) infinite',
+                        'linear-move': 'linear-move 15s linear infinite',
                     },
                     keyframes: {
                         shimmer: {
                             '0%': { backgroundPosition: '-200% 0' },
                             '100%': { backgroundPosition: '200% 0' },
+                        },
+                        pulseSlow: { 
+                            '0%, 100%': { opacity: '1' }, 
+                            '50%': { opacity: '.5' } 
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'linear-move': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
                         }
                     }
                 }
             },
             safelist: [
-                'translate-x-full', 'translate-x-0'  // mobile drawer
+                'translate-x-full', 'translate-x-0',  // mobile drawer
+                'translate-y-full', 'translate-y-0',
+                'animate-pulseFast', 'animate-pulse-slow'
             ]
         };
     </script>
@@ -180,7 +205,7 @@
     <div id="navContainer"></div>
     
     <!-- DASHBOARD PREVIEW -->
-    <section class="relative mx-auto max-w-4xl text-center py-16 lg:py-28 px-6">
+    <section class="relative mx-auto max-w-7xl text-center py-16 lg:py-28 px-6">
         <!-- Orb -->
         <div class="mx-auto mb-6 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-gradient-to-br from-neonGreen/20 to-rocketPurple/30 backdrop-blur relative shadow-[0_0_40px_#2AFF62] animate-spin-slow" aria-hidden="true">
             <i class="icon-activity text-neonGreen text-2xl"></i>
@@ -197,7 +222,7 @@
         </p>
 
         <!-- Dual-CTA Component -->
-        <div class="flex flex-col md:flex-row gap-4 justify-center mt-10">
+        <div class="flex flex-col md:flex-row gap-4 justify-center mt-10 mb-16">
           <button disabled class="cta-wallet" aria-disabled="true">
             <!-- Phantom SVG icon inline -->
             <svg width="24" height="24" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
@@ -215,351 +240,27 @@
           </form>
         </div>
 
-        <!-- USP-Bar -->
-        <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs tracking-wide text-white/60 mt-6 mb-16">
-            <span>TVTG-registriert</span> • 
-            <span>Private TPU Relay</span> • 
-            <span>Open Fee Wallet</span>
-        </div>
-
-        <!-- Trade Results & Share Section - ENHANCED -->
-        <div class="glass-card p-8 mb-16 max-w-5xl mx-auto">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-bold">Latest Trade Results</h3>
-                <button id="shareTradeBtn" class="share-button">
-                    <i class="icon-share-2"></i>
-                    Share Your Trade
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Token</p>
-                    <p class="font-semibold">$BONK</p>
-                </div>
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Entry Price</p>
-                    <p class="font-semibold">$0.00002953</p>
-                </div>
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Current P/L</p>
-                    <p class="font-semibold text-neonGreen">+12.5%</p>
-                </div>
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Execution Time</p>
-                    <p class="font-semibold">78ms</p>
-                </div>
-            </div>
-            
-            <p class="text-sm text-white/50">Invite friends to earn 20% referral bonus on their trading fees</p>
-        </div>
-
-        <!-- Signals Section - NEW -->
-        <div class="glass-card p-8 mb-16 max-w-5xl mx-auto">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center space-x-3">
-                    <h3 class="text-xl font-bold">Live Token Signals</h3>
-                    <span class="text-xs text-white/60" id="sig-last-updated"></span>
-                </div>
-                <select id="token-switcher" class="bg-spaceDark/60 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-neonGreen/50">
-                    <option value="WIF">WIF</option>
-                    <option value="example-token">BONK</option>
-                </select>
-            </div>
-            
-            <div id="signals-kpis" class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Price</p>
-                    <p class="font-semibold" id="sig-price">—</p>
-                </div>
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Volume 24h</p>
-                    <p class="font-semibold" id="sig-volume">—</p>
-                </div>
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Latency</p>
-                    <p class="font-semibold" id="sig-latency">—</p>
-                </div>
-                <div class="bg-spaceDark/60 rounded-lg p-4">
-                    <p class="text-sm text-white/70 mb-1">Sentiment</p>
-                    <p class="font-semibold" id="sig-sentiment">—</p>
-                </div>
-            </div>
-            
-            <div class="bg-spaceDark/40 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-2">
-                    <h4 class="font-medium" id="sig-token-name">Token Name</h4>
-                    <span class="text-xs text-white/60" id="sig-token-symbol">SYMBOL</span>
-                </div>
-                <canvas id="sig-spark" class="w-full h-32"></canvas>
-            </div>
-        </div>
-
-        <!-- Feature Cards (Section id="hubFeatures") -->
-        <div id="hubFeatures" class="grid gap-8 sm:grid-cols-3 max-w-5xl mx-auto mb-16">
-            <article class="glass-card p-6 lg:p-8 hover:border-neonGreen/30 hover:translate-y-2 hover:ring-1 hover:ring-neonGreen/30 transition">
-                <i class="icon-activity text-neonGreen text-2xl mb-3"></i>
-                <h3 class="font-semibold mb-2">Performance Analytics</h3>
-                <p class="text-sm text-white/70 mb-4">Real-time P&L, latency wall, trade history and execution analytics.</p>
-                <button disabled class="text-sm text-white/40" aria-disabled="true">Preview ↗</button>
-            </article>
-            
-            <article class="glass-card p-6 lg:p-8 hover:border-neonGreen/30 hover:translate-y-2 hover:ring-1 hover:ring-neonGreen/30 transition">
-                <i class="icon-sliders text-neonGreen text-2xl mb-3"></i>
-                <h3 class="font-semibold mb-2">Bot Configuration</h3>
-                <p class="text-sm text-white/70 mb-4">Customize sniper settings, risk parameters and automated trading logic.</p>
-                <button disabled class="text-sm text-white/40" aria-disabled="true">Preview ↗</button>
-            </article>
-            
-            <article class="glass-card p-6 lg:p-8 hover:border-neonGreen/30 hover:translate-y-2 hover:ring-1 hover:ring-neonGreen/30 transition">
-                <i class="icon-shield-check text-neonGreen text-2xl mb-3"></i>
-                <h3 class="font-semibold mb-2">Rug Shield Settings</h3>
-                <p class="text-sm text-white/70 mb-4">Customize AI protection thresholds, blacklists and risk detection.</p>
-                <button disabled class="text-sm text-white/40" aria-disabled="true">Preview ↗</button>
-            </article>
-        </div>
-
-        <!-- KPI-Skeleton-Tiles -->
-        <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto mt-16" id="hubMetrics">
-          <div class="metric-tile">
-            <h4 class="text-sm font-medium mb-3">Live Latency</h4>
-            <div class="skeleton"></div>
-          </div>
-          <div class="metric-tile">
-            <h4 class="text-sm font-medium mb-3">Tx-Lead</h4>
-            <div class="skeleton"></div>
-          </div>
-          <div class="metric-tile">
-            <h4 class="text-sm font-medium mb-3">Daily Volume</h4>
-            <div class="skeleton"></div>
-          </div>
-        </div>
-
-        <!-- Timeline (Development) -->
-        <div class="mt-20 max-w-xl mx-auto">
-            <h3 class="text-xl font-bold mb-8">Development Timeline</h3>
-            <div class="relative h-1 bg-white/10 max-w-xl mx-auto mb-8">
-                <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-neonGreen to-rocketPurple/70 rounded-full" style="width: 65%;"></div>
-                <!-- Checkpoints -->
-                <div class="absolute top-0 left-[20%] w-3 h-3 bg-neonGreen rounded-full transform translate-y-[-50%] translate-x-[-50%]"></div>
-                <div class="absolute top-0 left-[65%] w-3 h-3 bg-rocketPurple rounded-full transform translate-y-[-50%] translate-x-[-50%]"></div>
-                <div class="absolute top-0 left-[90%] w-3 h-3 bg-white/40 rounded-full transform translate-y-[-50%] translate-x-[-50%]"></div>
-            </div>
-            <ol class="flex justify-between text-center sm:flex-row flex-col gap-4 sm:gap-0">
-                <li class="relative">
-                    <h4 class="font-medium text-sm">Design Freeze</h4>
-                    <p class="text-sm text-white/60">✅ Completed</p>
-                </li>
-                <li class="relative">
-                    <h4 class="font-medium text-sm">Private Beta</h4>
-                    <p class="text-sm text-white/60">In Progress</p>
-                </li>
-                <li class="relative">
-                    <h4 class="font-medium text-sm">Public Launch</h4>
-                    <p class="text-sm text-white/60">Q1 2026</p>
-                </li>
-            </ol>
-        </div>
+        <!-- Dashboard Grid -->
+        <div id="dashboardGrid"></div>
+        <script type="module">
+          import { inject } from '/js/include.js';
+          inject('#dashboardGrid', '/components/dashboard/grid.html');
+        </script>
     </section>
 
-    <!-- Share Modal -->
-    <div id="shareModal" class="share-modal">
-        <div class="glass-card p-8 max-w-md mx-4 rounded-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Share Your Trade Results</h3>
-                <button id="closeModalBtn" class="text-white/60 hover:text-white">
-                    <i class="icon-x"></i>
-                </button>
-            </div>
-            
-            <div class="mb-6">
-                <p class="text-sm text-white/70 mb-4">Share your success with Rust Rocket and earn rewards when friends join using your referral link:</p>
-                
-                <div class="flex mb-4">
-                    <input id="referralLink" type="text" class="flex-1 bg-spaceDark text-white rounded-l-lg px-4 py-2 focus:outline-none" readonly value="https://rustrocket.io/?ref=USER123&utm_source=share&utm_medium=app&utm_campaign=trader_share">
-                    <button id="copyLinkBtn" class="bg-neonGreen text-spaceBlack px-4 py-2 rounded-r-lg hover:bg-neonGreen/90">
-                        <i class="icon-copy"></i>
-                    </button>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                    <a href="#" id="twitterShareBtn" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-[#1DA1F2] hover:bg-[#1DA1F2]/90 text-white">
-                        <i class="icon-twitter"></i>
-                        Tweet
-                    </a>
-                    <a href="#" id="telegramShareBtn" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-[#26A5E4] hover:bg-[#26A5E4]/90 text-white">
-                        <i class="icon-send"></i>
-                        Telegram
-                    </a>
-                </div>
-            </div>
-            
-            <div class="border-t border-white/10 pt-4">
-                <p class="text-xs text-white/60">Each successful referral earns you 20% of their trading fees. Track your earnings in the Referrals tab.</p>
-            </div>
-        </div>
-    </div>
+    <!-- AI Onboarding Chatbot -->
+    <div id="aiChatbotContainer"></div>
 
-    <!-- Copy Notification -->
-    <div id="copyNotification" class="copy-notification">
-        <p>Referral link copied to clipboard! 🚀</p>
-    </div>
+    <script src="/js/nav.js"></script>
+    <script src="/js/metrics.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/signals.js"></script>
+    <script src="/js/ai-onboarding.js"></script>
 
-    <!-- AI Onboarding Chatbot Modal Component -->
-    <div id="ai-chatbot-container"></div>
-
-    <!-- FOOTER -->
-    <footer class="py-16 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <a href="index.html" class="flex items-center gap-2 group mb-4">
-                        <img src="assets/logo.svg" alt="Rust Rocket" class="h-6" />
-                        <span class="font-semibold tracking-tight">Rust Rocket</span>
-                    </a>
-                    <p class="text-sm text-gray-400">Fast. Fair. Fully Audited.</p>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium mb-4">Product</h4>
-                    <ul class="space-y-2">
-                        <li><a href="sniper-bot.html" class="text-sm text-gray-400 hover:text-white">Solana Sniper Bot</a></li>
-                        <li><a href="pump-alerts.html" class="text-sm text-gray-400 hover:text-white">Pump Alerts</a></li>
-                        <li><a href="copy-trading.html" class="text-sm text-gray-400 hover:text-white">Copy Trading</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium mb-4">Legal</h4>
-                    <ul class="space-y-2">
-                        <li><a href="legal/imprint.html" class="text-sm text-gray-400 hover:text-white">Impressum</a></li>
-                        <li><a href="legal/privacy.html" class="text-sm text-gray-400 hover:text-white">Privacy Policy</a></li>
-                        <li><a href="legal/terms.html" class="text-sm text-gray-400 hover:text-white">Terms of Service</a></li>
-                        <li><a href="legal/aml-policy.html" class="text-sm text-gray-400 hover:text-white">AML Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium mb-4">Connect</h4>
-                    <ul class="space-y-2">
-                        <li><a href="https://twitter.com/aX_RustRocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
-                        <li><a href="https://discord.gg/Rust_Rocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
-                        <li><a href="https://instagram.com/rust.xrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-instagram mr-2"></i> Instagram</a></li>
-                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> Axiom Enterprise AG. All rights reserved.</p>
-                <p class="text-sm text-gray-500 mt-4 md:mt-0">TVTG-registriert • Landstrasse 123, FL-9490 Vaduz</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JS -->
-    <script src="js/nav.js"></script>
-    <script src="js/metrics.js"></script>
-    <script src="js/ai-onboarding.js" type="module"></script>
-    <script src="js/dashboard.js" type="module"></script>
     <script type="module">
-        import {inject} from './js/include.js';
-        inject('#navContainer', './components/nav.html');
-        inject('#ai-chatbot-container', './components/ai-onboarding-chatbot.html');
-        
-        // Share functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const shareBtn = document.getElementById('shareTradeBtn');
-            const modal = document.getElementById('shareModal');
-            const closeBtn = document.getElementById('closeModalBtn');
-            const copyBtn = document.getElementById('copyLinkBtn');
-            const referralLink = document.getElementById('referralLink');
-            const notification = document.getElementById('copyNotification');
-            const twitterBtn = document.getElementById('twitterShareBtn');
-            const telegramBtn = document.getElementById('telegramShareBtn');
-            
-            // Generate a random user ID (in production, this would be the actual user ID)
-            const userId = 'USER' + Math.floor(Math.random() * 10000);
-            const referralUrl = `https://rustrocket.io/?ref=${userId}&utm_source=share&utm_medium=app&utm_campaign=trader_share`;
-            
-            // Set the referral link
-            referralLink.value = referralUrl;
-            
-            // Open modal
-            shareBtn.addEventListener('click', () => {
-                modal.classList.add('active');
-                
-                // Track event (if analytics available)
-                if (window.plausible) {
-                    window.plausible('share_modal_opened');
-                }
-            });
-            
-            // Close modal
-            closeBtn.addEventListener('click', () => {
-                modal.classList.remove('active');
-            });
-            
-            // Close modal when clicking outside
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-            
-            // Copy link to clipboard
-            copyBtn.addEventListener('click', () => {
-                referralLink.select();
-                document.execCommand('copy');
-                
-                // Show notification
-                notification.classList.add('active');
-                
-                // Track event (if analytics available)
-                if (window.plausible) {
-                    window.plausible('referral_link_copied');
-                }
-                
-                // Hide notification after 3 seconds
-                setTimeout(() => {
-                    notification.classList.remove('active');
-                }, 3000);
-            });
-            
-            // Twitter share
-            twitterBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const tweetText = encodeURIComponent('Just made a 12.5% profit on $BONK in seconds using Rust Rocket! Ultra-fast sniper bot with rug protection. Check it out:');
-                const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(referralUrl)}`;
-                
-                // Track event (if analytics available)
-                if (window.plausible) {
-                    window.plausible('share_twitter', {
-                        token: 'BONK',
-                        profit_percentage: 12.5
-                    });
-                }
-                
-                window.open(tweetUrl, '_blank');
-            });
-            
-            // Telegram share
-            telegramBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const text = encodeURIComponent('Just made a 12.5% profit on $BONK in seconds using Rust Rocket! Ultra-fast sniper bot with rug protection. Check it out:');
-                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(referralUrl)}&text=${text}`;
-                
-                // Track event (if analytics available)
-                if (window.plausible) {
-                    window.plausible('share_telegram', {
-                        token: 'BONK', 
-                        profit_percentage: 12.5
-                    });
-                }
-                
-                window.open(telegramUrl, '_blank');
-            });
-        });
+        import { inject } from '/js/include.js';
+        inject('#navContainer', '/components/nav');
+        inject('#aiChatbotContainer', '/components/ai-onboarding-chatbot');
     </script>
 </body>
 </html> 
