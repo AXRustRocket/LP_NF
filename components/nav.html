@@ -1,8 +1,16 @@
 <!-- NAVIGATION -->
 <nav id="navbar" class="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 py-4 bg-spaceBlack/80 backdrop-blur-md min-h-[64px]">
   <!-- Logo -->
-  <a href="index.html" class="flex items-center">
-    <img src="assets/logo.svg" alt="Rust Rocket" class="h-10" />
+  <a href="index.html" class="flex items-center gap-2 group" aria-label="Rust Rocket Home">
+    <svg width="32" height="32" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8 w-auto">
+      <g>
+        <path d="M340 130C340 130 420 210 420 340C420 340 380 440 260 440C260 440 140 440 100 340C100 340 100 210 180 130C180 130 260 50 340 130Z" fill="#2AFF62"/>
+        <path d="M340 130C340 130 300 190 230 250C230 250 190 290 180 350C180 350 190 380 220 390C220 390 260 380 280 340C280 340 290 310 310 300C310 300 330 290 340 260C340 260 358 215 340 130Z" fill="#0B1624"/>
+        <path d="M220 240C220 240 260 200 270 175C270 175 285 145 295 140C295 140 315 130 330 135C330 135 255 85 185 130C185 130 205 160 220 240Z" fill="#0B1624"/>
+        <path d="M230 500C230 500 270 500 290 470C290 470 310 440 330 440" fill="#2AFF62"/>
+      </g>
+    </svg>
+    <span class="sr-only">Rust Rocket</span>
   </a>
 
   <!-- CTA-Group -->
@@ -27,7 +35,7 @@
       Menu
     </button>
 
-    <a href="/dashboard.html" class="px-6 py-2 rounded-full bg-rocketPurple hover:bg-rocketPurple/80">Dashboard →</a>
+    <a href="dashboard.html" class="px-6 py-2 rounded-full bg-rocketPurple hover:bg-rocketPurple/80">Dashboard →</a>
     <button id="walletBtn" class="px-6 py-2 rounded-full bg-rustBlue hover:bg-rustBlue/90">Connect wallet</button>
   </div>
 </nav>
@@ -43,8 +51,8 @@
     <a href="meme-coin-early.html" class="menuLink text-white/90 hover:text-neonGreen transition">Early Access</a>
     <a href="index.html#heroFeatures" class="menuLink text-white/90 hover:text-neonGreen transition">Why</a>
     <a href="index.html#featuresSlot" class="menuLink text-white/90 hover:text-neonGreen transition">Features</a>
-    <a href="/pricing.html" class="menuLink text-white/90 hover:text-neonGreen transition">Pricing</a>
-    <a href="/referral.html" class="menuLink text-white/90 hover:text-neonGreen transition">Referral</a>
+    <a href="pricing.html" class="menuLink text-white/90 hover:text-neonGreen transition">Pricing</a>
+    <a href="referral.html" class="menuLink text-white/90 hover:text-neonGreen transition">Referral</a>
     <a href="index.html#join" class="menuLink text-white/90 hover:text-neonGreen transition">Join Waitlist</a>
   </nav>
 </aside>
@@ -181,4 +189,6 @@
           link.addEventListener('click', closeDropdown);
       });
   }
+  
+  console.log("[nav.html] Navigation script executed");
 </script> 
