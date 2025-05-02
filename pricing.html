@@ -158,6 +158,12 @@
 </head>
 
 <body class="font-sans text-gray-100 antialiased">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    
+    <!-- Mobile Navigation Container -->
+    <div id="mobileNavContainer"></div>
+    
     <!-- PRICING PAGE CONTENT -->
     <div class="relative overflow-hidden min-h-screen">
         <main class="min-h-screen py-24 px-6">
@@ -222,8 +228,11 @@
     </div>
 
     <!-- JS -->
+    <script src="/js/headbar.js"></script>
     <script type="module">
         import {inject} from './js/include.js';
+        inject('#headbarContainer', './components/headbar.html');
+        inject('#mobileNavContainer', './components/mobile-nav.html');
         inject('#plansPageSlot', './components/plans.html');
     </script>
 </body>

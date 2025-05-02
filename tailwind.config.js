@@ -54,7 +54,10 @@ module.exports = {
     }
   },
   safelist: [
+    'translate-x-full',
+    'translate-x-0',
     'animate-pulseFast',
-    'animate-pulse-slow'
+    'animate-pulse-slow',
+    'overflow-hidden'
   ]
 }; 

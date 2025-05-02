@@ -233,6 +233,12 @@
 </head>
 
 <body class="font-sans text-gray-100 antialiased relative">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    
+    <!-- Mobile Navigation Container -->
+    <div id="mobileNavContainer"></div>
+
     <!-- BEGIN HERO -->
     <section id="hero" class="relative min-h-screen px-6 pt-24 min-h-[500px]">
       <div id="particleCanvas" class="absolute inset-0 z-0" aria-hidden="true"></div>
@@ -1369,55 +1375,14 @@
     
     <!-- Import metrics.js for latency mini-chart -->
     <script type="module" src="/js/metrics.js"></script>
-
-    <!-- FAQ Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What is a Meme-Coin Sniper Bot?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "A Meme-Coin Sniper Bot is an automated trading tool that executes buy and sell orders for new meme tokens at lightning speed. Rust Rocket's bot specifically offers ultra-low latency trading (under 80ms) with built-in rug protection to help traders capitalize on early opportunities while avoiding scams."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How does Rug-Shield-AI protect against token scams?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Our AI analyzes smart contracts in real-time and blocks transactions when detecting honeypots, fee traps, and other fraud patterns before your capital is at risk."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What does TVTG registration mean for users?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "As a TVTG-registered company in Liechtenstein, Rust Rocket is subject to strict regulatory requirements, providing legal security and full transparency for all users."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What blockchain networks does Rust Rocket support?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Currently, Rust Rocket primarily supports Solana for its high-speed transactions and low fees. Our architecture is designed to deliver sub-80ms trading execution through dedicated TPU streams on the Solana network, giving you a significant edge in fast-moving market conditions."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Do I need technical knowledge to use the sniper bot?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No technical expertise is required. We've designed Rust Rocket with a zero-setup interface and intuitive controls, making it accessible for traders of all experience levels. The platform handles the complex technical aspects while you focus on your trading strategy."
-                }
-            }
-        ]
-    }
+    
+    <!-- Import headbar.js for header functionality -->
+    <script src="/js/headbar.js"></script>
+    
+    <script type="module">
+        import {inject} from './js/include.js';
+        inject('#headbarContainer', './components/headbar.html');
+        inject('#mobileNavContainer', './components/mobile-nav.html');
     </script>
 </body>
 </html> 

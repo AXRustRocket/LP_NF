@@ -1,0 +1,48 @@
+<!-- Mobile Navigation Slide-in Panel -->
+<div id="mobileNav" 
+     class="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-spaceDark shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out"
+     aria-hidden="true">
+  
+  <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+    <div class="flex items-center">
+      <img src="/assets/logo.gif" alt="Rust Rocket" class="h-8 w-8">
+      <span class="ml-2 text-white font-semibold">Rust Rocket</span>
+    </div>
+    <button id="closeMobileMenu" type="button" class="text-gray-400 hover:text-white" aria-label="Close menu">
+      <i class="icon-x text-2xl"></i>
+    </button>
+  </div>
+  
+  <nav class="mt-6 px-6">
+    <div class="flex flex-col space-y-2">
+      <a href="index.html" class="py-3 px-4 rounded-lg hover:bg-white/5 text-white">Home</a>
+      <a href="sniper-bot.html" class="py-3 px-4 rounded-lg hover:bg-white/5 text-white">Sniper Bot</a>
+      <a href="pump-alerts.html" class="py-3 px-4 rounded-lg hover:bg-white/5 text-white">Pump Alerts</a>
+      <a href="copy-trading.html" class="py-3 px-4 rounded-lg hover:bg-white/5 text-white">Copy Trading</a>
+      <a href="pricing.html" class="py-3 px-4 rounded-lg hover:bg-white/5 text-white">Pricing</a>
+    </div>
+    
+    <div class="mt-8 space-y-4">
+      <a href="/dashboard" class="block w-full py-3 px-4 text-center font-medium text-white bg-rocketPurple/80 hover:bg-rocketPurple rounded-lg transition-colors">
+        Dashboard
+      </a>
+      <button id="mobileWalletConnectBtn" class="block w-full py-3 px-4 text-center font-medium text-spaceBlack bg-neonGreen hover:bg-neonGreen/90 rounded-lg transition-colors">
+        Connect Wallet
+      </button>
+    </div>
+  </nav>
+  
+  <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10">
+    <div class="flex items-center justify-between">
+      <span class="text-sm text-gray-400">© 2024 Axiom Enterprise AG</span>
+      <div class="flex items-center space-x-4">
+        <a href="https://twitter.com/aX_RustRocket" class="text-gray-400 hover:text-white">
+          <i class="icon-twitter"></i>
+        </a>
+        <a href="https://discord.gg/Rust_Rocket" class="text-gray-400 hover:text-white">
+          <i class="icon-discord"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div> 
