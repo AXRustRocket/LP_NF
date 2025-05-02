@@ -962,11 +962,22 @@
     
     <!-- Waitlist Modal -->
     <div id="waitlistMount"></div>
-    <script type="module">
-      import { inject } from '/js/include.js';
-      await inject('body','/components/waitlist-modal-v3');
-      const { initHomepagePopup } = await import('/js/waitlist-modal.js');
-      initHomepagePopup();
+    <script type="module" defer>
+      // Use a try-catch block to prevent blocking the page if waitlist fails
+      try {
+        const { inject } = await import('/js/include.js');
+        await inject('body','/components/waitlist-modal-v3');
+        const { initHomepagePopup } = await import('/js/waitlist-modal.js');
+        
+        // Delay modal initialization to ensure page renders first
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            initHomepagePopup(3000);
+          }, 100);
+        });
+      } catch (error) {
+        console.error('Failed to load waitlist modal:', error);
+      }
     </script>
 </body>
 </html> 
