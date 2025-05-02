@@ -17,6 +17,9 @@
     
     <!-- Right Side Actions -->
     <div class="flex items-center space-x-4">
+      <!-- Auth Buttons Container - Will be populated by auth.js -->
+      <div id="authBtns" class="hidden lg:block"></div>
+      
       <!-- Dashboard Button (desktop only) -->
       <a href="/dashboard.html" class="hidden lg:inline-flex items-center justify-center gap-2 bg-neonGreen/90 hover:bg-neonGreen text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors">
         Dashboard
@@ -61,6 +64,10 @@
       <a href="/pump-alerts.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pump Alerts</a>
       <a href="/copy-trading.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Copy Trading</a>
       <a href="/pricing" data-link="pricing" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pricing</a>
+      
+      <!-- Mobile Auth Buttons Container -->
+      <div id="mobileAuthBtns"></div>
+      
       <a href="/dashboard.html" class="mt-4 inline-flex items-center justify-center w-full bg-neonGreen/90 hover:bg-neonGreen text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors">
         Dashboard
       </a>
@@ -76,4 +83,7 @@
 if(location.pathname.startsWith('/pricing')) { 
   document.querySelectorAll('[data-link="pricing"]').forEach(a => a.classList.add('text-neonGreen'));
 }
-</script> 
+</script>
+
+<!-- Include authentication script -->
+<script type="module" src="/js/auth.js"></script> 

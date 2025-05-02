@@ -87,6 +87,8 @@ module.exports = {
     'glass-card',
     'drop-shadow-neon',
     'border-neonGreen/30',
-    'shadow-[0_0_24px_rgba(42,255,98,0.25)]'
+    'shadow-[0_0_24px_rgba(42,255,98,0.25)]',
+    'btn-neon',
+    'btn-ghost'
   ]
 }; 
