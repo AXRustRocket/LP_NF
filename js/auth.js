@@ -54,7 +54,12 @@ let authModal = null;
 
 // Initialize the UI when the DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
-  // Initial render of the auth buttons
+  // Check if we're on the auth page
+  if (window.location.pathname.includes('/auth.html')) {
+    initAuthPage();
+  }
+  
+  // Initial render of the auth buttons in header
   const session = (await supabase.auth.getSession()).data.session;
   render(session);
   
@@ -63,31 +68,136 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 /**
+ * Initialize the auth page form and handlers
+ */
+function initAuthPage() {
+  const authForm = document.getElementById('authForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const loadingIcon = document.getElementById('loadingIcon');
+  const formError = document.getElementById('formError');
+  const successState = document.getElementById('successState');
+  const emailDisplay = document.getElementById('emailDisplay');
+  
+  if (!authForm) return;
+  
+  // Handle form submission
+  authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('username').value.trim();
+    
+    // Validate email
+    if (!email || !isValidEmail(email)) {
+      showError(formError, 'Please enter a valid email address');
+      return;
+    }
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    loadingIcon.classList.remove('hidden');
+    formError.classList.add('hidden');
+    
+    try {
+      // Call signIn function with email and optional username
+      const error = await signIn(email, username);
+      
+      if (error) {
+        throw error;
+      }
+      
+      // Show success state
+      authForm.classList.add('hidden');
+      successState.classList.remove('hidden');
+      if (emailDisplay) {
+        emailDisplay.textContent = email;
+      }
+      
+    } catch (error) {
+      console.error('Authentication error:', error);
+      showError(formError, error.message || 'Failed to send magic link. Please try again.');
+      
+      // Reset loading state
+      submitBtn.disabled = false;
+      loadingIcon.classList.add('hidden');
+    }
+  });
+}
+
+/**
+ * Show an error message in the form
+ * @param {HTMLElement} errorElement - Error element to show the message in
+ * @param {string} message - Error message to display
+ */
+function showError(errorElement, message) {
+  if (!errorElement) return;
+  
+  errorElement.textContent = message;
+  errorElement.classList.remove('hidden');
+}
+
+/**
+ * Sign in with email and optional username
+ * @param {string} email - User's email address
+ * @param {string} username - Optional username
+ * @returns {Error|null} - Error if any occurred
+ */
+export async function signIn(email, username) {
+  try {
+    if (!email || !isValidEmail(email)) {
+      throw new Error('Please enter a valid email address');
+    }
+    
+    const redirectTo = new URL('/dashboard.html', window.location.origin).toString();
+    
+    // Create sign-in options with metadata
+    const options = {
+      emailRedirectTo: redirectTo
+    };
+    
+    // Add username to metadata if provided
+    if (username) {
+      options.data = { username };
+    }
+    
+    // Send magic link
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options
+    });
+    
+    return error;
+  } catch (error) {
+    console.error('Error signing in:', error);
+    return error;
+  }
+}
+
+/**
  * Render auth buttons based on session state
  * @param {Object|null} session - The current Supabase session
  */
 async function render(session = null) {
-  if (!session && !session?.user) {
+  if (!authBtns && !mobileAuthBtns) return;
+  
+  if (!session || !session.user) {
     // Not authenticated - show login button
     if (authBtns) {
       authBtns.innerHTML = `
-        <button class="btn-neon inline-flex items-center justify-center gap-2 bg-neonGreen hover:bg-[#28D94C] text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors" id="loginBtn">
+        <a href="/auth.html" class="btn-neon inline-flex items-center justify-center gap-2 bg-neonGreen hover:bg-[#28D94C] text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors">
           Log In
-        </button>
+        </a>
       `;
     }
     
     if (mobileAuthBtns) {
       mobileAuthBtns.innerHTML = `
-        <button class="text-white hover:text-neonGreen py-2 border-b border-white/10 text-left w-full" id="mobileLoginBtn">
+        <a href="/auth.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10 text-left w-full">
           Log In
-        </button>
+        </a>
       `;
     }
-    
-    // Add event listeners to login buttons
-    document.getElementById('loginBtn')?.addEventListener('click', () => openModal());
-    document.getElementById('mobileLoginBtn')?.addEventListener('click', () => openModal());
   } else {
     // Authenticated - show user info and logout button
     const userEmail = session.user.email;
@@ -134,192 +244,14 @@ async function render(session = null) {
 }
 
 /**
- * Open the auth modal
- */
-async function openModal() {
-  try {
-    // First, check if the modal is already in the DOM
-    authModal = document.getElementById('authModal');
-    
-    if (!authModal) {
-      // If not, inject it
-      await injectAuthModal();
-      authModal = document.getElementById('authModal');
-      
-      if (!authModal) {
-        console.error('Failed to inject auth modal');
-        return;
-      }
-    }
-    
-    // Show the modal
-    if (typeof authModal.showModal === 'function') {
-      authModal.showModal();
-    } else {
-      // Fallback for browsers that don't support <dialog>
-      authModal.style.display = 'block';
-      document.body.classList.add('overflow-hidden');
-    }
-    
-    // Add event listeners to the form and close button
-    setupModalEventListeners();
-    
-  } catch (error) {
-    console.error('Error opening auth modal:', error);
-  }
-}
-
-/**
- * Close the auth modal
- */
-function closeModal() {
-  if (!authModal) return;
-  
-  try {
-    if (typeof authModal.close === 'function') {
-      authModal.close();
-    } else {
-      // Fallback
-      authModal.style.display = 'none';
-      document.body.classList.remove('overflow-hidden');
-    }
-  } catch (error) {
-    console.error('Error closing auth modal:', error);
-  }
-}
-
-/**
- * Inject the auth modal into the DOM
- */
-async function injectAuthModal() {
-  try {
-    // Fetch the modal HTML
-    const response = await fetch('/components/auth-modal.html');
-    if (!response.ok) throw new Error('Failed to fetch auth modal');
-    
-    const html = await response.text();
-    
-    // Create a container and insert the HTML
-    const container = document.createElement('div');
-    container.innerHTML = html;
-    
-    // Append to body
-    document.body.appendChild(container.firstElementChild);
-    
-  } catch (error) {
-    console.error('Error injecting auth modal:', error);
-    throw error;
-  }
-}
-
-/**
- * Set up event listeners for the auth modal
- */
-function setupModalEventListeners() {
-  // Close button
-  const closeBtn = document.getElementById('closeAuthModal');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeModal);
-  }
-  
-  // Form submission
-  const form = document.getElementById('authForm');
-  if (form) {
-    form.addEventListener('submit', handleAuthFormSubmit);
-  }
-  
-  // Close on Escape key
-  authModal.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
-  
-  // Close when clicking on backdrop (for browsers that support <dialog>)
-  authModal.addEventListener('click', (e) => {
-    if (e.target === authModal) closeModal();
-  });
-}
-
-/**
- * Handle auth form submission
- * @param {Event} e - Form submit event
- */
-async function handleAuthFormSubmit(e) {
-  e.preventDefault();
-  
-  const email = document.getElementById('authEmail').value.trim();
-  const errorEl = document.getElementById('authError');
-  const submitBtn = document.getElementById('authSubmit');
-  const loadingIcon = document.getElementById('authLoading');
-  
-  // Reset error
-  errorEl.textContent = '';
-  errorEl.classList.add('hidden');
-  
-  // Basic validation
-  if (!email || !isValidEmail(email)) {
-    errorEl.textContent = 'Please enter a valid email address';
-    errorEl.classList.remove('hidden');
-    return;
-  }
-  
-  // Show loading state
-  submitBtn.disabled = true;
-  loadingIcon.classList.remove('hidden');
-  
-  try {
-    // Send magic link
-    const { error } = await signInWithMagicLink(email);
-    
-    if (error) throw error;
-    
-    // Show success message
-    document.getElementById('authForm').classList.add('hidden');
-    document.getElementById('authSuccess').classList.remove('hidden');
-    document.getElementById('sentEmail').textContent = email;
-    
-    // Close modal after 5 seconds
-    setTimeout(closeModal, 5000);
-    
-  } catch (error) {
-    console.error('Error sending magic link:', error);
-    
-    // Show error
-    errorEl.textContent = error.message || 'An error occurred. Please try again.';
-    errorEl.classList.remove('hidden');
-    
-    // Reset button
-    submitBtn.disabled = false;
-    loadingIcon.classList.add('hidden');
-  }
-}
-
-/**
- * Sign in with magic link
- * @param {string} email - User's email address
- * @returns {Promise} - Auth result promise
- */
-async function signInWithMagicLink(email) {
-  try {
-    const redirectTo = new URL('/dashboard', window.location.origin).toString();
-    
-    return await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: redirectTo
-      }
-    });
-  } catch (error) {
-    console.error('Error signing in:', error);
-    throw error;
-  }
-}
-
-/**
  * Sign out the current user
  */
 async function signOut() {
   try {
     await supabase.auth.signOut();
+    
+    // Redirect to home page
+    window.location.href = '/';
     return true;
   } catch (error) {
     console.error('Error signing out:', error);
@@ -329,27 +261,30 @@ async function signOut() {
 
 /**
  * Check if user is authenticated and redirect to login if not
- * @param {string} [redirectPath='/dashboard'] - Path to redirect to after login
+ * @param {string} [redirectPath='/auth.html'] - Path to redirect to if not authenticated
+ * @returns {boolean} - Whether the user is authenticated
  */
-export async function requireAuth(redirectPath = null) {
+export async function requireAuth(redirectPath = '/auth.html') {
   try {
     const { data } = await supabase.auth.getSession();
     
     if (!data.session) {
-      // User is not authenticated, trigger auth modal
-      const currentPath = redirectPath || window.location.pathname;
+      // User is not authenticated, redirect to auth page
+      console.log('User not authenticated, redirecting to auth page');
       
       // Store the current path for redirect after auth
+      const currentPath = window.location.pathname;
       sessionStorage.setItem('authRedirect', currentPath);
       
-      // Open the auth modal
-      await openModal();
+      // Redirect to auth page
+      window.location.href = redirectPath;
       return false;
     }
     
     return true;
   } catch (error) {
     console.error('Auth check error:', error);
+    window.location.href = redirectPath;
     return false;
   }
 }
@@ -424,7 +359,7 @@ async function handleAuthRedirect() {
       if (error) throw error;
       
       // Get redirect path if any
-      const redirectPath = sessionStorage.getItem('authRedirect') || '/dashboard';
+      const redirectPath = sessionStorage.getItem('authRedirect') || '/dashboard.html';
       sessionStorage.removeItem('authRedirect');
       
       // Show success message

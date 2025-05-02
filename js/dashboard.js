@@ -1,23 +1,35 @@
 // Dashboard.js - Handles dashboard interactions
 import { fetchSignal } from './signals.js';
 import Chart from 'https://cdn.jsdelivr.net/npm/chart.js/+esm';
+import { requireAuth } from './auth.js';
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize signals display with default token (WIF)
-    initDashboard();
+document.addEventListener('DOMContentLoaded', async function() {
+    // Check if user is authenticated - redirects to auth.html if not
+    const isAuthenticated = await requireAuth();
     
-    // Initialize global tab handlers
-    initTabSystem();
-    
-    // Initialize configuration modal
-    initConfigModal();
-    
-    // Simulated wallet connect
-    const walletBtn = document.getElementById('walletBtn');
-    if (walletBtn) {
-        walletBtn.addEventListener('click', function() {
-            alert('Wallet connection will be available in the private beta.');
-        });
+    // Only initialize dashboard if user is authenticated
+    if (isAuthenticated) {
+        console.log('User authenticated, initializing dashboard');
+        
+        // Initialize signals display with default token (WIF)
+        initDashboard();
+        
+        // Initialize global tab handlers
+        initTabSystem();
+        
+        // Initialize configuration modal
+        initConfigModal();
+        
+        // Simulated wallet connect
+        const walletBtn = document.getElementById('walletBtn');
+        if (walletBtn) {
+            walletBtn.addEventListener('click', function() {
+                alert('Wallet connection will be available in the private beta.');
+            });
+        }
+    } else {
+        console.log('User not authenticated, redirecting to login');
+        // The requireAuth function already handles the redirect
     }
 });
 
