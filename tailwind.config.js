@@ -71,6 +71,7 @@ module.exports = {
     'sparkline-chart',
     'timeline-dot-pulse',
     'text-neonGreen',
-    'bg-rocketPurple/10'
+    'bg-rocketPurple/10',
+    'glass-card'
   ]
 }; 

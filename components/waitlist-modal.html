@@ -1,0 +1,36 @@
+<dialog id="waitlistModal" role="dialog" aria-labelledby="waitTitle" class="glass-card max-w-md p-8 rounded-2xl backdrop-blur relative border-0 bg-spaceDark/70">
+  <button data-close aria-label="Close" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-white/60 hover:text-white transition-colors">✕</button>
+  
+  <div class="flex flex-col items-center text-center">
+    <!-- Logo -->
+    <img src="/assets/logo.gif" alt="Rust Rocket" class="h-10 w-auto mb-6">
+    
+    <!-- Heading -->
+    <h2 id="waitTitle" class="text-2xl font-bold mb-4">Join the early-access waitlist</h2>
+    
+    <!-- Description -->
+    <p class="text-gray-300 mb-6">Be among the first to try our ultra-fast trading tools with sub-80ms execution.</p>
+    
+    <!-- Form -->
+    <form data-waitlist-form class="w-full">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Your email address" 
+          required
+          class="w-full p-3 rounded-lg bg-white/10 border border-white/20 focus:ring-neonGreen focus:border-neonGreen text-white"
+        >
+        <button 
+          type="submit"
+          class="py-3 px-6 bg-neonGreen hover:bg-neonGreen/90 text-spaceBlack font-semibold rounded-lg transition-colors whitespace-nowrap"
+        >
+          Join Waitlist
+        </button>
+      </div>
+    </form>
+    
+    <!-- No thanks link -->
+    <a href="#" data-close class="text-sm text-gray-400 hover:text-gray-300 mt-6 inline-block">No thanks, I'll check back later</a>
+  </div>
+</dialog> 

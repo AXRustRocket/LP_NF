@@ -952,5 +952,20 @@
         });
       });
     </script>
+
+    <!-- Footer -->
+    <div id="pageFooter"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#pageFooter','/components/footer');
+    </script>
+    
+    <!-- Waitlist Modal -->
+    <div id="waitlistMount"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      await inject('#waitlistMount','/components/waitlist-modal');
+      import('/js/waitlist-popup.js');
+    </script>
 </body>
 </html> 
