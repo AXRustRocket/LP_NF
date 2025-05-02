@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seite nicht gefunden | Rust Rocket</title>
+    <title>Page Not Found | Rust Rocket</title>
     <meta name="robots" content="noindex, nofollow">
     
     <!-- Performance optimizations -->
@@ -45,13 +45,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
     
-    <script type="module">
-        import {inject} from './js/include.js';
-        document.addEventListener('DOMContentLoaded', function() {
-            inject('#navContainer', './components/nav.html');
-        });
-    </script>
-    
     <style>
         body {
             background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
@@ -78,11 +71,8 @@
     </style>
 </head>
 
-<body class="font-sans text-gray-100 antialiased">
-    <!-- Navigation Container -->
-    <div id="navContainer"></div>
-    
-    <div class="min-h-screen flex flex-col items-center justify-center px-4 pt-16">
+<body class="font-sans text-gray-100 antialiased min-h-screen">
+    <main class="min-h-screen bg-gradient-to-b from-spaceBlack to-spaceDark flex flex-col justify-center items-center p-6 text-center">
         <div class="text-center mb-8 animate-rocket">
             <div class="relative inline-block">
                 <img src="assets/logo.svg" alt="Rust Rocket" class="h-24 md:h-32 mx-auto" />
@@ -92,17 +82,22 @@
         
         <div class="glass-card rounded-xl p-8 max-w-lg mx-auto text-center">
             <h1 class="text-4xl font-bold mb-4">404</h1>
-            <h2 class="text-2xl mb-6">Diese Seite wurde nicht gefunden</h2>
-            <p class="text-gray-300 mb-8">Der gesuchte Inhalt wurde möglicherweise entfernt oder ist unter einer anderen URL verfügbar.</p>
+            <h2 class="text-2xl mb-6">This page was not found</h2>
+            <p class="text-gray-300 mb-8">The content you were looking for may have been removed or is available at a different URL.</p>
             
             <a href="index.html" class="inline-flex items-center px-6 py-3 bg-neonGreen text-spaceBlack rounded-full font-medium hover:bg-neonGreen/90 transition-colors">
-                <i class="icon-home mr-2"></i> Zurück zur Startseite
+                <i class="icon-home mr-2"></i> Back to Homepage
             </a>
         </div>
         
         <div class="mt-12 text-center">
-            <p class="text-sm text-gray-400">Benötigen Sie Hilfe? <a href="mailto:hello@rustrocket.io" class="text-neonGreen hover:underline">Kontaktieren Sie uns</a></p>
+            <p class="text-sm text-gray-400">Need help? <a href="mailto:hello@rustrocket.io" class="text-neonGreen hover:underline">Contact us</a></p>
         </div>
-    </div>
+    </main>
+
+    <!-- JS -->
+    <script type="module">
+        import {inject} from './js/include.js';
+    </script>
 </body>
 </html> 

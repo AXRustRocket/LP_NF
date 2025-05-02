@@ -1,0 +1,11 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#0B1624" />
+  <rect x="2" y="2" width="596" height="396" fill="#04070D" stroke="#2AFF62" stroke-width="2" rx="10" />
+  <text x="300" y="180" font-family="Arial" font-size="24" fill="#2AFF62" text-anchor="middle">Solana Sniper Bot Hero Illustration</text>
+  <text x="300" y="220" font-family="Arial" font-size="16" fill="#ffffff" text-anchor="middle">Ultrafast Trading Interface with &lt;80ms Latency</text>
+  <circle cx="150" cy="300" r="40" fill="#0B3D91" opacity="0.7" />
+  <circle cx="450" cy="300" r="40" fill="#7B2CBF" opacity="0.7" />
+  <path d="M250,300 L350,300" stroke="#2AFF62" stroke-width="4" />
+  <path d="M250,280 L350,280" stroke="#2AFF62" stroke-width="2" />
+  <path d="M250,320 L350,320" stroke="#2AFF62" stroke-width="2" />
+</svg> 

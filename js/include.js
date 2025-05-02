@@ -8,10 +8,7 @@ export async function inject(sel, url){
   console.log(`[include] Found target element`);
   
   try{
-    const baseUrl = window.location.origin;
-    const fullUrl = url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
-    console.log(`[include] Fetching from ${url} (resolved to ${fullUrl})`);
-    
+    console.log(`[include] Fetching from ${url}`);
     const res = await fetch(url, {cache:'no-cache'});
     if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
     const content = await res.text();

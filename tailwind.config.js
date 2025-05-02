@@ -24,7 +24,7 @@ module.exports = {
         'gradient-x': 'gradient-x 8s ease infinite',
         'float-slow': 'float 6s ease-in-out infinite',
         'pulseFast': 'pulse 1.5s cubic-bezier(0.4,0,0.6,1) infinite',
-        'pulse-slow': 'pulseSlow 3s cubic-bezier(0.4,0,0.6,1) infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
         'linear-move': 'linear-move 15s linear infinite',
       },
       keyframes: {
@@ -39,10 +39,6 @@ module.exports = {
         'linear-move': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
-        },
-        'pulseSlow': { 
-          '0%, 100%': { opacity: '1' }, 
-          '50%': { opacity: '.5' } 
         }
       },
       transitionProperty: {
@@ -58,10 +54,6 @@ module.exports = {
     }
   },
   safelist: [
-    'translate-x-full',
-    'translate-x-0',  // mobile drawer
-    'translate-y-full',
-    'translate-y-0',
     'animate-pulseFast',
     'animate-pulse-slow'
   ]

@@ -1,0 +1,25 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#0B1624" />
+  <rect x="100" y="50" width="400" height="300" fill="#04070D" stroke="#2AFF62" stroke-width="2" rx="10" />
+  
+  <!-- Alert UI -->
+  <rect x="150" y="100" width="300" height="200" fill="#0B1624" stroke="#7B2CBF" stroke-width="2" rx="8" />
+  <text x="300" y="130" font-family="Arial" font-size="18" fill="#ffffff" text-anchor="middle">🚀 PUMP ALERT 🚀</text>
+  
+  <!-- Token Info -->
+  <text x="170" y="170" font-family="Arial" font-size="16" fill="#ffffff">Token:</text>
+  <text x="230" y="170" font-family="Arial" font-size="16" fill="#2AFF62" font-weight="bold">$BONK</text>
+  
+  <text x="170" y="200" font-family="Arial" font-size="16" fill="#ffffff">Price Change:</text>
+  <text x="280" y="200" font-family="Arial" font-size="16" fill="#D50000" font-weight="bold">+27.4%</text>
+  
+  <text x="170" y="230" font-family="Arial" font-size="16" fill="#ffffff">Volume Surge:</text>
+  <text x="280" y="230" font-family="Arial" font-size="16" fill="#D50000" font-weight="bold">532%</text>
+  
+  <text x="170" y="260" font-family="Arial" font-size="16" fill="#ffffff">Detected:</text>
+  <text x="280" y="260" font-family="Arial" font-size="16" fill="#ffffff">2 min ago</text>
+  
+  <!-- Action Button -->
+  <rect x="200" y="280" width="200" height="40" rx="20" fill="#2AFF62" />
+  <text x="300" y="305" font-family="Arial" font-size="16" fill="#04070D" text-anchor="middle" font-weight="bold">SNIPE NOW</text>
+</svg> 

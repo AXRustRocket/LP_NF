@@ -1,0 +1,53 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#0B1624" />
+  <rect x="50" y="50" width="500" height="300" fill="#04070D" stroke="#2AFF62" stroke-width="2" rx="10" />
+  
+  <!-- Chart title -->
+  <text x="300" y="30" font-family="Arial" font-size="20" fill="#ffffff" text-anchor="middle">Copy Trading Strategy Performance</text>
+  
+  <!-- Chart grid -->
+  <line x1="100" y1="300" x2="500" y2="300" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="100" y1="250" x2="500" y2="250" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="100" y1="200" x2="500" y2="200" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="100" y1="150" x2="500" y2="150" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="100" y1="100" x2="500" y2="100" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  
+  <line x1="100" y1="100" x2="100" y2="300" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="200" y1="100" x2="200" y2="300" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="300" y1="100" x2="300" y2="300" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="400" y1="100" x2="400" y2="300" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  <line x1="500" y1="100" x2="500" y2="300" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" />
+  
+  <!-- Chart axes -->
+  <line x1="100" y1="300" x2="500" y2="300" stroke="#ffffff" stroke-width="2" />
+  <line x1="100" y1="100" x2="100" y2="300" stroke="#ffffff" stroke-width="2" />
+  
+  <!-- Chart data - strategy line -->
+  <path d="M100,250 L150,240 L200,260 L250,230 L300,210 L350,190 L400,150 L450,130 L500,100" 
+        stroke="#2AFF62" stroke-width="3" fill="none" />
+  
+  <!-- Chart data - market line -->
+  <path d="M100,250 L150,245 L200,240 L250,250 L300,230 L350,235 L400,220 L450,210 L500,190" 
+        stroke="#7B2CBF" stroke-width="3" fill="none" stroke-dasharray="5,5" />
+  
+  <!-- Legend -->
+  <rect x="350" y="330" width="12" height="12" fill="#2AFF62" />
+  <text x="370" y="340" font-family="Arial" font-size="12" fill="#ffffff">Strategy (+24.5%)</text>
+  
+  <rect x="350" y="350" width="12" height="12" fill="#7B2CBF" />
+  <text x="370" y="360" font-family="Arial" font-size="12" fill="#ffffff">Market (+12.8%)</text>
+  
+  <!-- Y-axis labels -->
+  <text x="90" y="300" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="end">0%</text>
+  <text x="90" y="250" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="end">5%</text>
+  <text x="90" y="200" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="end">10%</text>
+  <text x="90" y="150" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="end">15%</text>
+  <text x="90" y="100" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="end">20%</text>
+  
+  <!-- X-axis labels -->
+  <text x="100" y="315" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">Jan</text>
+  <text x="200" y="315" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">Feb</text>
+  <text x="300" y="315" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">Mar</text>
+  <text x="400" y="315" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">Apr</text>
+  <text x="500" y="315" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">May</text>
+</svg> 

@@ -1,0 +1,30 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Rust Rocket's AI Onboarding Chatbot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rust Rocket's AI Onboarding Chatbot is an interactive interface that guides new users through the process of setting up their trading account. It covers risk consent, wallet verification, budget planning, strategy selection, and provides a personalized summary. All information is securely stored using AES-GCM encryption in your local browser storage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Rust Rocket chatbot providing financial advice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the Rust Rocket chatbot does not provide financial advice. It is designed to guide users through platform onboarding, explain features, and help with technical aspects of the service. All trading decisions and risk management remain the responsibility of the user. The chatbot follows strict 'no-advice' protocols in compliance with financial regulations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Rust Rocket protect my privacy when using the chatbot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rust Rocket's chatbot prioritizes your privacy by storing all conversation data locally in your browser using AES-GCM encryption. No personal or financial information is transmitted to our servers during the onboarding process. The chatbot is designed to help you configure your trading preferences without requiring you to share sensitive details with our platform until you're ready to connect your wallet."
+      }
+    }
+  ]
+} 

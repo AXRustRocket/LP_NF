@@ -157,8 +157,6 @@
 </head>
 
 <body class="font-sans text-gray-100 antialiased">
-    <div id="navContainer"></div>
-    
     <!-- DASHBOARD PREVIEW -->
     <section class="relative mx-auto max-w-4xl text-center py-16 lg:py-28 px-6">
         <!-- Orb -->
@@ -344,13 +342,11 @@
     </footer>
 
     <!-- JS -->
-    <script src="js/nav.js"></script>
     <script src="js/metrics.js"></script>
     <script src="js/ai-onboarding.js" type="module"></script>
     <script src="js/dashboard.js" type="module"></script>
     <script type="module">
         import {inject} from './js/include.js';
-        inject('#navContainer', './components/nav.html');
         inject('#ai-chatbot-container', './components/ai-onboarding-chatbot.html');
     </script>
 </body>
