@@ -12,6 +12,7 @@
       <a href="/sniper-bot.html" class="text-white hover:text-neonGreen transition-colors py-2">Sniper Bot</a>
       <a href="/pump-alerts.html" class="text-white hover:text-neonGreen transition-colors py-2">Pump Alerts</a>
       <a href="/copy-trading.html" class="text-white hover:text-neonGreen transition-colors py-2">Copy Trading</a>
+      <a href="/pricing" data-link="pricing" class="text-white hover:text-neonGreen transition-colors py-2">Pricing</a>
     </nav>
     
     <!-- Right Side Actions -->
@@ -59,7 +60,7 @@
       <a href="/sniper-bot.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Sniper Bot</a>
       <a href="/pump-alerts.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pump Alerts</a>
       <a href="/copy-trading.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Copy Trading</a>
-      <a href="/pricing.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pricing</a>
+      <a href="/pricing" data-link="pricing" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pricing</a>
       <a href="/dashboard.html" class="mt-4 inline-flex items-center justify-center w-full bg-neonGreen/90 hover:bg-neonGreen text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors">
         Dashboard
       </a>
@@ -68,4 +69,11 @@
 </div>
 
 <!-- Include headbar.js script -->
-<script type="module" src="/js/headbar.js"></script> 
+<script type="module" src="/js/headbar.js"></script>
+
+<!-- Add active state highlighting -->
+<script>
+if(location.pathname.startsWith('/pricing')) { 
+  document.querySelectorAll('[data-link="pricing"]').forEach(a => a.classList.add('text-neonGreen'));
+}
+</script> 
