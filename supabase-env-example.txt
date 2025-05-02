@@ -1,0 +1,14 @@
+# Supabase Authentication Config
+#
+# Copy this content to .env.local in your Vite project or
+# configure in your deployment platform (Netlify/Vercel)
+#
+# Project URL: https://app.supabase.com/project/{your-project-id}/settings/api
+# Anon Key: Project Settings > API > Project API keys > anon public
+
+# Required for authentication to work correctly
+VITE_SUPABASE_URL=https://jpvbnbphgvtokbrlctke.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...pgfc0
+
+# IMPORTANT: NEVER use or commit the service_role secret key in frontend code
+# Only use the anon (public) key for browser-based authentication 

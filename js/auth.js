@@ -5,15 +5,47 @@
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-// Supabase client initialization
-const SUPABASE_URL = 'https://jpvbnbphgvtokbrlctke.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwdmJuYnBoZ3Z0b2ticmxjdGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MDI1NTYsImV4cCI6MTk5OTQ3ODU1Nn0.J2osgpgynCqWh0qcGDiEb59x0gMihNdwJxyJTN6e5PY';
+// Supabase client initialization with environment variables support
+let SUPABASE_URL;
+let SUPABASE_ANON_KEY;
+
+// Try to use environment variables if available (Vite)
+try {
+  // Check for environment variables in Vite
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    
+    // Warning for missing environment variables
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn('Missing Supabase environment variables. Using fallback values.');
+    }
+  }
+} catch (error) {
+  console.warn('Error accessing environment variables:', error);
+}
+
+// Fallback to hardcoded values if environment variables are not available
+// This ensures the app works in development without env setup
+if (!SUPABASE_URL) {
+  SUPABASE_URL = 'https://jpvbnbphgvtokbrlctke.supabase.co';
+}
+
+if (!SUPABASE_ANON_KEY) {
+  SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwdmJuYnBoZ3Z0b2ticmxjdGtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MDI1NTYsImV4cCI6MTk5OTQ3ODU1Nn0.J2osgpgynCqWh0qcGDiEb59x0gMihNdwJxyJTN6e5PY';
+}
 
 // Initialize Supabase client
 const supabase = createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+
+// Log confirmation or warning
+console.log(`Supabase initialized with URL: ${SUPABASE_URL.substring(0, 20)}...`);
+if (typeof import.meta === 'undefined' || !import.meta.env?.VITE_SUPABASE_ANON_KEY) {
+  console.warn('Using fallback API key. For production, set environment variables.');
+}
 
 // Get DOM elements
 const authBtns = document.getElementById('authBtns');
