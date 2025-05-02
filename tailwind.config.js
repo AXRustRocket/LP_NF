@@ -58,6 +58,15 @@ module.exports = {
     'translate-x-0',
     'animate-pulseFast',
     'animate-pulse-slow',
-    'overflow-hidden'
+    'overflow-hidden',
+    'fixed',
+    'bottom-0',
+    'h-18',
+    'bg-spaceDark/80',
+    'backdrop-blur',
+    'hero-slot-gif',
+    'hero-radar-svg',
+    'hero-mirror-gif',
+    'text-gradient'
   ]
 }; 
