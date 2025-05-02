@@ -1,0 +1,38 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Meme-Coin Sniper Bot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Meme-Coin Sniper Bot is an automated trading tool designed to detect and execute trades on new meme coin listings or during price pumps with extremely low latency (in our case, as low as 50ms). It allows traders to get in early on promising meme coins before significant price movements occur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the 50ms execution speed work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our 50ms execution speed is achieved through a combination of edge node infrastructure, optimized code written in Rust, and direct connections to Solana validators. When a trading opportunity is detected, our system can execute the transaction in under 50 milliseconds, giving our users a significant advantage over typical traders who experience 500-1000ms latency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the rug protection feature?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our rug protection feature uses AI-powered algorithms to analyze token contracts and detect potential scams or 'rug pulls' before you invest. It checks for suspicious code patterns, liquidity locks, developer wallet behaviors, and other risk factors. This helps you avoid common scams in the meme coin space and trade with more confidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Rust Rocket Sniper Bot regulated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Rust Rocket operates under the Liechtenstein TVTG framework (Token and Trusted Technology Service Provider Act), making it one of the few fully regulated meme coin trading tools available. This provides users with added security, transparency, and compliance with established financial regulations."
+      }
+    }
+  ]
+} 

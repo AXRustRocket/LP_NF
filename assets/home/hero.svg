@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#0B1624"/>
+  
+  <!-- Grid lines -->
+  <line x1="0" y1="50" x2="800" y2="50" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="100" x2="800" y2="100" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="150" x2="800" y2="150" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="200" x2="800" y2="200" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="250" x2="800" y2="250" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="300" x2="800" y2="300" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="350" x2="800" y2="350" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="400" x2="800" y2="400" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  
+  <!-- Vertical lines -->
+  <line x1="100" y1="0" x2="100" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="200" y1="0" x2="200" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="300" y1="0" x2="300" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="400" y1="0" x2="400" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="500" y1="0" x2="500" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="600" y1="0" x2="600" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="700" y1="0" x2="700" y2="450" stroke="#2AFF62" stroke-width="0.5" stroke-opacity="0.1"/>
+  
+  <!-- Race Track -->
+  <path d="M100 350 C150 340, 200 330, 250 280 C300 230, 350 200, 400 210 C450 220, 500 240, 550 200 C600 160, 650 150, 700 130" 
+        stroke="#D50000" stroke-width="3" stroke-linecap="round"/>
+        
+  <!-- Winning Trade Line -->
+  <path d="M100 350 C150 345, 200 320, 250 270 C300 220, 350 190, 400 200 C450 210, 500 230, 550 190 C600 150, 650 140, 700 120" 
+        stroke="#2AFF62" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Slower Line -->
+  <path d="M100 350 C150 350, 200 340, 250 290 C300 240, 350 210, 400 220 C450 230, 500 245, 550 210 C600 170, 650 160, 700 140" 
+        stroke="#7B2CBF" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Dots on Winning Line -->
+  <circle cx="250" cy="270" r="5" fill="#2AFF62"/>
+  <circle cx="400" cy="200" r="5" fill="#2AFF62"/>
+  <circle cx="550" cy="190" r="5" fill="#2AFF62"/>
+  <circle cx="700" cy="120" r="5" fill="#2AFF62"/>
+  
+  <!-- Rocket Emoji -->
+  <circle cx="700" cy="120" r="15" fill="#0B3D91"/>
+  <path d="M695 120 L705 120 L700 110 Z" fill="#D50000"/>
+  <path d="M698 120 L702 120 L700 130 Z" fill="#FFD600"/>
+  
+  <!-- Latency Label -->
+  <rect x="560" y="160" width="80" height="24" rx="12" fill="#000000" fill-opacity="0.7"/>
+  <text x="570" y="177" font-family="Arial" font-size="12" fill="#2AFF62">< 80 ms</text>
+</svg> 
