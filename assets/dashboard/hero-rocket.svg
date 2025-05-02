@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" fill="none">
+  <!-- Glow effect -->
+  <circle cx="80" cy="80" r="70" fill="url(#rocket-glow)" filter="blur(10px)" opacity="0.5" />
+  
+  <!-- Rocket -->
+  <g filter="url(#filter0_d)">
+    <path d="M95 45C95 45 115 65 115 95V100L105 90H85L75 100V95C75 65 95 45 95 45Z" fill="#0B3D91"/>
+    <path d="M90 65C96.0751 65 101 60.0751 101 54C101 47.9249 96.0751 43 90 43C83.9249 43 79 47.9249 79 54C79 60.0751 83.9249 65 90 65Z" fill="#7B2CBF"/>
+    <path d="M65 95C65 95 45 75 45 45V40L55 50H75L85 40V45C85 75 65 95 65 95Z" fill="#0B3D91"/>
+    <path d="M70 75C63.9249 75 59 79.9249 59 86C59 92.0751 63.9249 97 70 97C76.0751 97 81 92.0751 81 86C81 79.9249 76.0751 75 70 75Z" fill="#7B2CBF"/>
+  </g>
+  
+  <!-- Thrust trails -->
+  <g class="thrust" opacity="0.8">
+    <path d="M88 100C88 100 90 110 90 120C90 130 85 140 85 140" stroke="#FFD600" stroke-width="2" stroke-linecap="round">
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite" />
+    </path>
+    <path d="M72 100C72 100 70 110 70 120C70 130 75 140 75 140" stroke="#FFD600" stroke-width="2" stroke-linecap="round">
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.2s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Stars -->
+  <circle cx="40" cy="40" r="1.5" fill="#FFFFFF">
+    <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="120" cy="60" r="1.5" fill="#FFFFFF">
+    <animate attributeName="opacity" values="1;0.3;1" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="100" cy="30" r="1.5" fill="#FFFFFF">
+    <animate attributeName="opacity" values="1;0.3;1" dur="5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="30" cy="100" r="1.5" fill="#FFFFFF">
+    <animate attributeName="opacity" values="1;0.3;1" dur="4.5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="130" cy="110" r="1.5" fill="#FFFFFF">
+    <animate attributeName="opacity" values="1;0.3;1" dur="3.5s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Defs for filters and gradients -->
+  <defs>
+    <filter id="filter0_d" x="35" y="33" width="90" height="77" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.482 0 0 0 0 0.173 0 0 0 0 0.749 0 0 0 0.5 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    
+    <radialGradient id="rocket-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(80 80) rotate(90) scale(70)">
+      <stop offset="0" stop-color="#2AFF62" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#7B2CBF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Animation to make it float slightly -->
+  <animateTransform 
+    attributeName="transform"
+    type="translate"
+    from="0 0"
+    to="0 -5"
+    dur="3s"
+    repeatCount="indefinite"
+    additive="sum"
+    values="0 0; 0 -5; 0 0"
+    keyTimes="0; 0.5; 1"
+    calcMode="spline"
+    keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+  />
+</svg> 

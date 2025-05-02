@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RustRocket - Supabase RLS beheben</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1A1F35',
+                        'silver': '#D1D5DB',
+                        'neon-blue': '#00B7EB',
+                        'neon-green': '#39FF14',
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1A1F35;
+            color: #D1D5DB;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, rgba(35, 41, 70, 0.9), rgba(26, 31, 53, 0.9));
+            border: 1px solid rgba(209, 213, 219, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(0, 183, 235, 0.6);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        code {
+            font-family: monospace;
+            background-color: rgba(30, 36, 55, 0.7);
+            padding: 0.2em 0.4em;
+            border-radius: 0.25em;
+            border: 1px solid rgba(0, 183, 235, 0.2);
+        }
+        
+        pre {
+            background-color: rgba(30, 36, 55, 0.7);
+            padding: 1em;
+            border-radius: 0.5em;
+            border: 1px solid rgba(0, 183, 235, 0.2);
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <h1 class="text-3xl font-bold text-center mb-8 text-white">
+            <i class="fas fa-shield-alt text-neon-blue mr-2"></i> Supabase Row-Level Security (RLS) Problem beheben
+        </h1>
+        
+        <div class="card rounded-xl p-6 shadow-lg mb-8">
+            <h2 class="text-xl font-bold mb-4 text-neon-blue">Was ist passiert?</h2>
+            <div class="space-y-4">
+                <p>Sie haben folgende Fehlermeldung erhalten:</p>
+                <div class="bg-red-900/20 text-red-300 p-4 rounded-lg">
+                    <p class="font-semibold">Error: new row violates row-level security policy for table "waitlist"</p>
+                </div>
+                <p>Dieser Fehler bedeutet, dass Supabase die Row-Level Security (RLS) für die Tabelle "waitlist" aktiviert hat, jedoch ohne entsprechende Richtlinien, die das Einfügen von Daten erlauben.</p>
+            </div>
+        </div>
+        
+        <div class="card rounded-xl p-6 shadow-lg mb-8">
+            <h2 class="text-xl font-bold mb-4 text-neon-blue">So beheben Sie das Problem:</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-semibold text-white mb-2">Schritt 1: Melden Sie sich bei Supabase an</h3>
+                    <p>Gehen Sie zur <a href="https://app.supabase.com" class="text-neon-blue hover:underline" target="_blank">Supabase-Dashboard</a> und melden Sie sich mit Ihren Zugangsdaten an.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-white mb-2">Schritt 2: Projekt auswählen</h3>
+                    <p>Wählen Sie Ihr Projekt aus der Projektliste.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-white mb-2">Schritt 3: Tabelle-Einstellungen öffnen</h3>
+                    <p>Klicken Sie im linken Menü auf "Table Editor", suchen Sie die Tabelle "waitlist" und klicken Sie auf die drei Punkte (...) rechts neben dem Tabellennamen.</p>
+                    <img src="https://i.imgur.com/JxOEPGW.png" alt="Tabellenoptionen" class="rounded-lg border border-neon-blue/20 mt-2 max-w-full">
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-white mb-2">Schritt 4: RLS deaktivieren oder anpassen</h3>
+                    <p>Sie haben zwei Möglichkeiten:</p>
+                    
+                    <div class="mt-4 space-y-4">
+                        <div class="bg-navy/50 p-4 rounded-lg border border-neon-blue/20">
+                            <h4 class="font-bold text-neon-blue mb-2">Option 1: RLS deaktivieren (einfacher)</h4>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Wählen Sie "Edit table"</li>
+                                <li>Deaktivieren Sie das Kontrollkästchen "Enable Row Level Security (RLS)"</li>
+                                <li>Klicken Sie auf "Save" um die Änderungen zu speichern</li>
+                            </ol>
+                            <img src="https://i.imgur.com/MdWQ2QH.png" alt="RLS deaktivieren" class="rounded-lg border border-neon-blue/20 mt-2 max-w-full">
+                        </div>
+                        
+                        <div class="bg-navy/50 p-4 rounded-lg border border-neon-blue/20">
+                            <h4 class="font-bold text-neon-blue mb-2">Option 2: RLS-Richtlinie erstellen (sicherer)</h4>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Wählen Sie "Policies"</li>
+                                <li>Klicken Sie auf "New Policy"</li>
+                                <li>Wählen Sie "Insert: Allow anyone to insert" für ein einfaches Formular</li>
+                                <li>Klicken Sie auf "Save" um die Richtlinie zu speichern</li>
+                            </ol>
+                            <img src="https://i.imgur.com/LMVWZYX.png" alt="RLS-Richtlinie erstellen" class="rounded-lg border border-neon-blue/20 mt-2 max-w-full">
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Für erweiterte Sicherheit können Sie auch eine bedingte Richtlinie erstellen:</p>
+                                <pre class="text-silver mt-2"><code>-- Beispiel: Nur bestimmte E-Mail-Domänen zulassen
+CREATE POLICY "Allow specific email domains" 
+ON waitlist
+FOR INSERT
+TO authenticated, anon
+WITH CHECK (email LIKE '%@erlaubte-domain.com');</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card rounded-xl p-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-neon-blue">Warum ist RLS aktiviert?</h2>
+            <div class="space-y-4">
+                <p>In Supabase ist Row-Level Security (RLS) standardmäßig für neue Tabellen aktiviert, um die Sicherheit zu erhöhen. Dies ist eine gute Praxis, da:</p>
+                
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Es verhindert unbefugten Zugriff auf Daten</li>
+                    <li>Es ermöglicht granulare Kontrolle darüber, wer welche Daten einsehen oder ändern kann</li>
+                    <li>Es schützt vor versehentlicher Datenexposition durch Client-seitige Code-Fehler</li>
+                </ul>
+                
+                <p>Für öffentliche Formulare, wie z.B. eine Waitlist, müssen Sie jedoch entweder:</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>RLS deaktivieren (weniger sicher, aber einfacher)</li>
+                    <li>Explizite Richtlinien erstellen, die öffentliches Einfügen erlauben (empfohlen)</li>
+                </ul>
+                
+                <div class="bg-neon-blue/10 p-4 rounded-lg">
+                    <p class="text-neon-blue">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <strong>Hinweis:</strong> In einer Produktionsumgebung wird empfohlen, RLS aktiviert zu lassen und stattdessen geeignete Richtlinien zu erstellen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

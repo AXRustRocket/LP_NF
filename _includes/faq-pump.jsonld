@@ -1,0 +1,40 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wie erkenne ich Pump-Signale für Kryptowährungen frühzeitig?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Frühe Pump-Signale für Kryptowährungen erkennen Sie an plötzlichen Anstiegen des Handelsvolumens, zunehmender Social-Media-Aktivität, Whale-Wallet-Bewegungen und steigenden Suchanfragen nach dem Token. Rust Rocket's Pump Alert System überwacht all diese Indikatoren in Echtzeit und benachrichtigt Sie innerhalb von Sekunden über vielversprechende Meme-Coins mit hohem Pump-Potenzial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie verlässlich sind Pump-Signale für Meme-Coins?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die Verlässlichkeit von Pump-Signalen hängt stark von den verwendeten Datenquellen und Analysemethoden ab. Rust Rocket's KI-basiertes System erreicht eine Genauigkeit von etwa 87% bei der Identifizierung profitabler Meme-Coin-Pumps durch die Analyse mehrerer On-Chain-Metriken, Social-Sentiment und Marktdynamiken. Dennoch bleibt Krypto-Trading inhärent riskant, weshalb unser System auch Risikobewertungen für jedes Signal bereitstellt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie schnell muss ich auf ein Pump-Signal reagieren?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bei Meme-Coins ist die Reaktionszeit kritisch - oft haben Sie nur Sekunden bis wenige Minuten, um von einem frühen Pump zu profitieren. Rust Rocket's System sendet Ihnen Alarme mit einer Latenz von unter 2 Sekunden nach Erkennung eines Signals, und unser integrierter Sniper-Bot kann automatisch mit einer Ausführungszeit von unter 80ms handeln, was Ihnen einen entscheidenden Vorteil gegenüber manuellen Tradern verschafft."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich Pump-Signale für bestimmte Krypto-Kategorien filtern?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, Rust Rocket ermöglicht die Anpassung Ihrer Pump-Signale nach verschiedenen Kategorien wie Marktkapitalisierung, Handelsvolumen, Blockchain-Netzwerk (z.B. nur Solana-Tokens) oder sogar nach thematischen Kategorien wie Gaming, KI oder DeFi. Diese Filterfunktion hilft Ihnen, sich auf die Meme-Coins zu konzentrieren, die zu Ihrer Handelsstrategie und Ihrem Risikoappetit passen."
+      }
+    }
+  ]
+}
+</script> 

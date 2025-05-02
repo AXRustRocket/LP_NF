@@ -1,0 +1,279 @@
+<!-- BEGIN TRADING STATISTICS COMPONENT -->
+<section id="trading-stats" class="py-24 relative overflow-hidden">
+    <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2.5xl font-bold text-center mb-16">Advanced Trading Statistics</h2>
+        
+        <!-- Statistics Dashboard -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Volume & Transaction Stats -->
+            <div class="glass-card rounded-xl p-8 fade-in">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-neonGreen text-2xl"><i class="icon-bar-chart-2"></i></span>
+                    <h3 class="text-xl font-semibold">Trading Volume</h3>
+                </div>
+                
+                <!-- Volume Chart -->
+                <canvas id="volumeChart" class="w-full h-56 mb-4"></canvas>
+                
+                <!-- Stats Below Chart -->
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div class="text-center p-3 bg-white/5 rounded-lg">
+                        <p class="text-xs text-gray-400">24h Volume</p>
+                        <p class="text-xl font-semibold text-neonGreen">$2.4M</p>
+                    </div>
+                    <div class="text-center p-3 bg-white/5 rounded-lg">
+                        <p class="text-xs text-gray-400">Avg. Tx Size</p>
+                        <p class="text-xl font-semibold text-neonGreen">3.87 SOL</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="glass-card rounded-xl p-8 fade-in">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-neonGreen text-2xl"><i class="icon-zap"></i></span>
+                    <h3 class="text-xl font-semibold">Performance</h3>
+                </div>
+                
+                <!-- Circular Progress Chart -->
+                <div class="flex justify-center mb-6">
+                    <div class="relative w-48 h-48">
+                        <canvas id="performanceChart" class="w-full h-full"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span class="text-3xl font-bold text-white">97%</span>
+                            <span class="text-xs text-gray-400">Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Stats -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-white/5 rounded-lg">
+                        <p class="text-xs text-gray-400">Avg. Latency</p>
+                        <p class="text-xl font-semibold text-neonGreen">74 ms</p>
+                    </div>
+                    <div class="text-center p-3 bg-white/5 rounded-lg">
+                        <p class="text-xs text-gray-400">TX Blocks</p>
+                        <p class="text-xl font-semibold text-neonGreen">4.2s</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Success Stories -->
+            <div class="glass-card rounded-xl p-8 fade-in">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-neonGreen text-2xl"><i class="icon-user-check"></i></span>
+                    <h3 class="text-xl font-semibold">Trader Success</h3>
+                </div>
+                
+                <!-- Trader Success List -->
+                <div class="space-y-4 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="flex items-start gap-3 p-3 bg-white/5 rounded-lg">
+                        <div class="w-8 h-8 rounded-full bg-rustBlue/30 flex items-center justify-center">
+                            <span class="text-xs font-bold">DG</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Defi_Guru89</p>
+                            <p class="text-xs text-gray-400">42x return on $SOLX token</p>
+                            <p class="text-xs text-neonGreen mt-1">+4,150% gain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3 p-3 bg-white/5 rounded-lg">
+                        <div class="w-8 h-8 rounded-full bg-rustBlue/30 flex items-center justify-center">
+                            <span class="text-xs font-bold">RW</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">RocketWhale</p>
+                            <p class="text-xs text-gray-400">First to buy $DEGEN</p>
+                            <p class="text-xs text-neonGreen mt-1">+980% gain</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3 p-3 bg-white/5 rounded-lg">
+                        <div class="w-8 h-8 rounded-full bg-rustBlue/30 flex items-center justify-center">
+                            <span class="text-xs font-bold">CM</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">CryptoMaster</p>
+                            <p class="text-xs text-gray-400">Avoided rug with scam detection</p>
+                            <p class="text-xs text-neonGreen mt-1">Saved 35 SOL</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3 p-3 bg-white/5 rounded-lg">
+                        <div class="w-8 h-8 rounded-full bg-rustBlue/30 flex items-center justify-center">
+                            <span class="text-xs font-bold">AP</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">AlphaSeeker</p>
+                            <p class="text-xs text-gray-400">Consistent arbitrage gains</p>
+                            <p class="text-xs text-neonGreen mt-1">+25% monthly</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Metrics Strip -->
+        <div class="mt-12 glass-card rounded-xl p-6 fade-in">
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="text-neonGreen text-xl mr-2"><i class="icon-trending-up"></i></span>
+                        <span id="profit-percentage" class="text-2xl font-bold text-white">284%</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Average profit per trader</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="text-neonGreen text-xl mr-2"><i class="icon-users"></i></span>
+                        <span id="trader-growth" class="text-2xl font-bold text-white">+127%</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Monthly user growth</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="text-neonGreen text-xl mr-2"><i class="icon-shield"></i></span>
+                        <span id="scams-blocked" class="text-2xl font-bold text-white">583</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Scams blocked this week</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="text-neonGreen text-xl mr-2"><i class="icon-clock"></i></span>
+                        <span id="uptime-percentage" class="text-2xl font-bold text-white">99.98%</span>
+                    </div>
+                    <p class="text-xs text-gray-400">System uptime</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for Charts -->
+<script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Volume Chart
+        const volumeCtx = document.getElementById('volumeChart')?.getContext('2d');
+        if (volumeCtx) {
+            new Chart(volumeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Daily Volume (SOL)',
+                        data: [45000, 60200, 52800, 78500, 92300, 68400, 84600],
+                        backgroundColor: 'rgba(42, 255, 98, 0.3)',
+                        borderColor: 'rgba(42, 255, 98, 0.8)',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `$${(context.raw / 1000).toFixed(1)}k`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.5)'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.5)',
+                                callback: function(value) {
+                                    return `$${value/1000}k`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000
+                    }
+                }
+            });
+        }
+        
+        // Initialize Performance Chart (Doughnut)
+        const perfCtx = document.getElementById('performanceChart')?.getContext('2d');
+        if (perfCtx) {
+            new Chart(perfCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Success', 'Failure'],
+                    datasets: [{
+                        data: [97, 3],
+                        backgroundColor: [
+                            'rgba(42, 255, 98, 0.8)',
+                            'rgba(255, 255, 255, 0.1)'
+                        ],
+                        borderWidth: 0,
+                        cutout: '75%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(42, 255, 98, 0.3);
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(42, 255, 98, 0.5);
+    }
+</style> 

@@ -1,0 +1,44 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Q3 2024 - Sniper Bot Launch",
+      "description": "Launch of Solana Sniper Bot with <80ms latency and Rug-Shield-AI"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Q4 2024 - Private Relay & Pump Alerts",
+      "description": "Introduction of Private Relay for latency optimization and Pump Alert System for meme-coins"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Q1 2025 - Trading API & Suites",
+      "description": "Release of Trading API for institutional clients and advanced trading suites"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Q2 2025 - Multi-Chain Support",
+      "description": "Extension to Ethereum, Binance Smart Chain, and Avalanche networks"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Q3 2025 - Validator Integration",
+      "description": "Launch of a Solana validator and integration into the trading infrastructure for even lower latency"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "Q4 2025 - Institutional Offering",
+      "description": "Specialized solutions for institutional clients with enhanced compliance and customized integrations"
+    }
+  ]
+}
+</script> 

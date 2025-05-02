@@ -1,0 +1,12 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#0B1624" />
+  <rect x="2" y="2" width="596" height="396" fill="#04070D" stroke="#2AFF62" stroke-width="2" rx="10" />
+  <text x="300" y="180" font-family="Arial" font-size="24" fill="#2AFF62" text-anchor="middle">Pump Alerts Hero Illustration</text>
+  <text x="300" y="220" font-family="Arial" font-size="16" fill="#ffffff" text-anchor="middle">Catch Every Solana Pump Before It Moons</text>
+  <!-- Chart line -->
+  <path d="M100,300 Q150,280 200,250 T300,150 T400,100 T500,50" stroke="#2AFF62" stroke-width="3" fill="none" />
+  <!-- Alert markers -->
+  <circle cx="200" cy="250" r="8" fill="#D50000" />
+  <circle cx="300" cy="150" r="8" fill="#D50000" />
+  <circle cx="400" cy="100" r="8" fill="#D50000" />
+</svg> 

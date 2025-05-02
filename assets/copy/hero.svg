@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="none">
+  <rect width="600" height="400" rx="20" fill="#0B1624"/>
+  
+  <!-- Line Chart Background -->
+  <path d="M50 300 L550 300" stroke="#2AFF62" stroke-width="2" stroke-opacity="0.2"/>
+  <path d="M50 250 L550 250" stroke="#2AFF62" stroke-width="2" stroke-opacity="0.2"/>
+  <path d="M50 200 L550 200" stroke="#2AFF62" stroke-width="2" stroke-opacity="0.2"/>
+  <path d="M50 150 L550 150" stroke="#2AFF62" stroke-width="2" stroke-opacity="0.2"/>
+  <path d="M50 100 L550 100" stroke="#2AFF62" stroke-width="2" stroke-opacity="0.2"/>
+  
+  <!-- Main Chart Line - Leader -->
+  <path d="M50 250 L100 240 L150 260 L200 220 L250 230 L300 180 L350 150 L400 120 L450 90 L500 110 L550 80" 
+        stroke="#2AFF62" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Secondary Chart Line - Follower -->
+  <path d="M50 250 L100 240 L150 260 L200 220 L250 230 L300 180 L350 150 L400 120 L450 90 L500 110 L550 80" 
+        stroke="#7B2CBF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" 
+        stroke-dasharray="5,5" transform="translate(7, 5)"/>
+  
+  <!-- Connection Points -->
+  <circle cx="100" cy="240" r="4" fill="#2AFF62"/>
+  <circle cx="200" cy="220" r="4" fill="#2AFF62"/>
+  <circle cx="300" cy="180" r="4" fill="#2AFF62"/>
+  <circle cx="400" cy="120" r="4" fill="#2AFF62"/>
+  <circle cx="500" cy="110" r="4" fill="#2AFF62"/>
+  
+  <!-- Leader Avatar -->
+  <circle cx="480" cy="80" r="15" fill="#0B3D91"/>
+  <circle cx="480" cy="75" r="5" fill="#2AFF62"/>
+  <path d="M472 85 L488 85 L488 90 L472 90 Z" fill="#2AFF62"/>
+  
+  <!-- Follower Avatar -->
+  <circle cx="530" cy="90" r="15" fill="#04070D"/>
+  <circle cx="530" cy="85" r="5" fill="#7B2CBF"/>
+  <path d="M522 95 L538 95 L538 100 L522 100 Z" fill="#7B2CBF"/>
+  
+  <!-- Copy Connection -->
+  <path d="M485 75 C510 60, 505 90, 530 85" stroke="#FFD600" stroke-width="2" stroke-dasharray="3,3"/>
+</svg> 

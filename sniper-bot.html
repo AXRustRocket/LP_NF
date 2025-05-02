@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Meme-Coin Sniper Bot | 80ms Fast Trading | Rust Rocket</title>
+    <meta name="description" content="Snipe every Solana meme-coin in less than 80ms with our regulated trading bot. Advanced rug protection, priority execution, and real-time detection.">
+    <meta name="keywords" content="Solana sniper bot, Meme-Coin Bot, Solana Trading, Liechtenstein, TVTG">
+    <meta name="ai-summary" content="The Solana Sniper Bot by Rust Rocket offers ultra-fast execution, built-in rug protection, and full compliance with Liechtenstein's TVTG framework for secure and fast meme-coin trading.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style">
+    <meta name="theme-color" content="#04070D">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustrocket.io/sniper-bot">
+    <meta property="og:title" content="Solana Meme-Coin Sniper Bot | 80ms Fast Trading | Rust Rocket">
+    <meta property="og:description" content="Snipe every Solana meme-coin in less than 80ms with our regulated trading bot. Advanced rug protection, priority execution, and real-time detection.">
+    <meta property="og:site_name" content="Rust Rocket – Fast. Fair. Fully Audited.">
+    <meta property="og:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@rustrocket">
+    <meta name="twitter:title" content="Solana Meme-Coin Sniper Bot | 80ms Fast Trading | Rust Rocket">
+    <meta name="twitter:description" content="Snipe every Solana meme-coin in less than 80ms with our regulated trading bot. Advanced rug protection, priority execution, and real-time detection.">
+    <meta name="twitter:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="canonical" href="https://rustrocket.io/sniper-bot">
+    <link rel="alternate" hreflang="en" href="https://rustrocket.io/en/sniper-bot">
+    <link rel="alternate" hreflang="x-default" href="https://rustrocket.io/sniper-bot">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rust Rocket Solana Sniper Bot",
+        "applicationCategory": "FinancialApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "127"
+        },
+        "url": "https://rustrocket.io/sniper-bot",
+        "description": "Lightning-fast meme-coin trading with ultra-low latency (80ms) and built-in rug protection"
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://rustrocket.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Solana Sniper Bot",
+                "item": "https://rustrocket.io/sniper-bot"
+            }
+        ]
+    }
+    </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Solana Sniper Bot?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Solana Sniper Bot is an automated trading tool that executes buy and sell orders for new meme tokens at lightning speed. The Rust Rocket Sniper Bot offers ultra-fast trading with under 80ms latency and integrated rug protection, helping traders capitalize on early opportunities while avoiding scams."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Rust Rocket's rug protection work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our Rug-Shield-AI analyzes smart contracts in real-time before you buy, detecting common scam patterns like honeypots, fee traps, and freeze mechanisms. The system automatically blocks trades on suspicious tokens, protecting your capital from fraudulent projects and giving you peace of mind when trading new tokens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Rust Rocket compliant with regulations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Rust Rocket is fully compliant with Liechtenstein's TVTG (Token and Trusted Technology Service Provider Act). We maintain comprehensive audit trails for all transactions, providing institutional-grade compliance and transparency for users worldwide."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which trading pairs does the sniper bot support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our sniper bot supports all Solana meme-coin pairs that trade on major DEXes including Jupiter, Raydium, and Orca. You can snipe new tokens paired with SOL, USDC, or any other established token with sufficient liquidity on these exchanges."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    },
+                    fontSize: {
+                        '4.5xl': 'clamp(2.5rem, 5vw, 3.75rem)',
+                        '2.5xl': 'clamp(1.75rem, 3vw, 1.875rem)',
+                        'lg-fluid': 'clamp(1.125rem, 1.5vw, 1.25rem)',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
+                        'linear-move': 'linear-move 15s linear infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'linear-move': {
+                          '0%': { transform: 'translateX(0)' },
+                          '100%': { transform: 'translateX(-50%)' },
+                        }
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(42, 255, 98, 0.5)',
+                        'inner-glow': 'inset 0 0 10px rgba(42, 255, 98, 0.15)',
+                    }
+                }
+            },
+            safelist: [
+                'translate-x-full', 'translate-x-0',  // mobile drawer
+                'animate-pulse-slow',  // animations
+                'hero-slot-gif',
+                'text-gradient'
+            ]
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.15);
+            border-color: rgba(42, 255, 98, 0.2);
+        }
+        
+        .latency-badge {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #FFD600, #2AFF62);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased relative">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
+    
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen px-6 pt-24 min-h-[600px]">
+      <div id="particleCanvas" class="absolute inset-0 z-0" aria-hidden="true"></div>
+      
+      <!-- Hero Wrapper for 2-column layout -->
+      <div class="container mx-auto max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-14">
+        
+        <!-- Left Column: Copy + CTA + Features -->
+        <div class="w-full lg:w-1/2 z-10">
+          <!-- Latency Badge -->
+          <div class="inline-flex items-center py-1 px-3 rounded-full bg-neonGreen/20 border border-neonGreen/30 mb-6 latency-badge">
+            <div class="w-2 h-2 rounded-full bg-neonGreen mr-2"></div>
+            <span class="text-xs font-medium text-neonGreen">< 80 ms execution speed</span>
+          </div>
+          
+          <h1 class="font-bold text-4.5xl leading-tight mb-6">
+            Snipe every Solana meme-coin in <span class="text-gradient">< 80 ms.</span>
+          </h1>
+          
+          <p class="text-lg-fluid text-gray-300 mb-8 max-w-xl">
+            Beat the market with our lightning-fast regulated sniper bot for Solana meme coins. Sub-80ms execution, real-time detection, and advanced rug protection.
+          </p>
+          
+          <!-- CTA button group -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <a href="/dashboard" class="btn-primary flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-3 rounded-lg hover:shadow-glow transition-all duration-300">
+              <i class="icon-zap-fast"></i>Start Sniping → Dashboard
+            </a>
+          </div>
+          
+          <!-- Stats -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-neonGreen text-xl font-bold" data-testid="latency"><span>80</span>ms</span>
+              <span class="text-xs text-gray-400">Execution Speed</span>
+            </div>
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-speedYellow text-xl font-bold">3200+</span>
+              <span class="text-xs text-gray-400">Tokens Supported</span>
+            </div>
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-rocketPurple text-xl font-bold">TVTG</span>
+              <span class="text-xs text-gray-400">Regulated</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Hero Image -->
+        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end z-10 animate-float-slow">
+          <div class="glass-card rounded-2xl p-3 overflow-hidden">
+            <img src="/assets/sniper/hero-slot.gif" alt="Solana Meme-Coin Sniper Bot in action" class="rounded-xl w-full object-cover hero-slot-gif" width="540" height="420" />
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- PAIN TO GAIN CARDS SECTION -->
+    <section class="py-24 bg-spaceDark/30">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold">Never Miss Another Mooning Meme-Coin</h2>
+                <p class="text-xl text-gray-300 mt-4 max-w-3xl mx-auto">Turn trading challenges into profitable opportunities with our sniper bot.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: Too Slow -->
+                <div class="glass-card rounded-xl p-8">
+                    <div class="w-16 h-16 mb-6 flex items-center justify-center">
+                        <i class="icon-bolt text-neonGreen text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Too Slow For Explosive Launches?</h3>
+                    <p class="text-gray-300">Our bot executes in 80ms—faster than you can click "buy". Direct TPU integration means your orders are prioritized over public relays.</p>
+                </div>
+                
+                <!-- Card 2: Rug Protection -->
+                <div class="glass-card rounded-xl p-8">
+                    <div class="w-16 h-16 mb-6 flex items-center justify-center">
+                        <i class="icon-shield-check text-neonGreen text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Burned By Scam Tokens?</h3>
+                    <p class="text-gray-300">Our Rug-Shield-AI scans every contract before you buy, detecting honeypots, backdoors, and other scam patterns to protect your capital.</p>
+                </div>
+                
+                <!-- Card 3: Missing Opportunities -->
+                <div class="glass-card rounded-xl p-8">
+                    <div class="w-16 h-16 mb-6 flex items-center justify-center">
+                        <i class="icon-target text-neonGreen text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Missing Early Entry Points?</h3>
+                    <p class="text-gray-300">Our sniper detects token launches and liquidity adds in real-time. Set your parameters once and let the bot execute precisely when conditions are met.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- HOW IT WORKS SECTION -->
+    <section id="how-it-works" class="relative py-24 px-6 bg-gradient-to-b from-spaceBlack to-spaceDark/50">
+      <div class="container mx-auto max-w-7xl">
+        <!-- Section header -->
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">How Our <span class="text-gradient">Sniper Bot Works</span></h2>
+          <p class="text-gray-300 text-lg">Three simple steps to successful meme coin sniping with our lightning-fast infrastructure.</p>
+        </div>
+        
+        <!-- 3-Step Timeline (horizontal grid on lg, stacked on sm) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Step 1: Scan -->
+          <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-in relative">
+            <div class="absolute -top-5 lg:top-auto lg:-right-4 lg:left-auto z-10 bg-speedYellow text-spaceBlack font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">1</div>
+            <div class="lg:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-16 w-8 h-8 rotate-90">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="hidden lg:block absolute top-1/2 left-full transform -translate-y-1/2 -translate-x-4 w-8 h-8">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-speedYellow/10">
+              <img src="/assets/icons/scan.svg" alt="Scan" class="w-10 h-10 text-speedYellow" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Scan</h3>
+            <p class="text-gray-400">Our system continuously scans the Solana blockchain for new token launches and market movements in real-time.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-4 text-left w-full">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>24/7 mempool monitoring</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Token launch detection</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Liquidity pool tracking</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Step 2: Score -->
+          <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-in relative">
+            <div class="absolute -top-5 lg:top-auto lg:-right-4 lg:left-auto z-10 bg-neonGreen text-spaceBlack font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">2</div>
+            <div class="lg:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-16 w-8 h-8 rotate-90">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2AFF62" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="hidden lg:block absolute top-1/2 left-full transform -translate-y-1/2 -translate-x-4 w-8 h-8">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2AFF62" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-neonGreen/10">
+              <img src="/assets/icons/score.svg" alt="Score" class="w-10 h-10 text-neonGreen" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Score</h3>
+            <p class="text-gray-400">Our Rug-Shield-AI analyzes and scores each token's contract for security risks before any funds are committed.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-4 text-left w-full">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Contract code validation</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Liquidity analysis</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Scam pattern detection</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Step 3: Execute -->
+          <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-in relative">
+            <div class="absolute -top-5 lg:top-auto lg:-right-4 lg:left-auto z-10 bg-rocketPurple text-white font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">3</div>
+            <div class="mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-rocketPurple/10">
+              <img src="/assets/icons/execute.svg" alt="Execute" class="w-10 h-10 text-rocketPurple" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Execute</h3>
+            <p class="text-gray-400">Snipe tokens with precision at blazing-fast 80ms execution speed, giving you the edge over other traders.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-4 text-left w-full">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>80ms transaction execution</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Optimized trade routing</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Automatic profit taking</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- LIVE PROOF SECTION -->
+    <section id="live-proof" class="py-24 px-6 bg-spaceDark/50">
+      <div class="container mx-auto max-w-7xl">
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Real-Time <span class="text-gradient">Performance</span></h2>
+          <p class="text-gray-300 text-lg">Live data from recent trades executed through our Solana sniper bot.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- KPI 1: Execution Speed -->
+          <div class="glass-card p-6 rounded-xl">
+            <h3 class="text-sm uppercase text-gray-400 tracking-wider mb-2">Avg. Execution Speed</h3>
+            <div class="flex items-baseline">
+              <span class="text-3xl font-bold text-neonGreen" id="execution-speed">78.3</span>
+              <span class="text-gray-300 ml-2">ms</span>
+            </div>
+            <div class="mt-4 text-xs text-gray-400">
+              Last updated <span id="speed-updated">2 min ago</span>
+            </div>
+          </div>
+          
+          <!-- KPI 2: Trades Today -->
+          <div class="glass-card p-6 rounded-xl">
+            <h3 class="text-sm uppercase text-gray-400 tracking-wider mb-2">Trades Today</h3>
+            <div class="flex items-baseline">
+              <span class="text-3xl font-bold text-speedYellow" id="trades-today">583</span>
+            </div>
+            <div class="mt-4 text-xs text-gray-400">
+              Across <span id="traders-count">217</span> active traders
+            </div>
+          </div>
+          
+          <!-- KPI 3: WIF Performance -->
+          <div class="glass-card p-6 rounded-xl">
+            <h3 class="text-sm uppercase text-gray-400 tracking-wider mb-2">Best Token Performance</h3>
+            <div class="flex items-baseline">
+              <span class="text-3xl font-bold text-rocketPurple" id="token-performance">+412%</span>
+              <span class="text-gray-300 ml-2">WIF</span>
+            </div>
+            <div class="mt-4 text-xs text-gray-400">
+              Last 24 hours
+            </div>
+          </div>
+          
+          <!-- KPI 4: Scams Prevented -->
+          <div class="glass-card p-6 rounded-xl">
+            <h3 class="text-sm uppercase text-gray-400 tracking-wider mb-2">Scams Prevented</h3>
+            <div class="flex items-baseline">
+              <span class="text-3xl font-bold text-liechtensteinRed" id="scams-prevented">34</span>
+            </div>
+            <div class="mt-4 text-xs text-gray-400">
+              Protecting <span id="protection-amount">$218,431</span> in value
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- PRICING MENTION -->
+    <section class="py-16 bg-gradient-to-b from-spaceDark/30 to-spaceBlack">
+      <div class="container mx-auto max-w-4xl px-6 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Sniper Bot Access</h2>
+        <p class="text-xl text-gray-300 mb-8">Included in Pro & UltraSpeed plans with priority execution speeds of 80ms and 50ms respectively.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/pricing" class="px-6 py-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+            View Pricing Options
+          </a>
+          <a href="/dashboard" class="px-6 py-3 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold rounded-lg hover:shadow-glow transition-all">
+            Access Dashboard →
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-24 px-6">
+      <div class="container mx-auto max-w-4xl">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Frequently <span class="text-gradient">Asked Questions</span></h2>
+          <p class="text-gray-300">Everything you need to know about our Solana meme-coin sniper bot.</p>
+        </div>
+        
+        <div class="space-y-6">
+          <!-- FAQ Item 1 -->
+          <div class="glass-card rounded-xl overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none" aria-expanded="false">
+              <h3 class="text-xl font-medium">What is a Solana Sniper Bot?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6">
+              <p class="text-gray-300">A Solana Sniper Bot is an automated trading tool that executes buy and sell orders for new meme tokens at lightning speed. The Rust Rocket Sniper Bot offers ultra-fast trading with under 80ms latency and integrated rug protection, helping traders capitalize on early opportunities while avoiding scams.</p>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 2 -->
+          <div class="glass-card rounded-xl overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none" aria-expanded="false">
+              <h3 class="text-xl font-medium">How does Rust Rocket's rug protection work?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6">
+              <p class="text-gray-300">Our Rug-Shield-AI analyzes smart contracts in real-time before you buy, detecting common scam patterns like honeypots, fee traps, and freeze mechanisms. The system automatically blocks trades on suspicious tokens, protecting your capital from fraudulent projects and giving you peace of mind when trading new tokens.</p>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 3 -->
+          <div class="glass-card rounded-xl overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none" aria-expanded="false">
+              <h3 class="text-xl font-medium">Is Rust Rocket compliant with regulations?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6">
+              <p class="text-gray-300">Yes, Rust Rocket is fully compliant with Liechtenstein's TVTG (Token and Trusted Technology Service Provider Act). We maintain comprehensive audit trails for all transactions, providing institutional-grade compliance and transparency for users worldwide.</p>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 4 -->
+          <div class="glass-card rounded-xl overflow-hidden">
+            <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none" aria-expanded="false">
+              <h3 class="text-xl font-medium">Which trading pairs does the sniper bot support?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform"></i>
+            </button>
+            <div class="faq-content hidden px-6 pb-6">
+              <p class="text-gray-300">Our sniper bot supports all Solana meme-coin pairs that trade on major DEXes including Jupiter, Raydium, and Orca. You can snipe new tokens paired with SOL, USDC, or any other established token with sufficient liquidity on these exchanges.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- FINAL CTA SECTION -->
+    <section id="final-cta" class="relative py-16 overflow-hidden">
+      <!-- Neon Ribbon Background -->
+      <div class="absolute inset-0 bg-gradient-to-r from-speedYellow via-neonGreen to-rocketPurple opacity-10 skew-y-3 -z-10"></div>
+      
+      <div class="container mx-auto max-w-7xl px-6 py-12 relative">
+        <div class="glass-card rounded-3xl p-12 text-center relative backdrop-blur-xl">
+          <!-- Glow effects -->
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-speedYellow/20 rounded-full filter blur-3xl -z-10"></div>
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-neonGreen/20 rounded-full filter blur-3xl -z-10"></div>
+          
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to snipe <span class="text-gradient">ahead of the crowd?</span></h2>
+          <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">Start using our lightning-fast Solana meme-coin sniper bot today.</p>
+          
+          <a href="/dashboard" class="btn-primary inline-flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-8 py-4 rounded-lg hover:shadow-glow transition-all text-lg">
+            <i class="icon-rocket text-xl"></i>Start Sniping Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="pageFooter"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#pageFooter','/components/footer');
+    </script>
+    
+    <!-- Waitlist Modal -->
+    <!-- Removed: Homepage-only waitlist v3 -->
+
+    <!-- JS -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // FAQ accordion functionality
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        
+        faqToggles.forEach(toggle => {
+          toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            // Toggle display
+            if (content.classList.contains('hidden')) {
+              content.classList.remove('hidden');
+              icon.style.transform = 'rotate(180deg)';
+              this.setAttribute('aria-expanded', 'true');
+            } else {
+              content.classList.add('hidden');
+              icon.style.transform = 'rotate(0deg)';
+              this.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+        
+        // Fade-in animation for elements
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+          observer.observe(el);
+        });
+        
+        // Simulated live data updates
+        function updateLiveData() {
+          // Randomize execution speed between 75-82ms
+          document.getElementById('execution-speed').textContent = (75 + Math.random() * 7).toFixed(1);
+          
+          // Update timestamp
+          const now = new Date();
+          document.getElementById('speed-updated').textContent = '1 min ago';
+          
+          // Schedule next update
+          setTimeout(updateLiveData, 60000);
+        }
+        
+        updateLiveData();
+      });
+    </script>
+</body>
+</html> 

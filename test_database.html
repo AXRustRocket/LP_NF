@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RustRocket - Datenbank-Test</title>
+    
+    <!-- Supabase-Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1A1F35',
+                        'silver': '#D1D5DB',
+                        'neon-blue': '#00B7EB',
+                        'neon-green': '#39FF14',
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1A1F35;
+            color: #D1D5DB;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, rgba(35, 41, 70, 0.9), rgba(26, 31, 53, 0.9));
+            border: 1px solid rgba(209, 213, 219, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .input-field {
+            background: rgba(35, 41, 70, 0.7);
+            border: 1px solid rgba(0, 183, 235, 0.3);
+            box-shadow: 0 0 10px rgba(0, 183, 235, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #00B7EB;
+            box-shadow: 0 0 15px rgba(0, 183, 235, 0.3);
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(0, 183, 235, 0.6);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(0, 183, 235, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <h1 class="text-3xl font-bold text-center mb-8 text-white">
+            <i class="fas fa-database text-neon-blue mr-2"></i> RustRocket Datenbank-Test
+        </h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Verbindungsstatus -->
+            <div class="card rounded-xl p-6 shadow-lg">
+                <h2 class="text-xl font-bold mb-4 text-neon-blue">Verbindungsstatus</h2>
+                <div id="connectionStatus" class="mb-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="animate-spin h-5 w-5 border-2 border-neon-blue border-t-transparent rounded-full"></div>
+                        <span>Verbindung wird überprüft...</span>
+                    </div>
+                </div>
+                <button id="testConnectionBtn" class="glow bg-gradient-to-r from-neon-blue to-neon-green text-navy font-bold py-2 px-4 rounded-lg text-sm hover:scale-105 transition-all duration-300 w-full">
+                    Verbindung testen
+                </button>
+            </div>
+            
+            <!-- Daten schreiben -->
+            <div class="card rounded-xl p-6 shadow-lg">
+                <h2 class="text-xl font-bold mb-4 text-neon-blue">Testdaten speichern</h2>
+                <form id="testWriteForm" class="space-y-4">
+                    <div>
+                        <label for="testName" class="block text-silver text-sm font-medium mb-2">Name</label>
+                        <input type="text" id="testName" name="testName" placeholder="Test User" required
+                               class="input-field w-full py-2 px-3 rounded-lg focus:outline-none">
+                    </div>
+                    
+                    <div>
+                        <label for="testEmail" class="block text-silver text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="testEmail" name="testEmail" placeholder="test@example.com" required
+                               class="input-field w-full py-2 px-3 rounded-lg focus:outline-none">
+                    </div>
+                    
+                    <button type="submit" class="glow bg-gradient-to-r from-neon-blue to-neon-green text-navy font-bold py-2 px-4 rounded-lg text-sm hover:scale-105 transition-all duration-300 w-full">
+                        Testdaten speichern
+                    </button>
+                </form>
+                <div id="writeStatus" class="mt-4 hidden"></div>
+            </div>
+        </div>
+        
+        <!-- Daten lesen -->
+        <div class="card rounded-xl p-6 shadow-lg mt-8">
+            <h2 class="text-xl font-bold mb-4 text-neon-blue">Gespeicherte Daten anzeigen</h2>
+            <div class="flex space-x-4 mb-4">
+                <button id="fetchWaitlistBtn" class="glow bg-gradient-to-r from-navy to-neon-blue text-white font-bold py-2 px-4 rounded-lg text-sm hover:scale-105 transition-all duration-300">
+                    Waitlist-Daten laden
+                </button>
+                <button id="fetchContactsBtn" class="glow bg-gradient-to-r from-navy to-neon-blue text-white font-bold py-2 px-4 rounded-lg text-sm hover:scale-105 transition-all duration-300">
+                    Kontaktanfragen laden
+                </button>
+            </div>
+            
+            <div id="dataContainer" class="mt-4">
+                <p class="text-silver italic">Klicken Sie auf einen der obigen Buttons, um Daten zu laden.</p>
+            </div>
+        </div>
+        
+        <!-- Status-Log -->
+        <div class="card rounded-xl p-6 shadow-lg mt-8">
+            <h2 class="text-xl font-bold mb-4 text-neon-blue">Statusprotokoll</h2>
+            <div id="statusLog" class="bg-navy/50 p-4 rounded-lg h-40 overflow-y-auto text-sm">
+                <div class="text-silver">Bereit für Datenbankoperationen...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Supabase Konfiguration
+            const supabaseUrl = 'https://fqkyymtirtqjwxeshiwz.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxa3l5bXRpcnRxand4ZXNoaXd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxMDkxOTYsImV4cCI6MjA1OTY4NTE5Nn0.VrfFk2xtui2jeasDg44o3NdCu9e86dKHNZ5dxe31pFE';
+            
+            // Statusprotokoll-Funktion
+            function logStatus(message, isError = false) {
+                const statusLog = document.getElementById('statusLog');
+                const logEntry = document.createElement('div');
+                logEntry.className = isError ? 'text-red-400' : 'text-neon-blue';
+                logEntry.innerHTML = `<span class="text-silver">[${new Date().toLocaleTimeString()}]</span> ${message}`;
+                statusLog.appendChild(logEntry);
+                statusLog.scrollTop = statusLog.scrollHeight;
+            }
+            
+            // Supabase Client initialisieren
+            try {
+                const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+                window.supabaseClient = supabaseClient; // Global verfügbar machen
+                
+                // Verbindungsstatus überprüfen
+                checkConnection();
+                
+                logStatus('Supabase Client wurde initialisiert.');
+            } catch (error) {
+                showConnectionError(error);
+                logStatus('Fehler bei der Initialisierung des Supabase Clients: ' + error.message, true);
+            }
+            
+            // Verbindung testen
+            document.getElementById('testConnectionBtn').addEventListener('click', function() {
+                checkConnection();
+            });
+            
+            // Verbindungsstatus prüfen
+            async function checkConnection() {
+                const connectionStatus = document.getElementById('connectionStatus');
+                connectionStatus.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <div class="animate-spin h-5 w-5 border-2 border-neon-blue border-t-transparent rounded-full"></div>
+                        <span>Verbindung wird überprüft...</span>
+                    </div>
+                `;
+                
+                try {
+                    const { data, error } = await window.supabaseClient.auth.getSession();
+                    
+                    if (error) throw error;
+                    
+                    connectionStatus.innerHTML = `
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-check-circle text-neon-green text-xl"></i>
+                            <span>Verbunden mit Supabase</span>
+                        </div>
+                    `;
+                    logStatus('Verbindung zur Datenbank erfolgreich hergestellt.');
+                    
+                    // Tabellenprüfung
+                    await checkTables();
+                    
+                } catch (error) {
+                    showConnectionError(error);
+                }
+            }
+            
+            // Verbindungsfehler anzeigen
+            function showConnectionError(error) {
+                const connectionStatus = document.getElementById('connectionStatus');
+                connectionStatus.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-times-circle text-red-500 text-xl"></i>
+                        <span>Verbindungsfehler: ${error.message || 'Unbekannter Fehler'}</span>
+                    </div>
+                `;
+                logStatus('Verbindungsfehler: ' + error.message, true);
+            }
+            
+            // Tabellen überprüfen
+            async function checkTables() {
+                logStatus('Überprüfe Tabellen...');
+                
+                try {
+                    // Waitlist-Tabelle prüfen
+                    const { data: waitlistData, error: waitlistError } = await window.supabaseClient
+                        .from('waitlist')
+                        .select('id')
+                        .limit(1);
+                        
+                    if (waitlistError && waitlistError.code === '42P01') {
+                        logStatus('Waitlist-Tabelle existiert nicht, versuche sie zu erstellen.', true);
+                        await createWaitlistTable();
+                    } else if (waitlistError) {
+                        logStatus('Fehler beim Überprüfen der Waitlist-Tabelle: ' + waitlistError.message, true);
+                    } else {
+                        logStatus('Waitlist-Tabelle existiert.');
+                    }
+                    
+                    // Kontakt-Tabelle prüfen
+                    const { data: contactData, error: contactError } = await window.supabaseClient
+                        .from('contact_requests')
+                        .select('id')
+                        .limit(1);
+                        
+                    if (contactError && contactError.code === '42P01') {
+                        logStatus('Kontakt-Tabelle existiert nicht, versuche sie zu erstellen.', true);
+                        await createContactTable();
+                    } else if (contactError) {
+                        logStatus('Fehler beim Überprüfen der Kontakt-Tabelle: ' + contactError.message, true);
+                    } else {
+                        logStatus('Kontakt-Tabelle existiert.');
+                    }
+                } catch (error) {
+                    logStatus('Fehler bei der Tabellenprüfung: ' + error.message, true);
+                }
+            }
+            
+            // Tabellen erstellen
+            async function createWaitlistTable() {
+                try {
+                    const { error } = await window.supabaseClient.rpc('ensure_waitlist_table', {});
+                    
+                    if (error) {
+                        logStatus('Fehler beim Erstellen der Waitlist-Tabelle: ' + error.message, true);
+                    } else {
+                        logStatus('Waitlist-Tabelle wurde erfolgreich erstellt.');
+                    }
+                } catch (error) {
+                    logStatus('Fehler beim Ausführen des Waitlist-Tabellen-RPC: ' + error.message, true);
+                }
+            }
+            
+            async function createContactTable() {
+                try {
+                    const { error } = await window.supabaseClient.rpc('ensure_contact_table', {});
+                    
+                    if (error) {
+                        logStatus('Fehler beim Erstellen der Kontakt-Tabelle: ' + error.message, true);
+                    } else {
+                        logStatus('Kontakt-Tabelle wurde erfolgreich erstellt.');
+                    }
+                } catch (error) {
+                    logStatus('Fehler beim Ausführen des Kontakt-Tabellen-RPC: ' + error.message, true);
+                }
+            }
+            
+            // Testdaten schreiben
+            document.getElementById('testWriteForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('testName').value;
+                const email = document.getElementById('testEmail').value;
+                
+                if (!name || !email) {
+                    showWriteStatus('Bitte füllen Sie alle Felder aus.', true);
+                    return;
+                }
+                
+                showWriteStatus('Speichere Daten...', false);
+                
+                try {
+                    // Ensure waitlist table exists
+                    await window.supabaseClient.rpc('ensure_waitlist_table', {});
+                    
+                    // Insert data
+                    const { data, error } = await window.supabaseClient
+                        .from('waitlist')
+                        .insert([{ name, email, created_at: new Date().toISOString() }])
+                        .select();
+                    
+                    if (error) {
+                        showWriteStatus('Fehler beim Speichern: ' + error.message, true);
+                        logStatus('Fehler beim Speichern der Testdaten: ' + error.message, true);
+                    } else {
+                        showWriteStatus('Daten erfolgreich gespeichert! ID: ' + data[0].id, false);
+                        logStatus('Testdaten erfolgreich gespeichert. ID: ' + data[0].id);
+                        document.getElementById('testWriteForm').reset();
+                    }
+                } catch (error) {
+                    showWriteStatus('Ein Fehler ist aufgetreten: ' + error.message, true);
+                    logStatus('Fehler im Speicherprozess: ' + error.message, true);
+                }
+            });
+            
+            // Schreibstatus anzeigen
+            function showWriteStatus(message, isError) {
+                const writeStatus = document.getElementById('writeStatus');
+                writeStatus.className = 'mt-4 p-3 rounded-lg ' + (isError ? 'bg-red-900/50 text-red-200' : 'bg-green-900/50 text-green-200');
+                writeStatus.textContent = message;
+                writeStatus.classList.remove('hidden');
+            }
+            
+            // Waitlist-Daten laden
+            document.getElementById('fetchWaitlistBtn').addEventListener('click', async function() {
+                const dataContainer = document.getElementById('dataContainer');
+                dataContainer.innerHTML = `
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="animate-spin h-5 w-5 border-2 border-neon-blue border-t-transparent rounded-full"></div>
+                        <span>Lade Daten...</span>
+                    </div>
+                `;
+                
+                try {
+                    const { data, error } = await window.supabaseClient
+                        .from('waitlist')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    
+                    if (error) throw error;
+                    
+                    if (data.length === 0) {
+                        dataContainer.innerHTML = '<p class="text-silver italic">Keine Daten gefunden.</p>';
+                        logStatus('Keine Waitlist-Daten gefunden.');
+                        return;
+                    }
+                    
+                    let tableHTML = `
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="border-b border-neon-blue/30">
+                                        <th class="text-left py-2 px-4 text-neon-blue">ID</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Name</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Email</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Datum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+                    
+                    data.forEach(entry => {
+                        const date = new Date(entry.created_at).toLocaleString();
+                        tableHTML += `
+                            <tr class="border-b border-silver/10 hover:bg-navy/50">
+                                <td class="py-2 px-4">${entry.id}</td>
+                                <td class="py-2 px-4">${entry.name}</td>
+                                <td class="py-2 px-4">${entry.email}</td>
+                                <td class="py-2 px-4">${date}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHTML += `
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 text-silver text-sm">${data.length} Einträge gefunden</p>
+                    `;
+                    
+                    dataContainer.innerHTML = tableHTML;
+                    logStatus(`${data.length} Waitlist-Einträge erfolgreich geladen.`);
+                    
+                } catch (error) {
+                    dataContainer.innerHTML = `
+                        <div class="bg-red-900/20 text-red-300 p-4 rounded-lg">
+                            <p>Fehler beim Laden der Daten: ${error.message}</p>
+                        </div>
+                    `;
+                    logStatus('Fehler beim Laden der Waitlist-Daten: ' + error.message, true);
+                }
+            });
+            
+            // Kontaktanfragen laden
+            document.getElementById('fetchContactsBtn').addEventListener('click', async function() {
+                const dataContainer = document.getElementById('dataContainer');
+                dataContainer.innerHTML = `
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="animate-spin h-5 w-5 border-2 border-neon-blue border-t-transparent rounded-full"></div>
+                        <span>Lade Daten...</span>
+                    </div>
+                `;
+                
+                try {
+                    const { data, error } = await window.supabaseClient
+                        .from('contact_requests')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    
+                    if (error) throw error;
+                    
+                    if (data.length === 0) {
+                        dataContainer.innerHTML = '<p class="text-silver italic">Keine Kontaktanfragen gefunden.</p>';
+                        logStatus('Keine Kontaktanfragen gefunden.');
+                        return;
+                    }
+                    
+                    let tableHTML = `
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="border-b border-neon-blue/30">
+                                        <th class="text-left py-2 px-4 text-neon-blue">ID</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Name</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Email</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Nachricht</th>
+                                        <th class="text-left py-2 px-4 text-neon-blue">Datum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+                    
+                    data.forEach(entry => {
+                        const date = new Date(entry.created_at).toLocaleString();
+                        tableHTML += `
+                            <tr class="border-b border-silver/10 hover:bg-navy/50">
+                                <td class="py-2 px-4">${entry.id}</td>
+                                <td class="py-2 px-4">${entry.name}</td>
+                                <td class="py-2 px-4">${entry.email}</td>
+                                <td class="py-2 px-4">${entry.message.substring(0, 50)}${entry.message.length > 50 ? '...' : ''}</td>
+                                <td class="py-2 px-4">${date}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHTML += `
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 text-silver text-sm">${data.length} Einträge gefunden</p>
+                    `;
+                    
+                    dataContainer.innerHTML = tableHTML;
+                    logStatus(`${data.length} Kontaktanfragen erfolgreich geladen.`);
+                    
+                } catch (error) {
+                    dataContainer.innerHTML = `
+                        <div class="bg-red-900/20 text-red-300 p-4 rounded-lg">
+                            <p>Fehler beim Laden der Kontaktanfragen: ${error.message}</p>
+                        </div>
+                    `;
+                    logStatus('Fehler beim Laden der Kontaktanfragen: ' + error.message, true);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

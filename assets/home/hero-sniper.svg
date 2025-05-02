@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="420" viewBox="0 0 600 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background elements -->
+  <g opacity="0.9">
+    <path d="M300 50C410.457 50 500 139.543 500 250C500 360.457 410.457 450 300 450" stroke="url(#paint0_linear)" stroke-width="1" stroke-dasharray="4 4"/>
+    <path d="M300 20C427.025 20 530 122.975 530 250C530 377.025 427.025 480 300 480" stroke="url(#paint1_linear)" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+  
+  <!-- Rocket element -->
+  <g transform="translate(320, 210) rotate(45)" class="rocket">
+    <path d="M0 -80C-40 -20 -40 80 0 100C40 80 40 -20 0 -80Z" fill="url(#paint2_linear)"/>
+    <path d="M0 -60V100" stroke="#FFD600" stroke-width="2" stroke-dasharray="4 4"/>
+    <circle cx="0" cy="0" r="20" fill="#D50000"/>
+    <path d="M-15 -15L15 15M-15 15L15 -15" stroke="#04070D" stroke-width="4"/>
+  </g>
+  
+  <!-- Meme coin elements -->
+  <g class="meme-coins">
+    <!-- DOGE coin -->
+    <circle cx="150" cy="150" r="40" fill="#F9B92A" stroke="#04070D" stroke-width="2"/>
+    <text x="150" y="155" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#04070D">DOGE</text>
+    
+    <!-- PEPE coin -->
+    <circle cx="100" cy="250" r="35" fill="#32CD32" stroke="#04070D" stroke-width="2"/>
+    <text x="100" y="255" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#04070D">PEPE</text>
+    
+    <!-- SHIB coin -->
+    <circle cx="200" cy="220" r="30" fill="#F15A24" stroke="#04070D" stroke-width="2"/>
+    <text x="200" y="225" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#04070D">SHIB</text>
+    
+    <!-- WIF coin -->
+    <circle cx="250" cy="150" r="25" fill="#9966CC" stroke="#04070D" stroke-width="2"/>
+    <text x="250" y="155" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#04070D">WIF</text>
+  </g>
+  
+  <!-- Crosshair/sniper elements -->
+  <g class="crosshair" transform="translate(180, 180)">
+    <circle cx="0" cy="0" r="80" stroke="#2AFF62" stroke-width="2" fill="none"/>
+    <circle cx="0" cy="0" r="60" stroke="#2AFF62" stroke-width="1" fill="none" opacity="0.6"/>
+    <path d="M-90 0H-70M70 0H90M0 -90V-70M0 70V90" stroke="#2AFF62" stroke-width="3"/>
+    <circle cx="0" cy="0" r="5" fill="#2AFF62"/>
+  </g>
+  
+  <!-- Speed lines -->
+  <g class="speed-lines" opacity="0.7">
+    <path d="M400 100L500 50" stroke="#FFD600" stroke-width="2"/>
+    <path d="M420 150L530 120" stroke="#FFD600" stroke-width="2"/>
+    <path d="M430 200L540 190" stroke="#FFD600" stroke-width="2"/>
+    <path d="M420 250L530 260" stroke="#FFD600" stroke-width="2"/>
+    <path d="M400 300L500 330" stroke="#FFD600" stroke-width="2"/>
+  </g>
+  
+  <!-- Solana logo -->
+  <g transform="translate(480, 350) scale(0.4)">
+    <path d="M40 100C40 66.863 66.863 40 100 40H140C173.137 40 200 66.863 200 100V140C200 173.137 173.137 200 140 200H100C66.863 200 40 173.137 40 140V100Z" fill="#9945FF"/>
+    <path d="M75 110L125 60H175L125 110H75Z" fill="#14F195"/>
+    <path d="M75 140L125 90H175L125 140H75Z" fill="#14F195"/>
+    <path d="M75 170L125 120H175L125 170H75Z" fill="#14F195"/>
+  </g>
+  
+  <!-- Regulation shield -->
+  <g transform="translate(50, 350) scale(0.3)">
+    <path d="M100 30L180 70V140C180 180 150 200 100 230C50 200 20 180 20 140V70L100 30Z" fill="#0B3D91"/>
+    <text x="100" y="140" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="32" fill="white">REG</text>
+  </g>
+  
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="300" y1="50" x2="500" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7B2CBF"/>
+      <stop offset="1" stop-color="#0B3D91"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear" x1="300" y1="20" x2="530" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7B2CBF"/>
+      <stop offset="1" stop-color="#0B3D91"/>
+    </linearGradient>
+    <linearGradient id="paint2_linear" x1="0" y1="-80" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD600"/>
+      <stop offset="1" stop-color="#D50000"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(0, -10px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    .rocket {
+      animation: float 6s ease-in-out infinite;
+    }
+    .crosshair {
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .meme-coins > * {
+      animation: float 8s ease-in-out infinite;
+      animation-delay: calc(var(--i, 0) * -2s);
+    }
+    .meme-coins > *:nth-child(1) { --i: 0; }
+    .meme-coins > *:nth-child(2) { --i: 1; }
+    .meme-coins > *:nth-child(3) { --i: 2; }
+    .meme-coins > *:nth-child(4) { --i: 3; }
+  </style>
+</svg> 

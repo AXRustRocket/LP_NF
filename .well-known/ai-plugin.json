@@ -1,0 +1,27 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Rust Rocket",
+  "name_for_model": "rust_rocket",
+  "description_for_human": "Ultra-fast Meme-Coin Sniper Bot with <80ms latency and advanced rug protection on Solana.",
+  "description_for_model": "Rust Rocket provides a high-speed Meme-Coin Sniper Bot with rug protection on the Solana blockchain. The service is fully compliant with Liechtenstein's TVTG regulatory framework and offers traders tools for efficiently trading meme coins with minimal latency (<80ms) and built-in protection against rug pulls. Includes real-time meme coin signals API with market data, sentiment analysis, and trading metrics for popular tokens. Comprehensive glossary of meme coin trading terms is available at /glossary/.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://rustrocket.io/openapi.yaml",
+    "endpoints": [
+      {
+        "path": "/signals/{token}.json",
+        "description": "Get real-time market data, sentiment analysis, and trading metrics for a specific meme coin."
+      },
+      {
+        "path": "/glossary/{term}.html",
+        "description": "Access detailed explanations of meme coin trading terms and concepts."
+      }
+    ]
+  },
+  "logo_url": "https://rustrocket.io/logo.png",
+  "contact_email": "hello@rustrocket.io",
+  "legal_info_url": "https://rustrocket.io/legal/terms.html"
+} 

@@ -1,0 +1,22 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://rustrocket.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PAGE_NAME",
+      "item": "https://rustrocket.io/PAGE_URL"
+    }
+  ]
+}
+</script>
+
+<!-- Anmerkung: PAGE_NAME und PAGE_URL müssen jeweils beim Einbinden des Schemas angepasst werden --> 

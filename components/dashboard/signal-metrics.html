@@ -1,0 +1,92 @@
+<!-- Signal Metrics Component -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <!-- Accuracy Metric -->
+  <div class="bg-spaceDark/60 backdrop-blur-md p-5 rounded-xl border border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-white/90 font-medium">Signal Accuracy</h3>
+      <div class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full">
+        Last 7 days
+      </div>
+    </div>
+    
+    <div class="flex items-end gap-3">
+      <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-500">
+        91.7%
+      </div>
+      <div class="text-emerald-400 text-sm font-medium flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1">
+          <path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z" clip-rule="evenodd" />
+        </svg>
+        3.2%
+      </div>
+    </div>
+    
+    <div class="mt-4 h-2 bg-white/10 rounded-full overflow-hidden">
+      <div class="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full" style="width: 91.7%"></div>
+    </div>
+  </div>
+  
+  <!-- Response Time Metric -->
+  <div class="bg-spaceDark/60 backdrop-blur-md p-5 rounded-xl border border-sky-500/20 hover:border-sky-500/40 transition-all duration-300">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-white/90 font-medium">Response Time</h3>
+      <div class="text-xs bg-sky-500/20 text-sky-400 px-2 py-0.5 rounded-full">
+        Avg
+      </div>
+    </div>
+    
+    <div class="flex items-end gap-3">
+      <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500">
+        102<span class="text-xl">ms</span>
+      </div>
+      <div class="text-emerald-400 text-sm font-medium flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1">
+          <path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z" clip-rule="evenodd" />
+        </svg>
+        12%
+      </div>
+    </div>
+    
+    <div class="mt-4 grid grid-cols-5 gap-1">
+      <div class="h-1.5 bg-sky-500/70 rounded-full"></div>
+      <div class="h-3 bg-sky-500/80 rounded-full"></div>
+      <div class="h-5 bg-sky-500/90 rounded-full"></div>
+      <div class="h-2 bg-sky-500/70 rounded-full"></div>
+      <div class="h-4 bg-sky-500/80 rounded-full"></div>
+    </div>
+  </div>
+  
+  <!-- Profitability Metric -->
+  <div class="bg-spaceDark/60 backdrop-blur-md p-5 rounded-xl border border-neonGreen/20 hover:border-neonGreen/40 transition-all duration-300">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-white/90 font-medium">Profitability</h3>
+      <div class="text-xs bg-neonGreen/20 text-neonGreen px-2 py-0.5 rounded-full">
+        30-day
+      </div>
+    </div>
+    
+    <div class="flex items-end gap-3">
+      <div class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neonGreen to-speedYellow">
+        +24.5%
+      </div>
+      <div class="text-emerald-400 text-sm font-medium flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1">
+          <path fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z" clip-rule="evenodd" />
+        </svg>
+        5.3%
+      </div>
+    </div>
+    
+    <div class="mt-4 relative h-8">
+      <svg class="w-full h-full" viewBox="0 0 250 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35 Q40,10 60,25 T100,20 T140,30 T180,10 T220,15 T250,5" fill="none" stroke="url(#gradient)" stroke-width="2" />
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#10B981" />
+            <stop offset="100%" stop-color="#ECFB43" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div> 

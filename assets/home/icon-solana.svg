@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="60" height="60" rx="12" fill="#03E1FF" fill-opacity="0.1"/>
+  
+  <!-- Solana logo elements -->
+  <path d="M20 35L40 15H60L40 35H20Z" fill="#9945FF"/>
+  <path d="M20 50L40 30H60L40 50H20Z" fill="#14F195"/>
+  <path d="M20 65L40 45H60L40 65H20Z" fill="#9945FF"/>
+</svg> 

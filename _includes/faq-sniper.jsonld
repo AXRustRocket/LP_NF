@@ -1,0 +1,48 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was ist ein Solana Sniper Bot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ein Solana Sniper Bot ist ein automatisiertes Trading-Tool, das Kauf- und Verkaufsaufträge für neue Meme-Tokens mit Blitzgeschwindigkeit ausführt. Der Rust Rocket Sniper Bot bietet ultraschnelles Trading mit unter 80ms Latenz und integriertem Rug-Schutz, damit Trader frühzeitig von Chancen profitieren können und gleichzeitig Betrug vermeiden."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie funktioniert der Rug-Schutz von Rust Rocket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unsere Rug-Shield-AI analysiert Smart Contracts in Echtzeit, bevor Sie kaufen, und erkennt gängige Betrugsmuster wie Honeypots, Gebührenfallen und Freeze-Mechanismen. Das System blockiert Trades auf verdächtigen Tokens automatisch, schützt Ihr Kapital vor betrügerischen Projekten und gibt Ihnen ein sicheres Gefühl beim Handel mit neuen Tokens."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist Rust Rocket konform mit Vorschriften?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, Rust Rocket ist vollständig konform mit dem liechtensteinischen TVTG (Token- und VT-Dienstleister-Gesetz). Wir führen umfassende Audit-Trails für alle Transaktionen und bieten institutionelle Compliance und Transparenz für Nutzer weltweit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche Blockchain-Netzwerke unterstützt Rust Rocket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aktuell unterstützt Rust Rocket hauptsächlich Solana aufgrund seiner Hochgeschwindigkeitstransaktionen und niedrigen Gebühren. Unsere Architektur ist darauf ausgelegt, eine Trading-Ausführung unter 80ms durch dedizierte TPU-Streams im Solana-Netzwerk zu liefern, was Ihnen einen erheblichen Vorteil in schnelllebigen Marktbedingungen verschafft."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Benötige ich technisches Wissen, um den Sniper Bot zu nutzen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein, es ist kein technisches Fachwissen erforderlich. Wir haben Rust Rocket mit einer Zero-Setup-Oberfläche und intuitiven Bedienelementen konzipiert, sodass es für Trader aller Erfahrungsstufen zugänglich ist. Die Plattform übernimmt die komplexen technischen Aspekte, während Sie sich auf Ihre Handelsstrategie konzentrieren können."
+      }
+    }
+  ]
+}
+</script> 

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Preview | Rust Rocket</title>
+    <meta name="description" content="Access the Rust Rocket Hub for real-time trading analytics, performance tracking, and advanced Solana trading tools.">
+    <meta name="ai-summary" content="Rust Rocket – meme-coin sniper bot with <80 ms private relay latency, TVTG-licensed security & open fee wallet. Join early-access waitlist.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image" type="image/svg+xml">
+    <meta name="theme-color" content="#04070D">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://rustrocket.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Dashboard Preview",
+                "item": "https://rustrocket.io/dashboard"
+            }
+        ]
+    }
+    </script>
+    
+    <!-- FAQ Schema for Dashboard -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What can I do in the Rust Rocket dashboard?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Rust Rocket dashboard provides real-time performance analytics, latency monitoring, trade history, bot configuration options, and access to the Rug Shield settings. Premium users can also access advanced sniper features, configure custom trading parameters, and manage automated trading strategies."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does Rust Rocket achieve <80ms latency?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Rust Rocket achieves ultra-low latency through a combination of private Solana TPU (Transaction Processing Unit) relays, optimized Rust code for transaction processing, strategically placed global nodes, and direct validator connections. This infrastructure ensures that your transactions reach validators faster than public RPC endpoints, giving you a competitive edge when trading meme coins."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I share my trading results with others?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Rust Rocket allows you to share your trading results with others through built-in social sharing features. You can share your successful trades on Twitter, Telegram, or generate a unique referral link. When friends join using your referral link, you earn 20% of their trading fees, creating a passive income stream while growing the community."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                        royalPurple: '#6E44FF',
+                    },
+                    fontSize: {
+                        '4.5xl': 'clamp(2.5rem, 5vw, 3.75rem)',
+                        '2.5xl': 'clamp(1.75rem, 3vw, 1.875rem)',
+                        'lg-fluid': 'clamp(1.125rem, 1.5vw, 1.25rem)',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'pulseFast': 'pulse 1.5s cubic-bezier(0.4,0,0.6,1) infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'linear-move': 'linear-move 15s linear infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'linear-move': {
+                          '0%': { transform: 'translateX(0)' },
+                          '100%': { transform: 'translateX(-50%)' },
+                        }
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(42, 255, 98, 0.5)',
+                        'inner-glow': 'inset 0 0 10px rgba(42, 255, 98, 0.15)',
+                    },
+                    dropShadow: { 
+                        'neon': '0 0 12px rgba(42,255,98,.35)' 
+                    },
+                }
+            },
+            safelist: [
+                'translate-x-full', 'translate-x-0',
+                'animate-pulseFast',
+                'animate-pulse-slow',
+                'overflow-hidden',
+                'fixed',
+                'bottom-0',
+                'h-18',
+                'bg-spaceDark/80',
+                'backdrop-blur',
+                'sparkline-chart',
+                'timeline-dot-pulse',
+                'text-gradient'
+            ]
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@lucide/core/dist/lucide.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+            border-radius: 0.75rem;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(42, 255, 98, 0.2);
+            box-shadow: 0 0 20px rgba(42, 255, 98, 0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #FFD600, #2AFF62);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .timeline-dot-pulse {
+            position: relative;
+        }
+        
+        .timeline-dot-pulse::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: #7B2CBF;
+            opacity: 0.5;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            z-index: -1;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased relative">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
+    
+    <!-- DASHBOARD CONTENT -->
+    <main class="pt-24 pb-16">
+        <div id="dashboardGridContainer"></div>
+        <script type="module">
+            import { inject } from '/js/include.js';
+            inject('#dashboardGridContainer','/components/dashboard/grid-v2');
+        </script>
+    </main>
+
+    <!-- Footer -->
+    <div id="pageFooter"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#pageFooter','/components/footer');
+    </script>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="js/dashboard.js" type="module"></script>
+    
+    <!-- Waitlist Modal -->
+    <!-- Removed: Homepage-only waitlist v3 -->
+</body>
+</html> 

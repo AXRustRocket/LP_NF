@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Frequency Trading | RustRocket</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1A1F35',
+                        'silver': '#D1D5DB',
+                        'neon-blue': '#00B7EB',
+                        'neon-green': '#39FF14',
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1A1F35;
+            color: #D1D5DB;
+            overflow-x: hidden;
+        }
+        
+        .hero-overlay {
+            background: radial-gradient(circle at center, rgba(26, 31, 53, 0.3) 0%, rgba(26, 31, 53, 0.9) 100%);
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(0, 183, 235, 0.6);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(0, 183, 235, 0.8);
+        }
+        
+        .glow-green {
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .glow-green:hover {
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.8);
+        }
+        
+        .card {
+            background: linear-gradient(145deg, rgba(35, 41, 70, 0.9), rgba(26, 31, 53, 0.9));
+            border: 1px solid rgba(209, 213, 219, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .hologram {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hologram::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                rgba(0, 183, 235, 0) 0%, 
+                rgba(0, 183, 235, 0.1) 50%, 
+                rgba(57, 255, 20, 0) 100%);
+            animation: hologramEffect 6s linear infinite;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .node {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #00B7EB;
+            position: absolute;
+            animation: pulse 2s infinite;
+        }
+        
+        .earth-bg {
+            background-image: url('https://images.unsplash.com/photo-1637984135921-301a7d39e3b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.3) saturate(1.2);
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 183, 235, 0.7);
+            }
+            70% {
+                transform: scale(1.5);
+                box-shadow: 0 0 0 10px rgba(0, 183, 235, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 183, 235, 0);
+            }
+        }
+        
+        @keyframes hologramEffect {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .crypto-bg {
+            position: relative;
+        }
+        
+        .crypto-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSIjMDBCN0VCIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=');
+            background-repeat: repeat;
+            opacity: 0.05;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .liechtenstein-flag {
+            height: 16px;
+            width: 24px;
+            background: linear-gradient(to bottom, #0033A0 50%, #CE1126 50%);
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+            position: relative;
+        }
+        
+        .liechtenstein-flag::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 6px;
+            width: 4px;
+            height: 4px;
+            background: #FFCE00;
+            border-radius: 50%;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        nav {
+            background: linear-gradient(to right, rgba(26, 31, 53, 0.95), rgba(35, 41, 70, 0.95));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 183, 235, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #00B7EB;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: #00B7EB;
+        }
+        
+        .mathematical-formula {
+            font-family: 'Courier New', monospace;
+            background: rgba(26, 31, 53, 0.6);
+            border: 1px solid rgba(0, 183, 235, 0.3);
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        
+        /* Custom graph animation */
+        .graph-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s forwards;
+        }
+        
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .hft-dash-point {
+            animation: flashPoint 2s infinite;
+        }
+        
+        @keyframes flashPoint {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <nav class="fixed w-full z-50 py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="liechtenstein-flag"></div>
+                    <a href="index.html" class="text-white font-bold text-xl">
+                        RustRocket <span class="text-sm font-normal text-silver"></span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="hft.html" class="nav-link text-white font-medium active">HFT</a>
+                    <a href="scalping.html" class="nav-link text-silver font-medium">Scalping</a>
+                    <a href="arbitrage.html" class="nav-link text-silver font-medium">Arbitrage</a>
+                    <a href="copy-trading.html" class="nav-link text-silver font-medium">Copy Trading</a>
+                    <a href="frontrunning.html" class="nav-link text-silver font-medium">Frontrunning</a>
+                    <a href="sandwich-trading.html" class="nav-link text-silver font-medium">Sandwich Trading</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden w-full bg-navy/95 backdrop-blur-md border-t border-neon-blue/20 py-4">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="hft.html" class="nav-link text-white font-medium active">HFT</a>
+                    <a href="scalping.html" class="nav-link text-silver font-medium">Scalping</a>
+                    <a href="arbitrage.html" class="nav-link text-silver font-medium">Arbitrage</a>
+                    <a href="copy-trading.html" class="nav-link text-silver font-medium">Copy Trading</a>
+                    <a href="frontrunning.html" class="nav-link text-silver font-medium">Frontrunning</a>
+                    <a href="sandwich-trading.html" class="nav-link text-silver font-medium">Sandwich Trading</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="h-screen relative overflow-hidden pt-16">
+        <!-- Background with global nodes animation -->
+        <div class="earth-bg absolute inset-0"></div>
+        
+        <!-- Global nodes (major financial centers) -->
+        <div id="nodes-container" class="absolute inset-0">
+            <!-- Generated by JavaScript -->
+        </div>
+        
+        <!-- Hero content overlay -->
+        <div class="hero-overlay absolute inset-0 flex flex-col justify-center items-center px-4 z-10">
+            <div class="max-w-5xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white">
+                    Master <span class="text-neon-blue">High-Frequency Trading</span> with RustRocket
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-silver mb-8">
+                    Precision at Millisecond Speeds
+                </p>
+                
+                <button id="heroJoinBtn" class="glow bg-gradient-to-r from-neon-blue to-neon-green text-navy font-bold py-3 px-8 rounded-lg text-lg hover:scale-105 transition-all duration-300">
+                    Join Waitlist
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Technique Description Section -->
+    <section class="py-16 relative overflow-hidden crypto-bg">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <!-- Definition -->
+            <div class="mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-white">
+                    What is <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-green">High-Frequency Trading</span>?
+                </h2>
+                
+                <p class="text-silver text-lg leading-relaxed mb-6">
+                    High-Frequency Trading (HFT) is an advanced trading methodology that leverages sophisticated algorithms, cutting-edge technology, and ultra-low latency infrastructure to execute thousands of trades per second. HFT operates in the microsecond to millisecond time frame, capitalizing on minuscule price inefficiencies that exist for fractions of a second. By employing Rust-based architecture and strategic global node placement, RustRocket's HFT system identifies and exploits these ephemeral opportunities faster than conventional trading platforms, providing our clients with unparalleled market advantages.
+                </p>
+            </div>
+            
+            <!-- Mathematical/Logical Foundation -->
+            <div class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold mb-8 text-white">
+                    <span class="text-neon-blue">Mathematical</span> Foundation
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <p class="text-silver text-lg leading-relaxed mb-6">
+                            The foundation of high-frequency trading lies in minimizing latency. The theoretical minimum latency between two points is constrained by the speed of light:
+                        </p>
+                        
+                        <div class="mathematical-formula mb-6">
+                            <span class="text-neon-blue">Latency (ms) = Distance (km) / Speed of light (km/ms)</span><br>
+                            <span class="text-silver">Example: 15,000 km ÷ 300 km/ms = 50 ms</span>
+                        </div>
+                        
+                        <p class="text-silver text-lg leading-relaxed mb-6">
+                            Traditional HFT systems add processing overhead, increasing actual latency by 200-500%. RustRocket's rust-based processing layer reduces this overhead by 90%, bringing actual latency within 10% of theoretical limits:
+                        </p>
+                        
+                        <div class="mathematical-formula mb-6">
+                            <span class="text-neon-blue">RustRocket Advantage:</span><br>
+                            <span class="text-neon-green">10x</span> faster than Python-based systems<br>
+                            <span class="text-neon-green">5x</span> faster than C++ implementations<br>
+                            <span class="text-neon-green">99.9%</span> uptime with redundant node architecture
+                        </div>
+                    </div>
+                    
+                    <div class="h-96 bg-navy/40 rounded-lg overflow-hidden relative card">
+                        <div class="absolute inset-0 p-4">
+                            <!-- HFT Dashboard Mockup -->
+                            <div class="absolute top-0 left-0 right-0 h-10 bg-navy/70 rounded-t flex items-center px-4">
+                                <span class="text-neon-blue text-sm">RustRocket HFT Dashboard</span>
+                                <span class="ml-auto text-silver text-xs">Live Performance</span>
+                            </div>
+                            
+                            <div class="absolute top-12 left-0 bottom-0 w-1/3 p-2">
+                                <div class="bg-navy/60 rounded h-full p-3">
+                                    <div class="text-xs text-silver mb-2">Global Latency (ms)</div>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span>NYC → London</span>
+                                                <span class="text-neon-green">0.035</span>
+                                            </div>
+                                            <div class="h-1.5 bg-navy/60 rounded-full">
+                                                <div class="h-1.5 bg-neon-green rounded-full" style="width: 15%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span>Tokyo → Singapore</span>
+                                                <span class="text-neon-green">0.041</span>
+                                            </div>
+                                            <div class="h-1.5 bg-navy/60 rounded-full">
+                                                <div class="h-1.5 bg-neon-green rounded-full" style="width: 18%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span>Frankfurt → Zurich</span>
+                                                <span class="text-neon-green">0.029</span>
+                                            </div>
+                                            <div class="h-1.5 bg-navy/60 rounded-full">
+                                                <div class="h-1.5 bg-neon-green rounded-full" style="width: 12%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span>Avg. Execution</span>
+                                                <span class="text-neon-green">0.037</span>
+                                            </div>
+                                            <div class="h-1.5 bg-navy/60 rounded-full">
+                                                <div class="h-1.5 bg-neon-green rounded-full" style="width: 16%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="absolute top-12 left-1/3 right-0 bottom-0 p-2">
+                                <div class="bg-navy/40 rounded h-full p-3 relative">
+                                    <!-- HFT Performance Graph -->
+                                    <svg class="w-full h-full" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Grid lines -->
+                                        <line x1="0" y1="50" x2="600" y2="50" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="0" y1="100" x2="600" y2="100" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="0" y1="150" x2="600" y2="150" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="0" y1="200" x2="600" y2="200" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="0" y1="250" x2="600" y2="250" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        
+                                        <line x1="100" y1="0" x2="100" y2="300" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="200" y1="0" x2="200" y2="300" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="300" y1="0" x2="300" y2="300" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="400" y1="0" x2="400" y2="300" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        <line x1="500" y1="0" x2="500" y2="300" stroke="#D1D5DB" stroke-width="0.5" opacity="0.2" />
+                                        
+                                        <!-- HFT Execution line -->
+                                        <path d="M50,200 L100,195 L150,180 L200,190 L250,150 L300,140 L350,120 L400,100 L450,80 L500,70 L550,60" 
+                                              stroke="#00B7EB" fill="none" stroke-width="3" class="graph-line" />
+                                              
+                                        <!-- Competitor line (slower) -->
+                                        <path d="M50,200 L100,205 L150,200 L200,210 L250,190 L300,180 L350,170 L400,160 L450,150 L500,140 L550,130" 
+                                              stroke="#D1D5DB" fill="none" stroke-width="2" stroke-dasharray="5,5" class="graph-line" />
+                                              
+                                        <!-- Trading points -->
+                                        <circle cx="150" cy="180" r="4" fill="#00B7EB" class="hft-dash-point" />
+                                        <circle cx="250" cy="150" r="4" fill="#00B7EB" class="hft-dash-point" />
+                                        <circle cx="350" cy="120" r="4" fill="#00B7EB" class="hft-dash-point" />
+                                        <circle cx="450" cy="80" r="4" fill="#00B7EB" class="hft-dash-point" />
+                                        <circle cx="550" cy="60" r="4" fill="#00B7EB" class="hft-dash-point" />
+                                    </svg>
+                                    
+                                    <div class="absolute bottom-3 left-3 bg-navy/80 px-2 py-1 rounded text-xs">
+                                        <span class="text-neon-blue">— RustRocket</span>
+                                        <span class="text-silver ml-3">- - Competitors</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RustRocket Advantage -->
+            <div class="mb-16 fade-in">
+                <h2 class="text-3xl font-bold mb-8 text-white">
+                    The <span class="text-neon-green">RustRocket</span> Advantage
+                </h2>
+                
+                <div class="card rounded-xl p-8 shadow-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="text-5xl text-neon-blue font-bold mb-2">0.035s</div>
+                            <p class="text-silver">Average Trade Execution</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="text-5xl text-neon-blue font-bold mb-2">99.9%</div>
+                            <p class="text-silver">System Uptime</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="text-5xl text-neon-blue font-bold mb-2">10x</div>
+                            <p class="text-silver">Faster Than Competitors</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <p class="text-silver text-lg leading-relaxed">
+                            RustRocket's HFT superiority stems from our proprietary rust-based architecture, strategically positioned global nodes, and custom-built hardware acceleration. While conventional platforms struggle with latency bottlenecks, our system's zero-copy memory management and lock-free concurrency deliver transaction speeds that approach the theoretical limits of physics. This infrastructure enables our clients to execute complex trading strategies with unprecedented speed and precision, capturing opportunities that would otherwise be invisible to traditional traders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="py-16 relative overflow-hidden">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white fade-in">
+                Key <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-green">Benefits</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="card rounded-xl p-8 shadow-lg hologram fade-in">
+                    <div class="w-20 h-20 rounded-full bg-navy flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-bolt text-4xl text-neon-blue"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4 text-white text-center">Blazing Speed</h3>
+                    
+                    <p class="text-silver text-center">
+                        Execute complex trading strategies in microseconds, leveraging RustRocket's global node network and rust-based processing to achieve speeds 10x faster than conventional platforms.
+                    </p>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="card rounded-xl p-8 shadow-lg hologram fade-in" style="animation-delay: 0.2s;">
+                    <div class="w-20 h-20 rounded-full bg-navy flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-shield-alt text-4xl text-neon-blue"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4 text-white text-center">Error-Free Execution</h3>
+                    
+                    <p class="text-silver text-center">
+                        Eliminate human error and achieve 99.9999% transaction accuracy with RustRocket's fault-tolerant architecture, redundant systems, and automated error correction protocols.
+                    </p>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="card rounded-xl p-8 shadow-lg hologram fade-in" style="animation-delay: 0.4s;">
+                    <div class="w-20 h-20 rounded-full bg-navy flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-crown text-4xl text-neon-blue"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mb-4 text-white text-center">Market Dominance</h3>
+                    
+                    <p class="text-silver text-center">
+                        Gain competitive advantage in the Crypto space with institutional-grade HFT capabilities that outpace other traders, allowing you to capitalize on market inefficiencies before they disappear.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="py-16 relative overflow-hidden bg-gradient-to-b from-navy to-navy/80">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 text-white fade-in">
+                Join the <span class="text-neon-green">Elite</span> – Only 1,000 Beta Spots Left!
+            </h2>
+            
+            <p class="text-xl text-silver mb-12 fade-in">
+                Experience the power of High-Frequency Trading with RustRocket's cutting-edge platform.
+            </p>
+            
+            <button id="ctaJoinBtn" class="glow-green bg-gradient-to-r from-neon-green to-neon-blue text-navy font-bold py-4 px-10 rounded-lg text-xl hover:scale-105 transition-all duration-300 fade-in">
+                Join Waitlist
+            </button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 bg-navy/90 border-t border-neon-blue/20">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="flex items-center mb-6 md:mb-0">
+                    <div class="liechtenstein-flag"></div>
+                    <span class="text-white font-bold">
+                        RustRocket <span class="text-sm font-normal text-silver"></span>
+                    </span>
+                </div>
+                
+                <div>
+                    <p class="text-silver text-sm text-center md:text-right mb-4">Join Our Community</p>
+                    <div class="flex space-x-6">
+                        <a href="https://x.com/Rust_XRocket" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-neon-blue transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="https://discord.gg/rustrocket" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-[#5865F2] transition-colors">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                        <a href="https://t.me/rustrocket" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-[#0088cc] transition-colors">
+                            <i class="fab fa-telegram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-silver/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-silver text-sm mb-4 md:mb-0">
+                    © 2025 RustRocket
+                </p>
+                
+                <div class="flex space-x-8">
+                    <a href="#" onclick="return false;" class="text-silver hover:text-neon-blue text-sm transition-colors">Terms of Service</a>
+                    <a href="#" onclick="return false;" class="text-silver hover:text-neon-blue text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-silver hover:text-neon-blue text-sm transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Easter egg: subtle Doge face hologram -->
+        <div class="absolute bottom-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#00B7EB" stroke-width="1" />
+                <circle cx="65" cy="40" r="5" fill="#00B7EB" />
+                <circle cx="35" cy="40" r="5" fill="#00B7EB" />
+                <path d="M40,60 Q50,70 60,60" fill="none" stroke="#00B7EB" stroke-width="2" />
+            </svg>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Nodes animation for hero section
+        const nodesContainer = document.getElementById('nodes-container');
+        const financialCenters = [
+            { x: 25, y: 30 }, // New York
+            { x: 45, y: 25 }, // London
+            { x: 53, y: 28 }, // Frankfurt
+            { x: 75, y: 30 }, // Tokyo
+            { x: 82, y: 45 }, // Hong Kong
+            { x: 30, y: 45 }, // Chicago
+            { x: 20, y: 55 }, // São Paulo
+            { x: 65, y: 60 }, // Singapore
+            { x: 48, y: 22 }, // Zurich
+            { x: 50, y: 38 }, // Liechtenstein
+        ];
+        
+        financialCenters.forEach((center, index) => {
+            const node = document.createElement('div');
+            node.classList.add('node');
+            node.style.left = `${center.x}%`;
+            node.style.top = `${center.y}%`;
+            node.style.animationDelay = `${index * 0.3}s`;
+            nodesContainer.appendChild(node);
+        });
+        
+        // Join Waitlist button functionality
+        function showWaitlistAlert() {
+            alert('Thank you for joining the RustRocket waitlist!');
+        }
+        
+        document.getElementById('heroJoinBtn').addEventListener('click', showWaitlistAlert);
+        document.getElementById('ctaJoinBtn').addEventListener('click', showWaitlistAlert);
+        
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initialize fade check
+        checkFade();
+        
+        // Check fade on scroll
+        window.addEventListener('scroll', checkFade);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,29 @@
+<!-- Share Section Component -->
+<div class="glass-card p-6 rounded-xl backdrop-blur mb-6">
+  <h3 class="text-lg font-semibold mb-4">Share Your Success</h3>
+  
+  <div class="mb-4 relative">
+    <input type="text" id="referralLink" class="w-full px-4 py-3 pr-10 bg-spaceDark/60 rounded-lg border border-white/10 focus:outline-none focus:border-neonGreen/30 focus:ring-1 focus:ring-neonGreen/30" 
+      value="https://rustrocket.io/?ref=USER123&utm_source=share" 
+      readonly 
+      aria-label="Your referral link">
+    <button id="copyLinkBtn" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white p-1" aria-label="Copy referral link">
+      <i class="icon-copy"></i>
+    </button>
+  </div>
+  
+  <div class="text-xs text-white/60 mb-4">
+    Earn 20% of trading fees when friends join using your link. Each referral earns an average of 0.92 SOL monthly.
+  </div>
+  
+  <div class="grid grid-cols-2 gap-4">
+    <a href="#" id="twitterShareBtn" class="py-2.5 px-4 rounded-lg border border-transparent bg-gradient-to-br from-neonGreen/20 to-royalPurple/20 hover:from-neonGreen/10 hover:to-royalPurple/10 transition-all text-white font-medium flex items-center justify-center gap-2">
+      <i class="icon-twitter text-[#1DA1F2]"></i>
+      Tweet
+    </a>
+    <a href="#" id="telegramShareBtn" class="py-2.5 px-4 rounded-lg border border-transparent bg-gradient-to-br from-neonGreen/20 to-royalPurple/20 hover:from-neonGreen/10 hover:to-royalPurple/10 transition-all text-white font-medium flex items-center justify-center gap-2">
+      <i class="icon-send text-[#26A5E4]"></i>
+      Telegram
+    </a>
+  </div>
+</div> 

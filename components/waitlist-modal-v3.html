@@ -1,0 +1,60 @@
+<dialog id="waitlistModal" class="max-w-md w-full bg-spaceDark/80 backdrop-blur-lg rounded-2xl border-2 border-neonGreen/30 p-8 shadow-[0_0_24px_rgba(42,255,98,0.25)] translate-y-full opacity-0 pointer-events-none transition-all duration-300" aria-labelledby="waitTitle" aria-modal="true">
+  <button data-close class="absolute top-3 right-3 w-10 h-10 flex items-center justify-center rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors" aria-label="Close signup modal">
+    <img src="/assets/icons/close.svg" alt="" class="w-5 h-5" aria-hidden="true">
+  </button>
+
+  <!-- Step 1: Email Form -->
+  <div data-step="1" class="transition-opacity duration-300">
+    <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-neonGreen/20">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neonGreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </div>
+    <h2 id="waitTitle" class="text-2xl font-bold text-center mb-2">Join the Early-Access Waitlist</h2>
+    <p class="text-sm text-center text-white/70 mb-6">Be first when the bot goes live.</p>
+
+    <form data-waitlist-form class="flex flex-col gap-4">
+      <div class="form-group">
+        <label class="sr-only" for="email">Work E-mail</label>
+        <input 
+          id="email" 
+          name="email" 
+          type="email" 
+          required 
+          placeholder="you@example.com"
+          class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:ring-2 focus:ring-neonGreen focus:border-neonGreen outline-none text-white transition-all"
+          autocomplete="email"
+        >
+      </div>
+
+      <button 
+        type="submit" 
+        class="w-full py-3.5 rounded-lg bg-neonGreen hover:bg-neonGreen/90 font-semibold text-spaceBlack transition-colors flex items-center justify-center"
+      >
+        <span>Join Waitlist</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </form>
+    
+    <p class="text-xs text-center text-white/50 mt-4">We respect your privacy. No spam, ever.</p>
+  </div>
+
+  <!-- Step 2: Success Message (hidden initially) -->
+  <div data-step="2" class="hidden text-center transition-opacity duration-300" role="status">
+    <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-neonGreen/20">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neonGreen" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h3 class="text-neonGreen text-2xl font-bold mb-2">You're in! 🚀</h3>
+    <p class="text-sm text-white/70 mb-6">We'll keep you posted before launch.</p>
+    <button 
+      data-close 
+      class="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+    >
+      Close
+    </button>
+  </div>
+</dialog> 

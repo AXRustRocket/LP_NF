@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waitlist Test - Rust Rocket</title>
+    
+    <!-- Include the waitlist-modal-v2.html component (will be injected) -->
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #0B1624;
+            color: #ffffff;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #2AFF62;
+        }
+        
+        pre {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+        
+        .log-output {
+            margin-top: 2rem;
+            height: 300px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin: 0;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .success {
+            color: #2AFF62;
+        }
+        
+        .error {
+            color: #ff4d4d;
+        }
+        
+        .info {
+            color: #ffffff;
+        }
+        
+        /* Glass card styling for the waitlist modal */
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        button {
+            background-color: #2AFF62;
+            color: #04070D;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Waitlist Flow Test</h1>
+    <p>This page tests the waitlist submission flow. Check the console for detailed logs.</p>
+    
+    <button id="runTest">Run Manual Test</button>
+    <button id="clearLocalStorage">Clear localStorage</button>
+    
+    <div class="log-output">
+        <h2>Test Log</h2>
+        <div id="logContainer"></div>
+    </div>
+    
+    <!-- We'll inject the waitlist modal here -->
+    <div id="waitlistMount"></div>
+    
+    <!-- First import and inject the waitlist modal -->
+    <script type="module">
+        // Simple include.js replacement since we can't import the real one
+        async function inject(selector, htmlPath) {
+            try {
+                // For this test, we'll use a hardcoded HTML for the modal
+                if (htmlPath.includes('waitlist-modal-v2')) {
+                    const element = document.querySelector(selector);
+                    if (!element) return;
+                    
+                    // Inject the waitlist-modal-v2.html content
+                    element.innerHTML = `
+                    <dialog id="waitlistModal" class="max-w-md w-full bg-spaceDark/80 backdrop-blur-lg rounded-2xl border border-white/10 p-8 translate-y-full opacity-0 transition-all duration-300 shadow-lg" aria-labelledby="waitTitle" aria-modal="true" role="dialog">
+                      <button data-close class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-white/60 hover:text-white transition-colors" aria-label="Close">✕</button>
+                    
+                      <!-- Step 1: Email Form -->
+                      <div data-step="1" class="transition-opacity duration-300">
+                        <img src="#" alt="" class="h-12 mx-auto mb-4" aria-hidden="true">
+                        <h2 id="waitTitle" class="text-2xl font-bold text-center mb-2">Join the Early-Access Waitlist</h2>
+                        <p class="text-sm text-center text-white/70 mb-6">Be first when the bot goes live.</p>
+                    
+                        <form data-waitlist-form class="flex flex-col gap-4">
+                          <div class="form-group">
+                            <label class="sr-only" for="email">Work E-mail</label>
+                            <input 
+                              id="email" 
+                              name="email" 
+                              type="email" 
+                              required 
+                              placeholder="you@example.com"
+                              class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 focus:ring-2 focus:ring-neonGreen focus:border-neonGreen outline-none text-white transition-all"
+                              autocomplete="email"
+                            >
+                          </div>
+                    
+                          <button 
+                            type="submit" 
+                            class="w-full py-3.5 rounded-lg bg-neonGreen hover:bg-neonGreen/90 font-semibold text-spaceBlack transition-colors flex items-center justify-center"
+                          >
+                            <span>Join Waitlist</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                          </button>
+                        </form>
+                        
+                        <p class="text-xs text-center text-white/50 mt-4">We respect your privacy. No spam, ever.</p>
+                      </div>
+                    
+                      <!-- Step 2: Success Message (hidden initially) -->
+                      <div data-step="2" class="hidden text-center transition-opacity duration-300" aria-live="polite">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-neonGreen/20">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neonGreen" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <h3 class="text-neonGreen text-2xl font-bold mb-2">You're in! 🚀</h3>
+                        <p class="text-sm text-white/70 mb-6">We'll keep you posted before launch.</p>
+                        <button 
+                          data-close 
+                          class="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </dialog>
+                    `;
+                    
+                    log('Injected waitlist modal into DOM', 'info');
+                }
+            } catch (error) {
+                log('Error injecting modal: ' + error.message, 'error');
+            }
+        }
+        
+        // Import and initialize the waitlist modal
+        await inject('#waitlistMount', '/components/waitlist-modal-v2');
+        
+        // Implement the waitlist modal functionality
+        const LS_KEY = 'rr_waitlist_done';
+        
+        function openModal() {
+            const modal = document.getElementById('waitlistModal');
+            if (!modal) return;
+            
+            if (typeof modal.showModal === 'function') {
+                modal.showModal();
+            } else {
+                modal.style.display = 'block';
+            }
+            
+            modal.classList.remove('translate-y-full', 'opacity-0');
+            log('Modal opened', 'info');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('waitlistModal');
+            if (!modal) return;
+            
+            modal.classList.add('translate-y-full', 'opacity-0');
+            
+            setTimeout(() => {
+                if (typeof modal.close === 'function') {
+                    modal.close();
+                } else {
+                    modal.style.display = 'none';
+                }
+            }, 300);
+            
+            log('Modal closed', 'info');
+        }
+        
+        function showSuccessStep() {
+            const modal = document.getElementById('waitlistModal');
+            if (!modal) return;
+            
+            const step1 = modal.querySelector('[data-step="1"]');
+            const step2 = modal.querySelector('[data-step="2"]');
+            
+            if (step1 && step2) {
+                step1.style.opacity = '0';
+                
+                setTimeout(() => {
+                    step1.classList.add('hidden');
+                    step2.classList.remove('hidden');
+                    
+                    requestAnimationFrame(() => {
+                        step2.offsetHeight;
+                        step2.style.opacity = '1';
+                    });
+                }, 300);
+                
+                log('Showing success step', 'success');
+            }
+        }
+        
+        // Add event listeners
+        document.addEventListener('click', (event) => {
+            if (event.target.closest('[data-close]')) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener('submit', async (event) => {
+            if (!event.target.matches('[data-waitlist-form]')) return;
+            event.preventDefault();
+            
+            const form = event.target;
+            const emailInput = form.querySelector('input[name="email"]');
+            
+            if (!emailInput || !emailInput.value.trim()) {
+                log('Email is required', 'error');
+                return;
+            }
+            
+            log(`Submitting email: ${emailInput.value.trim()}`, 'info');
+            
+            try {
+                // Simulate API call
+                log('Sending request to /api/waitlist...', 'info');
+                
+                // Mock successful response
+                showSuccessStep();
+                localStorage.setItem(LS_KEY, '1');
+                log('Form submitted successfully', 'success');
+                log('Added to localStorage: rr_waitlist_done = 1', 'info');
+            } catch (error) {
+                log('Error submitting form: ' + error.message, 'error');
+            }
+        });
+        
+        // Manual test functions
+        document.getElementById('runTest').addEventListener('click', () => {
+            log('Manual test started', 'info');
+            localStorage.removeItem(LS_KEY);
+            log('LocalStorage cleared', 'info');
+            openModal();
+        });
+        
+        document.getElementById('clearLocalStorage').addEventListener('click', () => {
+            localStorage.removeItem(LS_KEY);
+            log('LocalStorage cleared', 'info');
+        });
+        
+        // Logging function
+        function log(message, type = 'info') {
+            console.log(message);
+            
+            const logContainer = document.getElementById('logContainer');
+            const logEntry = document.createElement('p');
+            logEntry.classList.add('log-entry', type);
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            
+            logContainer.insertBefore(logEntry, logContainer.firstChild);
+        }
+    </script>
+    
+    <!-- Now load and run our test script -->
+    <script src="test-waitlist-fe.js"></script>
+</body>
+</html> 

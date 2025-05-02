@@ -1,0 +1,89 @@
+<!-- Header Component v3 -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-spaceDark/60 backdrop-blur-lg h-16 transition-all duration-300">
+  <div class="container mx-auto h-full px-6 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center">
+      <img src="/assets/logo.gif" alt="Rust Rocket" width="120" height="34" class="h-auto">
+    </a>
+    
+    <!-- Desktop Navigation (hidden on mobile) -->
+    <nav aria-label="Main" class="hidden lg:flex items-center justify-center space-x-8">
+      <a href="/" class="text-white hover:text-neonGreen transition-colors py-2">Home</a>
+      <a href="/sniper-bot.html" class="text-white hover:text-neonGreen transition-colors py-2">Sniper Bot</a>
+      <a href="/pump-alerts.html" class="text-white hover:text-neonGreen transition-colors py-2">Pump Alerts</a>
+      <a href="/copy-trading.html" class="text-white hover:text-neonGreen transition-colors py-2">Copy Trading</a>
+      <a href="/pricing" data-link="pricing" class="text-white hover:text-neonGreen transition-colors py-2">Pricing</a>
+    </nav>
+    
+    <!-- Right Side Actions -->
+    <div class="flex items-center space-x-4">
+      <!-- Auth Buttons Container - Will be populated by auth.js -->
+      <div id="authBtns" class="hidden lg:block"></div>
+      
+      <!-- Dashboard Button (desktop only) -->
+      <a href="/dashboard.html" class="hidden lg:inline-flex items-center justify-center gap-2 bg-neonGreen/90 hover:bg-neonGreen text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors">
+        Dashboard
+      </a>
+      
+      <!-- Mobile Burger Menu -->
+      <button 
+        data-burger 
+        aria-expanded="false" 
+        aria-controls="mobileNav" 
+        class="lg:hidden flex items-center justify-center w-10 h-10 text-white hover:text-neonGreen"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation (off-canvas) -->
+<div id="mobileNav" class="fixed top-0 right-0 bottom-0 w-[280px] bg-spaceDark z-[60] shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
+  <div class="p-6">
+    <!-- Close button -->
+    <div class="flex justify-end mb-8">
+      <button data-burger class="text-white hover:text-neonGreen">
+        <span class="sr-only">Close menu</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu Links -->
+    <nav class="flex flex-col space-y-4">
+      <a href="/" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Home</a>
+      <a href="/sniper-bot.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Sniper Bot</a>
+      <a href="/pump-alerts.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pump Alerts</a>
+      <a href="/copy-trading.html" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Copy Trading</a>
+      <a href="/pricing" data-link="pricing" class="text-white hover:text-neonGreen py-2 border-b border-white/10">Pricing</a>
+      
+      <!-- Mobile Auth Buttons Container -->
+      <div id="mobileAuthBtns"></div>
+      
+      <a href="/dashboard.html" class="mt-4 inline-flex items-center justify-center w-full bg-neonGreen/90 hover:bg-neonGreen text-spaceBlack font-medium px-4 py-2 rounded-lg transition-colors">
+        Dashboard
+      </a>
+    </nav>
+  </div>
+</div>
+
+<!-- Include headbar.js script -->
+<script type="module" src="/js/headbar.js"></script>
+
+<!-- Add active state highlighting -->
+<script>
+if(location.pathname.startsWith('/pricing')) { 
+  document.querySelectorAll('[data-link="pricing"]').forEach(a => a.classList.add('text-neonGreen'));
+}
+</script>
+
+<!-- Include authentication script -->
+<script type="module" src="/js/auth.js"></script> 

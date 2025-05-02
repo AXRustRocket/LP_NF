@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Rust Rocket Meme-Coin Signals API",
+  "description": "Real-time market data, sentiment analysis, and trading metrics for popular meme coins on the Solana blockchain.",
+  "url": "https://rustrocket.io/signals/",
+  "keywords": [
+    "meme coins", 
+    "cryptocurrency", 
+    "trading signals", 
+    "sentiment analysis", 
+    "market data", 
+    "Solana"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Axiom Enterprise AG",
+    "url": "https://rustrocket.io"
+  },
+  "license": "https://rustrocket.io/legal/terms.html",
+  "isAccessibleForFree": true,
+  "distribution": {
+    "@type": "DataDownload",
+    "contentUrl": "https://rustrocket.io/signals/{token}.json",
+    "encodingFormat": "application/json"
+  },
+  "temporalCoverage": "2025-01-01/...",
+  "includedInDataCatalog": {
+    "@type": "DataCatalog",
+    "name": "Rust Rocket API Catalog"
+  }
+}
+
+{
+  "@context": "https://schema.org/",
+  "@type": "APIReference",
+  "name": "Rust Rocket Signals API",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "JSON"
+  },
+  "url": "https://rustrocket.io/signals/{token}.json",
+  "description": "Endpoint for retrieving real-time market data, sentiment analysis, and trading signals for specific meme coins on the Solana blockchain.",
+  "documentation": "https://rustrocket.io/.well-known/ai-plugin.json",
+  "serviceUrl": "https://rustrocket.io/signals/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Axiom Enterprise AG",
+    "url": "https://rustrocket.io"
+  }
+} 

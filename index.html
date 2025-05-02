@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fastest Regulated Solana Meme-Coin Sniper Bot | Rust Rocket</title>
+    <meta name="description" content="Snipe Solana Meme-Coins in &lt;50ms with our regulated trading infrastructure. Beat the crowd with 50ms latency and advanced rug detection.">
+    <meta name="keywords" content="Solana sniper bot, TVTG, Meme-Coin, Pump-Alerts, Liechtenstein, audited DeFi, crypto trading">
+    <meta name="ai-summary" content="Rust Rocket provides the fastest regulated Meme-Coin Sniper Bot with sub-50ms latency trading, advanced rug detection, and fully regulated infrastructure.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://jpvbnbphgvtokbrlctke.supabase.co" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="/js/app.js" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style">
+    <meta name="theme-color" content="#04070D">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustrocket.io/">
+    <meta property="og:title" content="Fastest Regulated Solana Meme-Coin Sniper Bot | Rust Rocket">
+    <meta property="og:description" content="Snipe Solana Meme-Coins in &lt;50ms with our regulated trading infrastructure. Beat the crowd with 50ms latency and advanced rug detection.">
+    <meta property="og:site_name" content="Rust Rocket – Fast. Fair. Fully Audited.">
+    <meta property="og:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@rustrocket">
+    <meta name="twitter:title" content="Fastest Regulated Solana Meme-Coin Sniper Bot | Rust Rocket">
+    <meta name="twitter:description" content="Snipe Solana Meme-Coins in &lt;50ms with our regulated trading infrastructure. Advanced rug detection protection.">
+    <meta name="twitter:image" content="https://rustrocket.io/assets/og-image.jpg">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="canonical" href="https://rustrocket.io/">
+    <link rel="alternate" hreflang="en" href="https://rustrocket.io/en/">
+    <link rel="alternate" hreflang="x-default" href="https://rustrocket.io/">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rust Rocket",
+        "applicationCategory": "FinancialApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "127"
+        },
+        "url": "https://rustrocket.io",
+        "logo": "https://rustrocket.io/assets/logo.svg",
+        "description": "Fastest regulated Solana Meme-Coin Sniper Bot with sub-50ms latency",
+        "sameAs": [
+            "https://twitter.com/aX_RustRocket",
+            "https://instagram.com/rust.xrocket",
+            "https://discord.gg/Rust_Rocket"
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    },
+                    fontSize: {
+                        '4.5xl': 'clamp(2.5rem, 5vw, 3.75rem)',
+                        '2.5xl': 'clamp(1.75rem, 3vw, 1.875rem)',
+                        'lg-fluid': 'clamp(1.125rem, 1.5vw, 1.25rem)',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    },
+                    transitionProperty: {
+                        'height': 'height',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(42, 255, 98, 0.5)',
+                        'inner-glow': 'inset 0 0 10px rgba(42, 255, 98, 0.15)',
+                    }
+                }
+            },
+            content: [
+                './*.html',
+                './legal/*.html',
+                './pricing.html',
+                './referral.html'
+            ],
+            safelist: [
+                'translate-x-full', 'translate-x-0'  // mobile drawer
+            ]
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <!-- Modal CSS - fixes black screen issues -->
+    <link href="/css/modal.css" rel="stylesheet">
+    
+    <!-- tsParticles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js" defer></script>
+    
+    <!-- Lenis for smooth scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.33/dist/lenis.min.js" defer></script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+        }
+        
+        /* Glass Card Utility */
+        .glass-card {
+          @apply backdrop-blur-lg bg-spaceDark/40 rounded-2xl border border-white/5 transition-all;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-card:hover {
+          @apply border-neonGreen/20;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 8px rgba(47, 255, 123, 0.05);
+        }
+        
+        [data-testid="latency"] span,
+        [data-testid="treasury"] span {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #FFD600, #2AFF62);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .highlight-box {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border: 2px solid transparent;
+            background: linear-gradient(90deg, #FFD600, #2AFF62) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            border-radius: inherit;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased relative">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
+    
+    <!-- Mobile Navigation Container -->
+    <div id="mobileNavContainer"></div>
+
+    <!-- BEGIN HERO -->
+    <section id="hero" class="relative min-h-screen px-6 pt-24 min-h-[600px]">
+      <div id="particleCanvas" class="absolute inset-0 z-0" aria-hidden="true"></div>
+      
+      <!-- Hero Wrapper for 2-column layout -->
+      <div class="container mx-auto max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-14">
+        
+        <!-- Left Column: Copy + CTA + Features -->
+        <div class="w-full lg:w-1/2 z-10">
+          <h1 class="font-bold text-4.5xl leading-tight mb-6">
+            <span class="text-gradient">50ms Fast</span> Solana Meme-Coin Sniper Bot
+          </h1>
+          
+          <p class="text-lg-fluid text-gray-300 mb-8 max-w-xl">
+            Beat the market with our lightning-fast regulated sniper bot for Solana meme coins. Sub-50ms execution, real-time pump detection, and advanced rug protection.
+          </p>
+          
+          <!-- Hero Waitlist Form -->
+          <form id="heroWaitlist" class="flex flex-col sm:flex-row gap-2 mb-8 max-w-xl">
+            <div class="flex-grow relative">
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="your@email.com" 
+                required
+                class="w-full bg-[#0F1116] text-white px-4 py-3 rounded-lg border border-white/10 focus:border-neonGreen focus:outline-none transition-colors"
+              />
+              <div class="hero-form-error text-red-500 text-xs mt-1 absolute"></div>
+            </div>
+            <button 
+              type="submit" 
+              class="bg-neonGreen hover:bg-[#28D94C] text-spaceBlack font-medium px-4 py-3 rounded-lg transition-colors whitespace-nowrap flex-shrink-0"
+            >
+              Join Waitlist →
+            </button>
+          </form>
+          
+          <!-- CTA button group -->
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <a href="#pricing" class="btn-primary flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-3 rounded-lg hover:shadow-glow transition-all duration-300">
+              <i class="icon-zap-fast"></i>Start Sniping Now
+            </a>
+            <a href="#demo" class="btn-secondary flex items-center justify-center gap-2 bg-spaceDark/60 border border-white/10 text-white px-6 py-3 rounded-lg hover:border-neonGreen/30 transition-all">
+              <i class="icon-play"></i>Watch Demo
+            </a>
+          </div>
+          
+          <!-- Stats -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-neonGreen text-xl font-bold" data-testid="latency"><span>50</span>ms</span>
+              <span class="text-xs text-gray-400">Execution Speed</span>
+            </div>
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-speedYellow text-xl font-bold" data-testid="tokens"><span>3200+</span></span>
+              <span class="text-xs text-gray-400">Tokens Supported</span>
+            </div>
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-rocketPurple text-xl font-bold">TVTG</span>
+              <span class="text-xs text-gray-400">Regulated</span>
+            </div>
+            <div class="highlight-box glass-card p-4 flex flex-col items-center justify-center text-center">
+              <span class="text-liechtensteinRed text-xl font-bold">99.9%</span>
+              <span class="text-xs text-gray-400">Uptime</span>
+            </div>
+          </div>
+          
+          <!-- Badges -->
+          <div class="flex flex-wrap gap-4 items-center">
+            <div class="badge-pill bg-spaceDark/40 border border-white/10 px-3 py-1 rounded-full text-xs flex items-center gap-1">
+              <i class="icon-shield-check text-neonGreen"></i> Rug Protected
+            </div>
+            <div class="badge-pill bg-spaceDark/40 border border-white/10 px-3 py-1 rounded-full text-xs flex items-center gap-1">
+              <i class="icon-check-circle text-speedYellow"></i> Fully Regulated
+            </div>
+            <div class="badge-pill bg-spaceDark/40 border border-white/10 px-3 py-1 rounded-full text-xs flex items-center gap-1">
+              <i class="icon-zap text-liechtensteinRed"></i> 50ms Fast
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Hero Image -->
+        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end z-10 animate-float-slow">
+          <img src="/assets/home/hero-sniper.svg" alt="Solana Meme-Coin Sniper Bot Interface" class="max-w-full w-full max-w-[540px]" width="540" height="420" />
+        </div>
+      </div>
+      
+      <!-- Wave Divider -->
+      <div class="absolute bottom-0 left-0 right-0 h-24 z-10 overflow-hidden">
+        <svg viewBox="0 0 1440 74" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-full">
+          <path d="M0 24.6667L60 37C120 49.3333 240 74 360 65.3333C480 56.6667 600 14.6667 720 6C840 -2.66667 960 22 1080 32.6667C1200 43.3333 1320 40.3333 1380 38.6667L1440 37V74H1380C1320 74 1200 74 1080 74C960 74 840 74 720 74C600 74 480 74 360 74C240 74 120 74 60 74H0V24.6667Z" fill="#0B1624" fill-opacity="0.5"/>
+        </svg>
+      </div>
+    </section>
+    
+    <!-- FEATURES SECTION -->
+    <section id="features" class="relative py-24 px-6 bg-gradient-to-b from-spaceDark/50 to-spaceBlack">
+      <div class="container mx-auto max-w-7xl">
+        <!-- Section header -->
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Why Choose Our <span class="text-gradient">Meme-Coin Sniper Bot</span></h2>
+          <p class="text-gray-300 text-lg">Gain the competitive edge with our regulated infrastructure and lightning-fast execution.</p>
+        </div>
+        
+        <!-- Features grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col fade-in">
+            <div class="mb-5 w-14 h-14 flex items-center justify-center rounded-full bg-speedYellow/10">
+              <img src="/assets/home/icon-speed.svg" alt="Ultra-fast execution" class="w-10 h-10" width="40" height="40" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">50ms Execution Speed</h3>
+            <p class="text-gray-400 mb-4">Beat the crowd with our ultra-low latency infrastructure. Execute trades in under 50 milliseconds.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-auto">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Optimized for DEX trading</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Priority transaction processing</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Edge node infrastructure</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Feature 2 -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col fade-in">
+            <div class="mb-5 w-14 h-14 flex items-center justify-center rounded-full bg-neonGreen/10">
+              <img src="/assets/home/icon-sniper.svg" alt="Precision targeting" class="w-10 h-10" width="40" height="40" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Precision Sniper Targeting</h3>
+            <p class="text-gray-400 mb-4">Lock onto promising meme coins with precision targeting tools and automatic execution.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-auto">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Auto-detect token launches</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Custom buy/sell parameters</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Multi-wallet execution</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col fade-in">
+            <div class="mb-5 w-14 h-14 flex items-center justify-center rounded-full bg-rocketPurple/10">
+              <img src="/assets/home/icon-regulated.svg" alt="Regulated trading" class="w-10 h-10" width="40" height="40" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Fully Regulated</h3>
+            <p class="text-gray-400 mb-4">Trade with confidence using the only fully regulated meme-coin sniper bot in the market.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-auto">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Liechtenstein TVTG compliant</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Regular security audits</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Transparent operations</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Feature 4 -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col fade-in">
+            <div class="mb-5 w-14 h-14 flex items-center justify-center rounded-full bg-liechtensteinRed/10">
+              <img src="/assets/home/icon-shield.svg" alt="Rug protection" class="w-10 h-10" width="40" height="40" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Advanced Rug Protection</h3>
+            <p class="text-gray-400 mb-4">Our AI-powered rug detection system identifies and protects you from potential scams.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-auto">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Contract code analysis</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Liquidity monitoring</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Dev wallet tracking</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Feature 5 -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col fade-in">
+            <div class="mb-5 w-14 h-14 flex items-center justify-center rounded-full bg-speedYellow/10">
+              <img src="/assets/home/icon-memecoin.svg" alt="Meme coin focus" class="w-10 h-10" width="40" height="40" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Meme Coin Specialist</h3>
+            <p class="text-gray-400 mb-4">Purpose-built algorithms optimized specifically for meme coin trading on Solana.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-auto">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Meme coin trend analysis</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Social sentiment monitoring</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Pump pattern recognition</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Feature 6 -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col fade-in">
+            <div class="mb-5 w-14 h-14 flex items-center justify-center rounded-full bg-rustBlue/10">
+              <img src="/assets/home/icon-solana.svg" alt="Solana optimized" class="w-10 h-10" width="40" height="40" />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Solana Optimized</h3>
+            <p class="text-gray-400 mb-4">Designed from the ground up for Solana's high-performance blockchain and DeFi ecosystem.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-auto">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Jupiter DEX integration</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>SPL token support</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Low gas transaction routing</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- HOW IT WORKS SECTION -->
+    <section id="how-it-works" class="relative py-24 px-6 bg-gradient-to-b from-spaceBlack to-spaceDark/50">
+      <div class="container mx-auto max-w-7xl">
+        <!-- Section header -->
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">How Our <span class="text-gradient">Sniper Bot Works</span></h2>
+          <p class="text-gray-300 text-lg">Three simple steps to successful meme coin sniping with our lightning-fast infrastructure.</p>
+        </div>
+        
+        <!-- 3-Step Timeline (horizontal grid on lg, stacked on sm) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Step 1: Scan -->
+          <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-in relative">
+            <div class="absolute -top-5 lg:top-auto lg:-right-4 lg:left-auto z-10 bg-speedYellow text-spaceBlack font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">1</div>
+            <div class="lg:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-16 w-8 h-8 rotate-90">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="hidden lg:block absolute top-1/2 left-full transform -translate-y-1/2 -translate-x-4 w-8 h-8">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-speedYellow/10">
+              <i class="icon-scan text-speedYellow text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Scan</h3>
+            <p class="text-gray-400">Our system continuously scans the Solana blockchain for new token launches and market movements in real-time.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-4 text-left w-full">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>24/7 blockchain monitoring</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Social media trend detection</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Instant launch notifications</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Step 2: Score -->
+          <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-in relative">
+            <div class="absolute -top-5 lg:top-auto lg:-right-4 lg:left-auto z-10 bg-neonGreen text-spaceBlack font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">2</div>
+            <div class="lg:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-16 w-8 h-8 rotate-90">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2AFF62" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="hidden lg:block absolute top-1/2 left-full transform -translate-y-1/2 -translate-x-4 w-8 h-8">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2AFF62" stroke-width="2"><polyline points="7 7 12 12 7 17"></polyline><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </div>
+            <div class="mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-neonGreen/10">
+              <i class="icon-bar-chart-2 text-neonGreen text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Score</h3>
+            <p class="text-gray-400">Our AI algorithms analyze and score each opportunity based on multiple signals and risk factors in milliseconds.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-4 text-left w-full">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Contract code validation</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Liquidity analysis</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Multi-factor risk scoring</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Step 3: Snipe -->
+          <div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center fade-in relative">
+            <div class="absolute -top-5 lg:top-auto lg:-right-4 lg:left-auto z-10 bg-rocketPurple text-white font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">3</div>
+            <div class="mb-6 w-16 h-16 flex items-center justify-center rounded-full bg-rocketPurple/10">
+              <i class="icon-target text-rocketPurple text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Snipe</h3>
+            <p class="text-gray-400">Execute trades with precision at blazing-fast 50ms speed, giving you the edge over other traders.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mt-4 text-left w-full">
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>50ms transaction execution</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Optimized trade routing</span>
+              </li>
+              <li class="flex items-start">
+                <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                <span>Automatic profit taking</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Mobile note -->
+        <div class="mt-12 text-center lg:hidden">
+          <p class="text-gray-400 text-sm italic">Swipe through each step to learn more</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- PRICING SNAPSHOT SECTION -->
+    <section id="pricing-snapshot" class="relative py-24 px-6 bg-gradient-to-b from-spaceDark/50 to-spaceBlack">
+      <div class="container mx-auto max-w-7xl">
+        <!-- Section header -->
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Simple <span class="text-gradient">Pricing Plans</span></h2>
+          <p class="text-gray-300 text-lg">Choose the plan that fits your trading style and volume. Scale as you grow.</p>
+        </div>
+        
+        <!-- Pricing Pills -->
+        <div class="flex flex-col md:flex-row gap-8 justify-center">
+          <!-- Starter Plan -->
+          <div class="glass-card rounded-3xl p-1 fade-in">
+            <div class="bg-gradient-to-br from-spaceBlack to-spaceDark/80 rounded-3xl p-6 h-full flex flex-col">
+              <div class="mb-6">
+                <span class="inline-block py-1 px-3 rounded-full bg-white/10 text-sm font-medium text-white mb-4">Starter</span>
+                <h3 class="text-2xl font-bold mb-2">FREE</h3>
+                <p class="text-gray-400 text-sm">Perfect for beginners testing the waters</p>
+              </div>
+              
+              <ul class="space-y-3 mb-8 flex-grow">
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Basic sniper functionality</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">200ms execution speed</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Standard rug protection</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">1 wallet connection</span>
+                </li>
+                <li class="flex items-start text-gray-500">
+                  <i class="icon-x mr-2 mt-1"></i>
+                  <span>Priority transaction routing</span>
+                </li>
+                <li class="flex items-start text-gray-500">
+                  <i class="icon-x mr-2 mt-1"></i>
+                  <span>Advanced profit taking</span>
+                </li>
+              </ul>
+              
+              <a href="/pricing.html" class="btn-secondary flex items-center justify-center gap-2 bg-spaceDark border border-white/10 text-white px-6 py-3 rounded-lg hover:border-neonGreen/30 transition-all text-center">
+                Get Started
+              </a>
+            </div>
+          </div>
+          
+          <!-- Pro Plan -->
+          <div class="glass-card rounded-3xl p-1 fade-in relative scale-105 z-10">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack text-xs font-bold py-1 px-4 rounded-full">
+              MOST POPULAR
+            </div>
+            <div class="bg-gradient-to-br from-spaceBlack to-spaceDark/80 rounded-3xl p-6 h-full flex flex-col">
+              <div class="mb-6">
+                <span class="inline-block py-1 px-3 rounded-full bg-neonGreen/20 text-sm font-medium text-neonGreen mb-4">Pro</span>
+                <h3 class="text-2xl font-bold mb-2">$19 <span class="text-sm font-normal text-gray-400">/month</span></h3>
+                <p class="text-gray-400 text-sm">For serious traders who need an edge</p>
+              </div>
+              
+              <ul class="space-y-3 mb-8 flex-grow">
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Advanced sniper tools</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300"><span class="text-neonGreen font-medium">80ms</span> execution speed</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Enhanced rug protection</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Up to 3 wallet connections</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Priority transaction routing</span>
+                </li>
+                <li class="flex items-start text-gray-500">
+                  <i class="icon-x mr-2 mt-1"></i>
+                  <span>Advanced profit taking</span>
+                </li>
+              </ul>
+              
+              <a href="/pricing.html#pro" class="btn-primary flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-3 rounded-lg hover:shadow-glow transition-all text-center">
+                Choose Pro
+              </a>
+            </div>
+          </div>
+          
+          <!-- UltraSpeed Plan -->
+          <div class="glass-card rounded-3xl p-1 fade-in">
+            <div class="bg-gradient-to-br from-spaceBlack to-spaceDark/80 rounded-3xl p-6 h-full flex flex-col">
+              <div class="mb-6">
+                <span class="inline-block py-1 px-3 rounded-full bg-liechtensteinRed/20 text-sm font-medium text-liechtensteinRed mb-4">UltraSpeed</span>
+                <h3 class="text-2xl font-bold mb-2">$49 <span class="text-sm font-normal text-gray-400">/month + 0.25%</span></h3>
+                <p class="text-gray-400 text-sm">Maximum performance for professional traders</p>
+              </div>
+              
+              <ul class="space-y-3 mb-8 flex-grow">
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Professional trading suite</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300"><span class="text-speedYellow font-medium">50ms</span> execution speed</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Premium rug protection</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Unlimited wallet connections</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">VIP transaction prioritization</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="icon-check text-neonGreen mr-2 mt-1"></i>
+                  <span class="text-gray-300">Advanced profit taking</span>
+                </li>
+              </ul>
+              
+              <a href="/pricing.html#ultraspeed" class="btn-secondary flex items-center justify-center gap-2 bg-spaceDark border border-white/10 text-white px-6 py-3 rounded-lg hover:border-speedYellow/30 transition-all text-center">
+                Choose UltraSpeed
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Additional info -->
+        <div class="text-center mt-12">
+          <p class="text-gray-400 text-sm">All plans include basic support and access to our community. <a href="/pricing.html" class="text-neonGreen hover:underline">See full pricing details</a></p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="relative py-24 px-6 bg-gradient-to-b from-spaceBlack to-spaceDark/50">
+      <div class="container mx-auto max-w-7xl">
+        <!-- Section header -->
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">What Our <span class="text-gradient">Traders Say</span></h2>
+          <p class="text-gray-300 text-lg">Join thousands of successful traders who are already using our platform.</p>
+        </div>
+        
+        <!-- Testimonial Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Testimonial 1 -->
+          <div class="glass-card p-6 rounded-2xl fade-in">
+            <div class="flex items-center mb-6">
+              <img src="/assets/home/testimonials/avatar1.svg" alt="Trader profile" class="w-16 h-16 rounded-full mr-4" width="64" height="64" />
+              <div>
+                <h4 class="font-semibold text-lg">Alex K.</h4>
+                <div class="flex items-center">
+                  <span class="text-speedYellow font-medium">+342%</span>
+                  <span class="text-gray-400 text-sm ml-2">30d P&L</span>
+                </div>
+              </div>
+            </div>
+            <blockquote class="text-gray-300 italic mb-4">
+              "This sniper bot is a game-changer. I was able to get into BONK early with the 50ms execution and made 3x before most people even knew about it."
+            </blockquote>
+            <div class="flex">
+              <div class="text-speedYellow">
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div class="glass-card p-6 rounded-2xl fade-in">
+            <div class="flex items-center mb-6">
+              <img src="/assets/home/testimonials/avatar2.svg" alt="Trader profile" class="w-16 h-16 rounded-full mr-4" width="64" height="64" />
+              <div>
+                <h4 class="font-semibold text-lg">Sarah M.</h4>
+                <div class="flex items-center">
+                  <span class="text-neonGreen font-medium">+197%</span>
+                  <span class="text-gray-400 text-sm ml-2">30d P&L</span>
+                </div>
+              </div>
+            </div>
+            <blockquote class="text-gray-300 italic mb-4">
+              "The rug protection feature saved me thousands. It detected a honeypot contract before I would have invested. Worth every penny for the Pro plan."
+            </blockquote>
+            <div class="flex">
+              <div class="text-neonGreen">
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-half"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div class="glass-card p-6 rounded-2xl fade-in">
+            <div class="flex items-center mb-6">
+              <img src="/assets/home/testimonials/avatar3.svg" alt="Trader profile" class="w-16 h-16 rounded-full mr-4" width="64" height="64" />
+              <div>
+                <h4 class="font-semibold text-lg">Michael T.</h4>
+                <div class="flex items-center">
+                  <span class="text-rocketPurple font-medium">+589%</span>
+                  <span class="text-gray-400 text-sm ml-2">30d P&L</span>
+                </div>
+              </div>
+            </div>
+            <blockquote class="text-gray-300 italic mb-4">
+              "As a professional trader, the UltraSpeed plan has been essential. The 50ms execution consistently gets me in before price moves. Incredible edge."
+            </blockquote>
+            <div class="flex">
+              <div class="text-rocketPurple">
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+                <i class="icon-star-filled"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Social Proof Numbers -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+          <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-neonGreen mb-2">4,700+</div>
+            <div class="text-gray-400 text-sm">Active Traders</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-speedYellow mb-2">$42M+</div>
+            <div class="text-gray-400 text-sm">Monthly Volume</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-liechtensteinRed mb-2">3,200+</div>
+            <div class="text-gray-400 text-sm">Tokens Supported</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-rocketPurple mb-2">16,000+</div>
+            <div class="text-gray-400 text-sm">Successful Snipes</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- FAQ SECTION -->
+    <section id="faq" class="relative py-24 px-6 bg-gradient-to-b from-spaceDark/50 to-spaceBlack">
+      <div class="container mx-auto max-w-7xl">
+        <!-- Section header -->
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Frequently <span class="text-gradient">Asked Questions</span></h2>
+          <p class="text-gray-300 text-lg">Common questions about our Meme-Coin Sniper Bot and how it works.</p>
+        </div>
+        
+        <!-- FAQ Accordion -->
+        <div class="max-w-3xl mx-auto">
+          <!-- FAQ Item 1 -->
+          <div class="mb-6 fade-in">
+            <button class="faq-toggle flex items-center justify-between w-full text-left p-6 glass-card rounded-xl hover:border-neonGreen/20 transition-all" data-target="faq-1">
+              <h3 class="text-xl font-semibold">What is a Meme-Coin Sniper Bot?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform duration-300"></i>
+            </button>
+            <div id="faq-1" class="faq-content overflow-hidden max-h-0 transition-all duration-300">
+              <div class="p-6 pt-2 text-gray-300">
+                <p>A Meme-Coin Sniper Bot is an automated trading tool designed to detect and execute trades on new meme coin listings or during price pumps with extremely low latency (in our case, as low as 50ms). It allows traders to get in early on promising meme coins before significant price movements occur.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 2 -->
+          <div class="mb-6 fade-in">
+            <button class="faq-toggle flex items-center justify-between w-full text-left p-6 glass-card rounded-xl hover:border-neonGreen/20 transition-all" data-target="faq-2">
+              <h3 class="text-xl font-semibold">How does the 50ms execution speed work?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform duration-300"></i>
+            </button>
+            <div id="faq-2" class="faq-content overflow-hidden max-h-0 transition-all duration-300">
+              <div class="p-6 pt-2 text-gray-300">
+                <p>Our 50ms execution speed is achieved through a combination of edge node infrastructure, optimized code written in Rust, and direct connections to Solana validators. When a trading opportunity is detected, our system can execute the transaction in under 50 milliseconds, giving our users a significant advantage over typical traders who experience 500-1000ms latency.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 3 -->
+          <div class="mb-6 fade-in">
+            <button class="faq-toggle flex items-center justify-between w-full text-left p-6 glass-card rounded-xl hover:border-neonGreen/20 transition-all" data-target="faq-3">
+              <h3 class="text-xl font-semibold">What is the rug protection feature?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform duration-300"></i>
+            </button>
+            <div id="faq-3" class="faq-content overflow-hidden max-h-0 transition-all duration-300">
+              <div class="p-6 pt-2 text-gray-300">
+                <p>Our rug protection feature uses AI-powered algorithms to analyze token contracts and detect potential scams or 'rug pulls' before you invest. It checks for suspicious code patterns, liquidity locks, developer wallet behaviors, and other risk factors. This helps you avoid common scams in the meme coin space and trade with more confidence.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 4 -->
+          <div class="mb-6 fade-in">
+            <button class="faq-toggle flex items-center justify-between w-full text-left p-6 glass-card rounded-xl hover:border-neonGreen/20 transition-all" data-target="faq-4">
+              <h3 class="text-xl font-semibold">Is the Rust Rocket Sniper Bot regulated?</h3>
+              <i class="icon-chevron-down text-neonGreen transition-transform duration-300"></i>
+            </button>
+            <div id="faq-4" class="faq-content overflow-hidden max-h-0 transition-all duration-300">
+              <div class="p-6 pt-2 text-gray-300">
+                <p>Yes, Rust Rocket operates under the Liechtenstein TVTG framework (Token and Trusted Technology Service Provider Act), making it one of the few fully regulated meme coin trading tools available. This provides users with added security, transparency, and compliance with established financial regulations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- JSON-LD for FAQ -->
+      <script type="application/ld+json" src="/schema/faq-home.jsonld"></script>
+    </section>
+    
+    <!-- FINAL CTA SECTION -->
+    <section id="final-cta" class="relative py-16 overflow-hidden">
+      <!-- Neon Ribbon Background -->
+      <div class="absolute inset-0 bg-gradient-to-r from-speedYellow via-neonGreen to-rocketPurple opacity-10 skew-y-3 -z-10"></div>
+      
+      <div class="container mx-auto max-w-7xl px-6 py-12 relative">
+        <div class="glass-card rounded-3xl p-12 text-center relative backdrop-blur-xl">
+          <!-- Glow effects -->
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-speedYellow/20 rounded-full filter blur-3xl -z-10"></div>
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-neonGreen/20 rounded-full filter blur-3xl -z-10"></div>
+          
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to trade <span class="text-gradient">ahead of the crowd?</span></h2>
+          <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">Join the waitlist now and be among the first to access our 50ms Meme-Coin Sniper Bot.</p>
+          
+          <a href="#" data-waitlist aria-controls="waitlistModal" role="button" class="btn-primary inline-flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-8 py-4 rounded-lg hover:shadow-glow transition-all text-lg">
+            <i class="icon-rocket text-xl"></i>Join the Waitlist
+          </a>
+          
+          <p class="text-gray-400 text-sm mt-6">Limited spots available. Early access members receive exclusive benefits.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Include JavaScript for the FAQ accordion -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // FAQ accordion functionality
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        
+        faqToggles.forEach(toggle => {
+          toggle.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const content = document.getElementById(targetId);
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-content').forEach(item => {
+              if (item.id !== targetId) {
+                item.style.maxHeight = null;
+                item.previousElementSibling.querySelector('i').classList.remove('rotate-180');
+              }
+            });
+            
+            // Toggle the clicked FAQ item
+            if (content.style.maxHeight) {
+              content.style.maxHeight = null;
+              this.querySelector('i').classList.remove('rotate-180');
+            } else {
+              content.style.maxHeight = content.scrollHeight + 'px';
+              this.querySelector('i').classList.add('rotate-180');
+            }
+          });
+        });
+        
+        // Fade-in animation for elements
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+          observer.observe(el);
+        });
+      });
+    </script>
+
+    <!-- Footer -->
+    <div id="pageFooter"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#pageFooter','/components/footer');
+    </script>
+    
+    <!-- Waitlist Modal -->
+    <div id="waitlistMount"></div>
+    <script type="module">
+      // Safety style to ensure body is always scrollable
+      document.body.style.overflow = 'auto';
+      
+      // Safety timeout to ensure the page doesn't remain stuck
+      const safetyTimeout = setTimeout(() => {
+        console.warn('Waitlist safety timeout triggered - ensuring page is usable');
+        document.body.style.overflow = 'auto';
+        
+        // Check for any problematic overlay elements and hide them
+        const dialogBackdrops = document.querySelectorAll('dialog');
+        dialogBackdrops.forEach(dialog => {
+          try {
+            dialog.classList.add('opacity-0', 'pointer-events-none', 'hidden');
+            if (dialog.hasAttribute('open')) {
+              if (typeof dialog.close === 'function') {
+                dialog.close();
+              }
+              dialog.removeAttribute('open');
+            }
+          } catch (e) {
+            console.error('Error cleaning up dialog:', e);
+          }
+        });
+      }, 8000);
+      
+      // Load and initialize modal with proper error handling
+      try {
+        const { inject } = await import('/js/include.js');
+        
+        // Inject the modal component with proper error handling
+        try {
+          await inject('body','/components/waitlist-modal-v3');
+        } catch (injectError) {
+          console.error('Failed to inject waitlist modal:', injectError);
+          clearTimeout(safetyTimeout);
+          document.body.style.overflow = 'auto';
+          return; // Exit early if injection fails
+        }
+        
+        // Import the modal script with proper error handling
+        try {
+          const { initHomepagePopup } = await import('/js/waitlist-modal.js');
+          
+          // Set flag to disable safety timeout once modal is successfully imported
+          clearTimeout(safetyTimeout);
+          
+          // Wait for page to fully load before showing modal
+          window.addEventListener('load', () => {
+            // Small delay to ensure page is fully rendered and interactive
+            setTimeout(() => {
+              try {
+                initHomepagePopup(3000);
+              } catch (popupError) {
+                console.error('Error initializing popup:', popupError);
+                document.body.style.overflow = 'auto';
+              }
+            }, 100);
+          });
+        } catch (scriptError) {
+          console.error('Failed to load waitlist modal script:', scriptError);
+          clearTimeout(safetyTimeout);
+          document.body.style.overflow = 'auto';
+        }
+      } catch (error) {
+        console.error('Waitlist modal initialization failed:', error);
+        clearTimeout(safetyTimeout);
+        document.body.style.overflow = 'auto';
+      }
+    </script>
+
+    <!-- JS -->
+    <script src="/js/app.js" type="module"></script>
+    <script src="/js/hero-waitlist.js" type="module"></script>
+</body>
+</html> 

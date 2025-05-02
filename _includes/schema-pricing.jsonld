@@ -1,0 +1,50 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Rust Rocket Sniper Bot",
+  "description": "Ultraschneller Meme-Coin Trading Bot mit fortschrittlichem Rug-Schutz und vollständiger TVTG-Compliance",
+  "image": "https://rustrocket.io/assets/logo.svg",
+  "brand": {
+    "@type": "Brand",
+    "name": "Rust Rocket"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "SOL",
+    "lowPrice": "0",
+    "highPrice": "99",
+    "offerCount": "4",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Starter Plan",
+        "price": "0",
+        "priceCurrency": "SOL",
+        "description": "Basisversion mit Tip-basiertem Modell"
+      },
+      {
+        "@type": "Offer",
+        "name": "Trader Plan",
+        "price": "19",
+        "priceCurrency": "SOL",
+        "description": "Erweiterte Trading-Funktionen mit Rug-Shield-AI"
+      },
+      {
+        "@type": "Offer",
+        "name": "Turbo Plan",
+        "price": "49",
+        "priceCurrency": "SOL",
+        "description": "Premium Features mit niedrigerer Latenz und Pump-Alerts"
+      },
+      {
+        "@type": "Offer",
+        "name": "Rapid Plan",
+        "price": "99",
+        "priceCurrency": "SOL",
+        "description": "Enterprise-Grade mit individueller RPC-Node und API-Zugang"
+      }
+    ]
+  }
+}
+</script> 

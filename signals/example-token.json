@@ -1,0 +1,123 @@
+{
+  "token": {
+    "name": "BONK",
+    "symbol": "BONK",
+    "address": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "logo": "https://rustrocket.io/assets/tokens/bonk.png",
+    "decimals": 5,
+    "website": "https://bonkcoin.com",
+    "twitter": "https://twitter.com/bonk_inu"
+  },
+  "market_data": {
+    "price_usd": 0.00002953,
+    "market_cap_usd": 1826042000,
+    "volume_24h_usd": 102345678,
+    "price_change_24h_percent": 12.5,
+    "price_change_7d_percent": -3.2,
+    "sparklineData": [0.00002850, 0.00002870, 0.00002900, 0.00002920, 0.00002940, 0.00002930, 0.00002950, 0.00002945, 0.00002953],
+    "ath_usd": 0.00004382,
+    "ath_date": "2025-01-15T12:00:00Z",
+    "atl_usd": 0.00000095,
+    "atl_date": "2023-11-01T00:00:00Z"
+  },
+  "trading_metrics": {
+    "liquidity_usd": 42567890,
+    "txn_count_24h": 125890,
+    "avg_txn_value_usd": 812.45,
+    "holders_count": 578903,
+    "holders_change_24h": 2341
+  },
+  "sentiment": {
+    "twitter_mentions_24h": 12879,
+    "twitter_sentiment_score": 0.72,
+    "telegram_mentions_24h": 8456,
+    "discord_mentions_24h": 6732,
+    "overall_sentiment": "positive",
+    "trending_score": 8.5
+  },
+  "alerts": {
+    "pump_probability": 0.45,
+    "whale_activity": "moderate",
+    "recent_whale_transactions": [
+      {
+        "txid": "4UBwRbpvkurVVS3upBtQuqsY4AUQirDH6vupvWwzQgBPtbYAJ4mKk9y4eTQGfNx1pSJMpLqFCVgBfkQXDwEFHrp9",
+        "value_usd": 1250000,
+        "timestamp": "2025-04-28T10:15:22Z",
+        "type": "buy"
+      },
+      {
+        "txid": "4Kt8KWpJVYwpnQizUANEb9fmNXmCwhtvoyHPpyNYfJYdVS6bXNUqpg6o6VBMmzrFcvn5KwYmPHwZeP3FSTj2gCU1",
+        "value_usd": 780000,
+        "timestamp": "2025-04-28T09:03:15Z",
+        "type": "sell"
+      }
+    ],
+    "dev_activity": "high",
+    "unusual_activity": false
+  },
+  "trading_signals": {
+    "entry_points": [
+      {
+        "price_usd": 0.000027,
+        "confidence": "high",
+        "reasoning": "Strong support level with high buy volume"
+      },
+      {
+        "price_usd": 0.0000255,
+        "confidence": "medium",
+        "reasoning": "Historical bounce point with decreasing sell pressure"
+      }
+    ],
+    "exit_points": [
+      {
+        "price_usd": 0.000035,
+        "confidence": "medium",
+        "reasoning": "Historical resistance level with increasing sell orders"
+      },
+      {
+        "price_usd": 0.00004,
+        "confidence": "high",
+        "reasoning": "Major psychological resistance with whale sell walls"
+      }
+    ],
+    "risk_assessment": {
+      "level": "medium",
+      "factors": [
+        "High social media hype may cause volatility",
+        "Moderate liquidity may lead to slippage on large trades",
+        "Active developer participation reduces rug-pull risk"
+      ]
+    }
+  },
+  "market_context": {
+    "solana_ecosystem_health": "strong",
+    "btc_correlation": 0.65,
+    "sol_correlation": 0.82,
+    "related_tokens": [
+      {
+        "symbol": "SAMO",
+        "price_change_24h_percent": 8.7
+      },
+      {
+        "symbol": "DOGWIFHAT",
+        "price_change_24h_percent": 15.2
+      }
+    ],
+    "narratives": [
+      "Solana meme season",
+      "Memecoin community competition"
+    ]
+  },
+  "rust_rocket_metrics": {
+    "active_traders": 12547,
+    "successful_entries_24h": 2351,
+    "avg_profit_percent_24h": 11.3,
+    "protection_events_triggered": 78,
+    "latency_ms": 32
+  },
+  "metadata": {
+    "last_updated": "2025-04-28T15:30:00Z",
+    "data_source": "Rust Rocket API",
+    "version": "1.0.0"
+  }
+} 

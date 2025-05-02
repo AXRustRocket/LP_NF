@@ -1,0 +1,206 @@
+<!-- AI Onboarding Chatbot Modal -->
+<div id="ai-onboarding-modal" class="fixed inset-0 bg-spaceBlack/90 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+  <div class="glass-card w-full max-w-lg mx-4 rounded-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <!-- Header -->
+    <div class="bg-spaceDark p-4 flex items-center justify-between">
+      <h3 class="text-white font-semibold flex items-center">
+        <span class="text-neonGreen mr-2"><i class="icon-bot"></i></span>
+        Rust Rocket Onboarding Assistant
+      </h3>
+      <button id="closeOnboardingBtn" class="text-gray-400 hover:text-white">
+        <i class="icon-x"></i>
+      </button>
+    </div>
+    
+    <!-- Step Indicator -->
+    <div class="bg-spaceDark/60 px-6 pt-1 pb-3">
+      <div class="flex justify-between">
+        <span class="text-xs text-white/60" id="step-indicator">Step <span id="current-step">1</span> of 5</span>
+        <span class="text-xs text-white/60">Secure & Private</span>
+      </div>
+      <div class="w-full h-1 bg-white/10 mt-2 rounded-full overflow-hidden">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-neonGreen to-rustBlue rounded-full" style="width: 20%"></div>
+      </div>
+    </div>
+    
+    <!-- Content Area -->
+    <div class="flex-1 p-6 overflow-y-auto space-y-6" id="chatbot-content">
+      <!-- Step content will be loaded here dynamically -->
+      
+      <!-- Step 1: Risk Consent (Default Initial View) -->
+      <div class="step-content" id="step-1">
+        <h4 class="text-xl font-semibold mb-4">Welcome to Rust Rocket</h4>
+        <p class="mb-4">Before we begin, we need to ensure you understand the risks associated with trading meme coins.</p>
+        
+        <div class="p-4 bg-spaceDark/40 rounded-lg mb-4">
+          <p class="text-white/90 mb-3"><strong>Risk Disclosure:</strong></p>
+          <ul class="space-y-2 text-white/80 text-sm">
+            <li>• Trading meme coins involves significant risk of financial loss</li>
+            <li>• Prices can be extremely volatile and may drop to zero</li>
+            <li>• Past performance is not indicative of future results</li>
+            <li>• Only trade with capital you can afford to lose completely</li>
+            <li>• Rust Rocket provides tools to help mitigate some risks, but cannot eliminate all risks</li>
+          </ul>
+        </div>
+        
+        <div class="flex items-center mb-4">
+          <input type="checkbox" id="risk-consent" class="mr-3">
+          <label for="risk-consent" class="text-white/90">I understand and accept these risks</label>
+        </div>
+      </div>
+      
+      <!-- Step 2: Wallet Check -->
+      <div class="step-content hidden" id="step-2">
+        <h4 class="text-xl font-semibold mb-4">Wallet Selection</h4>
+        <p class="mb-6">Which Solana wallet do you prefer to use with Rust Rocket?</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <button class="wallet-option flex items-center p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-wallet="phantom">
+            <img src="/assets/wallets/phantom.svg" alt="Phantom" class="w-8 h-8 mr-3">
+            <span>Phantom</span>
+          </button>
+          
+          <button class="wallet-option flex items-center p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-wallet="solflare">
+            <img src="/assets/wallets/solflare.svg" alt="Solflare" class="w-8 h-8 mr-3">
+            <span>Solflare</span>
+          </button>
+          
+          <button class="wallet-option flex items-center p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-wallet="backpack">
+            <img src="/assets/wallets/backpack.svg" alt="Backpack" class="w-8 h-8 mr-3">
+            <span>Backpack</span>
+          </button>
+          
+          <button class="wallet-option flex items-center p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-wallet="other">
+            <span class="w-8 h-8 flex items-center justify-center bg-white/10 rounded-full mr-3">
+              <i class="icon-more-horizontal"></i>
+            </span>
+            <span>Other</span>
+          </button>
+        </div>
+        
+        <p class="text-white/60 text-sm">You can change your wallet selection at any time.</p>
+      </div>
+      
+      <!-- Step 3: Budget & Risk Appetite -->
+      <div class="step-content hidden" id="step-3">
+        <h4 class="text-xl font-semibold mb-4">Trading Budget & Risk Profile</h4>
+        <p class="mb-6">Let's understand your trading goals to customize your experience.</p>
+        
+        <div class="mb-6">
+          <label class="block text-white/90 mb-2">Trading Budget (in USD)</label>
+          <div class="flex space-x-4">
+            <button class="budget-option flex-1 p-3 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-budget="100">$100-$500</button>
+            <button class="budget-option flex-1 p-3 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-budget="1000">$500-$1000</button>
+            <button class="budget-option flex-1 p-3 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-budget="5000">$1000+</button>
+          </div>
+        </div>
+        
+        <div class="mb-6">
+          <label class="block text-white/90 mb-2">Risk Tolerance</label>
+          <div class="flex space-x-4">
+            <button class="risk-option flex-1 p-3 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-risk="conservative">Conservative</button>
+            <button class="risk-option flex-1 p-3 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-risk="moderate">Moderate</button>
+            <button class="risk-option flex-1 p-3 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all" data-risk="aggressive">Aggressive</button>
+          </div>
+        </div>
+        
+        <p class="text-white/60 text-sm">This information helps us tailor protection settings but does not constitute financial advice.</p>
+      </div>
+      
+      <!-- Step 4: Strategy Choice -->
+      <div class="step-content hidden" id="step-4">
+        <h4 class="text-xl font-semibold mb-4">Trading Strategy</h4>
+        <p class="mb-6">Select your preferred trading approach:</p>
+        
+        <div class="space-y-4 mb-6">
+          <button class="strategy-option w-full text-left p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all flex items-start" data-strategy="sniper">
+            <span class="text-neonGreen mr-3 mt-1"><i class="icon-zap"></i></span>
+            <div>
+              <strong class="block mb-1">Launch Sniper</strong>
+              <span class="text-sm text-white/70">Fast execution to catch new token launches and listings</span>
+            </div>
+          </button>
+          
+          <button class="strategy-option w-full text-left p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all flex items-start" data-strategy="pump">
+            <span class="text-neonGreen mr-3 mt-1"><i class="icon-trending-up"></i></span>
+            <div>
+              <strong class="block mb-1">Pump Detector</strong>
+              <span class="text-sm text-white/70">Identify early price momentum for established tokens</span>
+            </div>
+          </button>
+          
+          <button class="strategy-option w-full text-left p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all flex items-start" data-strategy="copy">
+            <span class="text-neonGreen mr-3 mt-1"><i class="icon-users"></i></span>
+            <div>
+              <strong class="block mb-1">Copy Trading</strong>
+              <span class="text-sm text-white/70">Follow successful traders automatically</span>
+            </div>
+          </button>
+          
+          <button class="strategy-option w-full text-left p-4 bg-spaceDark/40 rounded-lg border border-transparent hover:border-neonGreen/30 transition-all flex items-start" data-strategy="custom">
+            <span class="text-neonGreen mr-3 mt-1"><i class="icon-sliders"></i></span>
+            <div>
+              <strong class="block mb-1">Custom Strategy</strong>
+              <span class="text-sm text-white/70">Define your own parameters and rules</span>
+            </div>
+          </button>
+        </div>
+        
+        <p class="text-white/60 text-sm">You can change your strategy or run multiple strategies simultaneously after setup.</p>
+      </div>
+      
+      <!-- Step 5: Summary -->
+      <div class="step-content hidden" id="step-5">
+        <h4 class="text-xl font-semibold mb-4">Your Trading Profile</h4>
+        <p class="mb-6">Here's a summary of your preferences:</p>
+        
+        <div class="p-4 bg-spaceDark/40 rounded-lg mb-6">
+          <table class="w-full text-sm">
+            <tr>
+              <td class="py-2 text-white/70">Wallet:</td>
+              <td class="py-2 text-white font-medium" id="summary-wallet">Not selected</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-white/70">Budget Range:</td>
+              <td class="py-2 text-white font-medium" id="summary-budget">Not selected</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-white/70">Risk Profile:</td>
+              <td class="py-2 text-white font-medium" id="summary-risk">Not selected</td>
+            </tr>
+            <tr>
+              <td class="py-2 text-white/70">Strategy:</td>
+              <td class="py-2 text-white font-medium" id="summary-strategy">Not selected</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="bg-neonGreen/10 border border-neonGreen/30 rounded-lg p-4 mb-6">
+          <p class="text-white/90 flex items-start">
+            <span class="text-neonGreen mr-2 mt-1"><i class="icon-shield"></i></span>
+            <span>Based on your settings, we've configured optimal rug protection parameters for your trading profile.</span>
+          </p>
+        </div>
+        
+        <p class="text-white/60 text-sm mb-2">Your preferences are saved locally in your browser with AES-GCM encryption.</p>
+        <p class="text-white/60 text-sm">No financial data is transmitted to our servers during this process.</p>
+      </div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="border-t border-white/10 p-4 flex justify-between">
+      <button id="prev-step" class="px-6 py-2 rounded-lg bg-spaceDark/60 text-white/80 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed">
+        Back
+      </button>
+      
+      <button id="next-step" class="px-6 py-2 rounded-lg bg-neonGreen text-spaceDark font-medium hover:bg-neonGreen/90 disabled:opacity-50 disabled:cursor-not-allowed">
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Trigger Button -->
+<button id="onboarding-trigger" class="fixed bottom-6 right-6 bg-neonGreen hover:bg-neonGreen/90 text-spaceDark p-4 rounded-full shadow-lg z-40 flex items-center justify-center">
+  <i class="icon-bot text-xl"></i>
+</button> 
