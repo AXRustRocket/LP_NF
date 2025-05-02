@@ -23,6 +23,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Join waitlist API function
+ * @param {string} email - Email to add to waitlist
+ * @param {string} source - Source of signup (default: 'hero-form')
+ * @returns {Promise} - Resolution or rejection
+ */
+export async function joinWaitlist(email, source = 'hero-form') {
+  if (!email || !validateEmail(email)) {
+    throw new Error('Please enter a valid email address');
+  }
+  
+  try {
+    const response = await fetch('/api/waitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        email,
+        source
+      }),
+    });
+    
+    if (!response.ok) {
+      const responseData = await response.json().catch(() => ({ message: 'Something went wrong. Please try again later.' }));
+      throw new Error(responseData.message || 'Something went wrong. Please try again later.');
+    }
+    
+    // Set localStorage flag to prevent showing modal again
+    localStorage.setItem(LS_KEY, '1');
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Error joining waitlist:', error);
+    throw error;
+  }
+}
+
+/**
  * Manually open the waitlist modal when a button is clicked
  * This can be called from anywhere in the app
  */
@@ -132,6 +170,9 @@ export function initHomepagePopup(delay = 3000) {
     
     // Don't show if user already signed up
     if (localStorage.getItem(LS_KEY)) return;
+    
+    // Don't show if user already submitted through hero form
+    if (localStorage.getItem('rr_wait_home_v3')) return;
     
     // Initialize the modal
     initModal();

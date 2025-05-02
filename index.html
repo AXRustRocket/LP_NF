@@ -245,6 +245,26 @@
             Beat the market with our lightning-fast regulated sniper bot for Solana meme coins. Sub-50ms execution, real-time pump detection, and advanced rug protection.
           </p>
           
+          <!-- Hero Waitlist Form -->
+          <form id="heroWaitlist" class="flex flex-col sm:flex-row gap-2 mb-8 max-w-xl">
+            <div class="flex-grow relative">
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="your@email.com" 
+                required
+                class="w-full bg-[#0F1116] text-white px-4 py-3 rounded-lg border border-white/10 focus:border-neonGreen focus:outline-none transition-colors"
+              />
+              <div class="hero-form-error text-red-500 text-xs mt-1 absolute"></div>
+            </div>
+            <button 
+              type="submit" 
+              class="bg-neonGreen hover:bg-[#28D94C] text-spaceBlack font-medium px-4 py-3 rounded-lg transition-colors whitespace-nowrap flex-shrink-0"
+            >
+              Join Waitlist →
+            </button>
+          </form>
+          
           <!-- CTA button group -->
           <div class="flex flex-col sm:flex-row gap-4 mb-12">
             <a href="#pricing" class="btn-primary flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-3 rounded-lg hover:shadow-glow transition-all duration-300">
@@ -1035,5 +1055,9 @@
         document.body.style.overflow = 'auto';
       }
     </script>
+
+    <!-- JS -->
+    <script src="/js/app.js" type="module"></script>
+    <script src="/js/hero-waitlist.js" type="module"></script>
 </body>
 </html> 
