@@ -1,0 +1,348 @@
+<!-- Dashboard Grid V2 - Redesigned to match new site style -->
+<div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- Hero Panel -->
+  <div class="relative flex flex-col lg:flex-row items-center gap-8 py-12">
+    <!-- Left Column: Title & Subline -->
+    <div class="w-full lg:w-2/3">
+      <h1 class="font-bold text-4.5xl leading-tight mb-4">
+        Your Meme-Coin <span class="text-gradient">Command Center</span>
+      </h1>
+      <p class="text-lg-fluid text-gray-300 mb-8">
+        Live signals • Copy trades • Rug-Shield status
+      </p>
+    </div>
+    
+    <!-- Right Column: CTA -->
+    <div class="w-full lg:w-1/3 flex justify-end">
+      <button id="configBtn" class="btn-primary flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-3 rounded-lg hover:shadow-glow transition-all">
+        <i class="icon-settings"></i>Open Bot Config
+      </button>
+    </div>
+  </div>
+  
+  <!-- Live KPI Tiles -->
+  <div class="mb-12">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center space-x-3">
+        <h2 class="text-2xl font-bold">Live Signals</h2>
+        <span class="text-xs text-white/60" id="sig-last-updated"></span>
+      </div>
+      <select id="token-switcher" class="bg-spaceDark/60 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-neonGreen/50 border border-white/10">
+        <option value="WIF">WIF</option>
+        <option value="BONK">BONK</option>
+        <option value="NEW">NEW</option>
+      </select>
+    </div>
+    
+    <!-- KPI Tiles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" aria-live="polite">
+      <!-- Price Tile -->
+      <div class="glass-card h-24 flex items-center p-6">
+        <div class="flex-shrink-0 mr-4">
+          <i class="icon-dollar-sign text-2xl text-neonGreen"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-medium text-white/70 mb-1">Price</h3>
+          <div id="sig-price" class="text-2xl font-bold">—</div>
+        </div>
+      </div>
+      
+      <!-- Volume Tile -->
+      <div class="glass-card h-24 flex items-center p-6">
+        <div class="flex-shrink-0 mr-4">
+          <i class="icon-bar-chart-2 text-2xl text-neonGreen"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-medium text-white/70 mb-1">Volume 24h</h3>
+          <div id="sig-volume" class="text-2xl font-bold">—</div>
+        </div>
+      </div>
+      
+      <!-- Latency Tile -->
+      <div class="glass-card h-24 flex items-center p-6">
+        <div class="flex-shrink-0 mr-4">
+          <i class="icon-zap text-2xl text-neonGreen"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-medium text-white/70 mb-1">Latency</h3>
+          <div id="sig-latency" class="text-2xl font-bold">—</div>
+        </div>
+      </div>
+      
+      <!-- Pump Score Tile -->
+      <div class="glass-card h-24 flex items-center p-6">
+        <div class="flex-shrink-0 mr-4">
+          <i class="icon-trending-up text-2xl text-neonGreen"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-sm font-medium text-white/70 mb-1">Pump Score</h3>
+          <div id="sig-pump-score" class="text-2xl font-bold">—</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Token Selector + Sparkline -->
+    <div class="glass-card mt-6 p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <span id="token-icon" class="w-8 h-8 rounded-full bg-spaceDark/80 flex items-center justify-center">
+            <span id="token-symbol-short" class="text-neonGreen text-xs font-mono">WIF</span>
+          </span>
+          <div>
+            <h3 id="sig-token-name" class="font-medium">Dogwifhat</h3>
+            <p id="sig-token-address" class="text-xs text-gray-400">EKpQG...zcjm</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <span id="sig-token-symbol" class="text-sm font-medium">WIF</span>
+          <p id="sig-token-created" class="text-xs text-gray-400">Created 12/15/2023</p>
+        </div>
+      </div>
+      
+      <div class="h-[150px]">
+        <canvas id="sig-spark" class="w-full h-full sparkline-chart"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bot Configuration Card -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-bold mb-6">Bot Configuration</h2>
+    
+    <div class="glass-card p-6">
+      <!-- Tabs -->
+      <div class="flex border-b border-white/10 mb-6">
+        <button id="tab-basic" class="px-6 py-2 border-b-2 border-neonGreen text-white font-medium">Basic</button>
+        <button id="tab-advanced" class="px-6 py-2 border-b-2 border-transparent text-white/60 hover:text-white">Advanced</button>
+      </div>
+      
+      <!-- Basic Tab Content (visible by default) -->
+      <div id="content-basic" class="tab-content">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Trade Size -->
+          <div class="form-group">
+            <label for="trade-size" class="block text-sm font-medium text-white mb-2">Trade Size (SOL)</label>
+            <div class="flex rounded-lg overflow-hidden">
+              <input type="number" id="trade-size" min="0.1" max="100" step="0.1" value="1" 
+                class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+            </div>
+          </div>
+          
+          <!-- Slippage -->
+          <div class="form-group">
+            <label for="slippage" class="block text-sm font-medium text-white mb-2">Max Slippage (%)</label>
+            <div class="flex rounded-lg overflow-hidden">
+              <input type="number" id="slippage" min="0.1" max="100" step="0.1" value="5" 
+                class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Advanced Tab Content (hidden by default) -->
+      <div id="content-advanced" class="tab-content hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Auto-sell -->
+          <div class="form-group">
+            <label class="flex items-center space-x-2 mb-2">
+              <input type="checkbox" id="auto-sell" class="form-checkbox h-5 w-5 text-neonGreen">
+              <span class="text-sm font-medium text-white">Enable Auto-Sell</span>
+            </label>
+            <div class="flex rounded-lg overflow-hidden">
+              <input type="number" id="auto-sell-percent" placeholder="% Profit Target" 
+                class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+            </div>
+          </div>
+          
+          <!-- Trailing Stop -->
+          <div class="form-group">
+            <label class="flex items-center space-x-2 mb-2">
+              <input type="checkbox" id="trailing-stop" class="form-checkbox h-5 w-5 text-neonGreen">
+              <span class="text-sm font-medium text-white">Enable Trailing Stop</span>
+            </label>
+            <div class="flex rounded-lg overflow-hidden">
+              <input type="number" id="trailing-percent" placeholder="% Trailing Distance" 
+                class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="mt-6 text-right">
+        <button type="button" class="bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-2 rounded-lg hover:shadow-glow transition-all">
+          Save Configuration
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Performance Analytics -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-bold mb-6">Performance Analytics</h2>
+    
+    <div class="glass-card p-6">
+      <canvas id="profit-chart" class="w-full h-[300px]"></canvas>
+    </div>
+  </div>
+  
+  <!-- Timeline / Roadmap -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-bold mb-6">Trade Status</h2>
+    
+    <div class="glass-card p-6">
+      <div class="relative">
+        <!-- Timeline Bar -->
+        <div class="h-1 bg-spaceDark/60 w-full absolute top-5 left-0"></div>
+        
+        <!-- Timeline Steps -->
+        <div class="flex justify-between relative">
+          <!-- Step 1: Sniped -->
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-full bg-neonGreen flex items-center justify-center mx-auto relative z-10">
+              <i class="icon-check text-spaceBlack"></i>
+            </div>
+            <p class="mt-2 text-sm font-medium">Sniped</p>
+            <span class="text-xs text-gray-400">10:42 AM</span>
+          </div>
+          
+          <!-- Step 2: In Position -->
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-full bg-speedYellow flex items-center justify-center mx-auto relative z-10">
+              <i class="icon-check text-spaceBlack"></i>
+            </div>
+            <p class="mt-2 text-sm font-medium">In Position</p>
+            <span class="text-xs text-gray-400">10:42 AM</span>
+          </div>
+          
+          <!-- Step 3: TP Trigger -->
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-full bg-rocketPurple animate-pulse-slow flex items-center justify-center mx-auto relative z-10 timeline-dot-pulse">
+              <i class="icon-zap text-white"></i>
+            </div>
+            <p class="mt-2 text-sm font-medium">TP Trigger</p>
+            <span class="text-xs text-gray-400">In progress</span>
+          </div>
+          
+          <!-- Step 4: Settled -->
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mx-auto relative z-10">
+              <i class="icon-check text-white/50"></i>
+            </div>
+            <p class="mt-2 text-sm font-medium text-white/60">Settled</p>
+            <span class="text-xs text-gray-400">Pending</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Final CTA Ribbon -->
+  <div class="mb-12">
+    <div class="relative py-8 overflow-hidden rounded-xl">
+      <!-- Neon Ribbon Background -->
+      <div class="absolute inset-0 bg-gradient-to-r from-speedYellow via-neonGreen to-rocketPurple opacity-10 -z-10"></div>
+      
+      <div class="relative px-6 py-6 text-center">
+        <h2 class="text-xl font-bold mb-4">Need more speed? <span class="text-gradient">Upgrade to UltraSpeed →</span></h2>
+        <a href="/pricing" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-3 rounded-lg hover:shadow-glow transition-all">
+          <i class="icon-zap"></i>View Pricing
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bot Configuration Modal (Hidden by default) -->
+<div id="configModal" class="hidden fixed inset-0 z-50">
+  <div class="absolute inset-0 bg-spaceBlack/80 backdrop-blur-sm" id="modal-backdrop"></div>
+  <div class="relative min-h-screen flex items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full p-6 rounded-xl relative" aria-modal="true" role="dialog">
+      <!-- Close button -->
+      <button id="closeModal" class="absolute top-4 right-4 text-white/60 hover:text-white">
+        <i class="icon-x text-lg"></i>
+        <span class="sr-only">Close</span>
+      </button>
+      
+      <h2 class="text-2xl font-bold mb-6">Advanced Bot Configuration</h2>
+      
+      <!-- Form content here - more extensive than the card -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Left Column -->
+        <div>
+          <div class="mb-4">
+            <label for="modal-trade-size" class="block text-sm font-medium text-white mb-2">Trade Size (SOL)</label>
+            <input type="number" id="modal-trade-size" min="0.1" step="0.1" value="1" 
+              class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          </div>
+          
+          <div class="mb-4">
+            <label for="modal-slippage" class="block text-sm font-medium text-white mb-2">Max Slippage (%)</label>
+            <input type="number" id="modal-slippage" min="0.1" step="0.1" value="5" 
+              class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          </div>
+          
+          <div class="mb-4">
+            <label for="modal-gas-boost" class="block text-sm font-medium text-white mb-2">Gas Boost Multiplier</label>
+            <input type="number" id="modal-gas-boost" min="1" step="0.1" value="1.5" 
+              class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div>
+          <div class="mb-4">
+            <label class="flex items-center space-x-2 mb-2">
+              <input type="checkbox" id="modal-auto-sell" class="form-checkbox h-5 w-5 text-neonGreen" checked>
+              <span class="text-sm font-medium text-white">Enable Auto-Sell</span>
+            </label>
+            <input type="number" id="modal-auto-sell-percent" placeholder="% Profit Target" value="50"
+              class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          </div>
+          
+          <div class="mb-4">
+            <label class="flex items-center space-x-2 mb-2">
+              <input type="checkbox" id="modal-trailing-stop" class="form-checkbox h-5 w-5 text-neonGreen" checked>
+              <span class="text-sm font-medium text-white">Enable Trailing Stop</span>
+            </label>
+            <input type="number" id="modal-trailing-percent" placeholder="% Trailing Distance" value="10"
+              class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          </div>
+          
+          <div class="mb-4">
+            <label class="flex items-center space-x-2 mb-2">
+              <input type="checkbox" id="modal-stop-loss" class="form-checkbox h-5 w-5 text-neonGreen">
+              <span class="text-sm font-medium text-white">Enable Stop Loss</span>
+            </label>
+            <input type="number" id="modal-stop-loss-percent" placeholder="% Loss Limit" 
+              class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Select Tokens to Whitelist -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-white mb-2">Tokens to Whitelist (Optional)</label>
+        <select multiple id="token-whitelist" 
+          class="w-full bg-spaceDark/60 border border-white/10 rounded-lg px-4 py-2 h-24 focus:outline-none focus:ring-1 focus:ring-neonGreen">
+          <option value="WIF">WIF - Dogwifhat</option>
+          <option value="BONK">BONK - Bonk</option>
+          <option value="SAMO">SAMO - Samoyedcoin</option>
+          <option value="BERN">BERN - Bernie</option>
+          <option value="MNGO">MNGO - Mango</option>
+        </select>
+        <p class="text-xs text-white/60 mt-1">Hold CTRL/CMD to select multiple tokens</p>
+      </div>
+      
+      <!-- Actions -->
+      <div class="flex justify-between">
+        <button id="reset-config" type="button" class="text-white/60 hover:text-white">
+          Reset to Defaults
+        </button>
+        <button id="save-config" type="button" class="bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-6 py-2 rounded-lg hover:shadow-glow transition-all">
+          Save Configuration
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

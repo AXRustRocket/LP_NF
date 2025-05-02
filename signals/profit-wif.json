@@ -1,0 +1,64 @@
+{
+  "token": "WIF",
+  "period": "7d",
+  "chart_data": {
+    "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "values": [0, 5.2, 12.8, 8.3, 24.6, 18.2, 35.7],
+    "baseline": 0
+  },
+  "metrics": {
+    "total_profit_percent": 35.7,
+    "total_profit_usd": 1427.62,
+    "winning_trades": 5,
+    "losing_trades": 2,
+    "avg_hold_time_hours": 4.8
+  },
+  "trades": [
+    {
+      "timestamp": "2025-04-24T08:12:23Z",
+      "type": "BUY",
+      "price_usd": 0.000278,
+      "amount_tokens": 12500,
+      "amount_usd": 3475.00
+    },
+    {
+      "timestamp": "2025-04-24T16:32:11Z",
+      "type": "SELL",
+      "price_usd": 0.000293,
+      "amount_tokens": 5000,
+      "amount_usd": 1465.00,
+      "profit_percent": 5.4
+    },
+    {
+      "timestamp": "2025-04-25T09:45:29Z",
+      "type": "SELL",
+      "price_usd": 0.000314,
+      "amount_tokens": 7500,
+      "amount_usd": 2355.00,
+      "profit_percent": 13.1
+    },
+    {
+      "timestamp": "2025-04-27T14:18:45Z",
+      "type": "BUY",
+      "price_usd": 0.000326,
+      "amount_tokens": 10000,
+      "amount_usd": 3260.00
+    },
+    {
+      "timestamp": "2025-04-29T07:22:15Z",
+      "type": "SELL",
+      "price_usd": 0.000376,
+      "amount_tokens": 10000,
+      "amount_usd": 3760.00,
+      "profit_percent": 15.3
+    },
+    {
+      "timestamp": "2025-04-30T10:05:33Z",
+      "type": "BUY",
+      "price_usd": 0.000342,
+      "amount_tokens": 15000,
+      "amount_usd": 5130.00
+    }
+  ],
+  "timestamp": "2025-04-30T12:00:00Z"
+} 

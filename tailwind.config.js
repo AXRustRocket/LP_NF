@@ -67,6 +67,8 @@ module.exports = {
     'hero-slot-gif',
     'hero-radar-svg',
     'hero-mirror-gif',
-    'text-gradient'
+    'text-gradient',
+    'sparkline-chart',
+    'timeline-dot-pulse'
   ]
 }; 
