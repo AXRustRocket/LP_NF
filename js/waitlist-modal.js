@@ -7,6 +7,119 @@ const LS_KEY = 'rr_wait_home_v3';
 let modal = null;
 let previouslyFocusedElement = null;
 let focusableElements = [];
+let autoCloseTimer = null; // Safety timer to ensure modal doesn't permanently block page
+let eventListenersRegistered = false;
+
+// When the DOM is fully loaded, add click event listener for waitlist buttons
+document.addEventListener('DOMContentLoaded', () => {
+  // Global event delegation for all waitlist buttons
+  document.addEventListener('click', (event) => {
+    const waitlistButton = event.target.closest('[data-waitlist]');
+    if (waitlistButton) {
+      event.preventDefault();
+      openWaitlistModal();
+    }
+  });
+});
+
+/**
+ * Manually open the waitlist modal when a button is clicked
+ * This can be called from anywhere in the app
+ */
+export function openWaitlistModal() {
+  try {
+    // Don't show if user already signed up (check localStorage)
+    if (localStorage.getItem(LS_KEY)) {
+      console.log('User already on waitlist, not showing modal again');
+      return;
+    }
+    
+    // Initialize the modal if not already done
+    initModal();
+    
+    // Open the modal without delay
+    if (modal) {
+      openModal();
+    }
+  } catch (error) {
+    console.error('Error opening waitlist modal:', error);
+  }
+}
+
+/**
+ * Initialize the modal element and event listeners
+ */
+function initModal() {
+  if (modal !== null) return; // Already initialized
+  
+  try {
+    // Ensure body scrolling is always enabled by default
+    document.body.style.overflow = 'auto';
+    
+    // Safety timeout - if modal implementation gets stuck, force reset the page state
+    // This prevents permanent black screens if modal code fails
+    if (autoCloseTimer) clearTimeout(autoCloseTimer);
+    autoCloseTimer = setTimeout(() => {
+      console.warn('Waitlist modal safety timeout triggered - resetting page state');
+      forceCleanupPageState();
+    }, 10000); // 10 seconds max before forcing reset
+    
+    modal = document.getElementById('waitlistModal');
+    if (!modal) {
+      console.warn('Waitlist modal element not found, attempting to inject it');
+      injectModal();
+      return;
+    }
+    
+    if (!eventListenersRegistered) {
+      // Add keyboard event listener for Escape key
+      modal.addEventListener('keydown', handleEscapeKey);
+      
+      // Add backdrop click listener for native dialog
+      modal.addEventListener('click', handleBackdropClick);
+
+      // Add click listeners for close buttons
+      document.addEventListener('click', handleCloseButtonClick);
+
+      // Add submit listener for the form
+      document.addEventListener('submit', handleFormSubmit);
+      
+      eventListenersRegistered = true;
+    }
+  } catch (error) {
+    console.error('Error initializing modal:', error);
+    forceCleanupPageState();
+  }
+}
+
+/**
+ * Try to inject the modal if it doesn't exist
+ */
+async function injectModal() {
+  try {
+    // Dynamic import of include.js
+    const { inject } = await import('/js/include.js');
+    await inject('body', '/components/waitlist-modal-v3');
+    
+    // Try to get the modal again after injecting
+    modal = document.getElementById('waitlistModal');
+    if (!modal) {
+      console.error('Failed to inject waitlist modal');
+      return;
+    }
+    
+    // Register event listeners for the newly injected modal
+    if (!eventListenersRegistered) {
+      modal.addEventListener('keydown', handleEscapeKey);
+      modal.addEventListener('click', handleBackdropClick);
+      document.addEventListener('click', handleCloseButtonClick);
+      document.addEventListener('submit', handleFormSubmit);
+      eventListenersRegistered = true;
+    }
+  } catch (error) {
+    console.error('Error injecting modal:', error);
+  }
+}
 
 /**
  * Initialize the homepage-only waitlist modal with a delay
@@ -20,28 +133,16 @@ export function initHomepagePopup(delay = 3000) {
     // Don't show if user already signed up
     if (localStorage.getItem(LS_KEY)) return;
     
-    modal = document.getElementById('waitlistModal');
-    if (!modal) {
-      console.warn('Waitlist modal element not found');
-      return;
-    }
-    
-    // Add keyboard event listener for Escape key
-    modal.addEventListener('keydown', handleEscapeKey);
-    
-    // Add backdrop click listener for native dialog
-    modal.addEventListener('click', handleBackdropClick);
-
-    // Add click listeners for close buttons
-    document.addEventListener('click', handleCloseButtonClick);
-
-    // Add submit listener for the form
-    document.addEventListener('submit', handleFormSubmit);
+    // Initialize the modal
+    initModal();
     
     // Show modal after delay
-    setTimeout(() => openModal(), delay);
+    if (modal) {
+      setTimeout(() => openModal(), delay);
+    }
   } catch (error) {
     console.error('Error initializing waitlist modal:', error);
+    forceCleanupPageState();
   }
 }
 
@@ -50,7 +151,10 @@ export function initHomepagePopup(delay = 3000) {
  */
 function openModal() {
   try {
-    if (!modal) return;
+    if (!modal) {
+      clearTimeout(autoCloseTimer);
+      return;
+    }
     
     // Store the previously focused element to restore it later
     previouslyFocusedElement = document.activeElement;
@@ -59,6 +163,17 @@ function openModal() {
     try {
       if (typeof modal.showModal === 'function') {
         modal.showModal();
+        
+        // Fix for backdrop issues - ensure it doesn't block the page
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'modal-backdrop-fix';
+        styleSheet.textContent = `
+          dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+          }
+        `;
+        document.head.appendChild(styleSheet);
       } else {
         modal.style.display = 'block';
         modal.setAttribute('open', '');
@@ -75,6 +190,8 @@ function openModal() {
     // Start animation after a small delay to ensure the dialog is in the DOM
     requestAnimationFrame(() => {
       modal.classList.remove('translate-y-full', 'opacity-0');
+      modal.classList.remove('pointer-events-none');
+      modal.classList.add('pointer-events-auto');
     });
 
     // Set up focus trap
@@ -85,11 +202,16 @@ function openModal() {
       // Skip animations for users who prefer reduced motion
       modal.style.transition = 'none';
       modal.classList.remove('translate-y-full', 'opacity-0');
+      modal.classList.remove('pointer-events-none');
+      modal.classList.add('pointer-events-auto');
     }
+    
+    // Clear the safety timeout since the modal opened successfully
+    clearTimeout(autoCloseTimer);
   } catch (error) {
     console.error('Error opening modal:', error);
     // Ensure the page remains usable if modal fails
-    document.body.style.overflow = 'auto';
+    forceCleanupPageState();
   }
 }
 
@@ -105,10 +227,21 @@ function closeModal() {
     
     // Animate out
     modal.classList.add('translate-y-full', 'opacity-0');
+    modal.classList.remove('pointer-events-auto');
+    modal.classList.add('pointer-events-none');
+    
+    // Clear the safety timeout since we're explicitly closing
+    clearTimeout(autoCloseTimer);
     
     // Close dialog after animation completes
     setTimeout(() => {
       try {
+        // Remove the backdrop fix style if it exists
+        const backdropFixStyle = document.getElementById('modal-backdrop-fix');
+        if (backdropFixStyle) {
+          backdropFixStyle.remove();
+        }
+        
         if (typeof modal.close === 'function') {
           modal.close();
         } else {
@@ -129,15 +262,76 @@ function closeModal() {
       if (previouslyFocusedElement) {
         previouslyFocusedElement.focus();
       }
+      
+      // Remove event listeners to prevent memory leaks
+      cleanupEventListeners();
     }, 300);
   } catch (error) {
     console.error('Error closing modal:', error);
     // Emergency fallback to ensure modal doesn't block the page
-    if (modal) {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
+    forceCleanupPageState();
+  }
+}
+
+/**
+ * Emergency function to reset page state if modal implementation fails
+ * This ensures users won't be stuck with a black screen
+ */
+function forceCleanupPageState() {
+  clearTimeout(autoCloseTimer);
+  
+  // Reset body styles
+  document.body.style.overflow = 'auto';
+  
+  // Remove backdrop fix style if it exists
+  const backdropFixStyle = document.getElementById('modal-backdrop-fix');
+  if (backdropFixStyle) {
+    backdropFixStyle.remove();
+  }
+  
+  // Force clean modal if it exists
+  if (modal) {
+    // Hide modal with force
+    modal.style.display = 'none';
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modal.classList.remove('pointer-events-auto');
+    
+    // Close dialog if it's open
+    if (modal.hasAttribute('open')) {
+      try {
+        if (typeof modal.close === 'function') {
+          modal.close();
+        }
+        modal.removeAttribute('open');
+      } catch (e) {
+        console.error('Error force closing modal:', e);
+      }
     }
   }
+  
+  // Clean up event listeners
+  cleanupEventListeners();
+  
+  // Set localStorage to prevent showing again on this visit
+  localStorage.setItem(LS_KEY, '1');
+}
+
+/**
+ * Clean up event listeners to prevent memory leaks
+ */
+function cleanupEventListeners() {
+  if (!eventListenersRegistered) return;
+  
+  if (modal) {
+    modal.removeEventListener('keydown', handleEscapeKey);
+    modal.removeEventListener('click', handleBackdropClick);
+    modal.removeEventListener('keydown', trapTabKey);
+  }
+  
+  document.removeEventListener('click', handleCloseButtonClick);
+  document.removeEventListener('submit', handleFormSubmit);
+  
+  eventListenersRegistered = false;
 }
 
 /**
@@ -151,6 +345,7 @@ function handleEscapeKey(event) {
     }
   } catch (error) {
     console.error('Error handling escape key:', error);
+    forceCleanupPageState();
   }
 }
 
@@ -165,6 +360,7 @@ function handleCloseButtonClick(event) {
     }
   } catch (error) {
     console.error('Error handling close button click:', error);
+    forceCleanupPageState();
   }
 }
 
@@ -179,6 +375,62 @@ function handleBackdropClick(event) {
     }
   } catch (error) {
     console.error('Error handling backdrop click:', error);
+    forceCleanupPageState();
+  }
+}
+
+/**
+ * Validate email format
+ * @param {string} email - Email to validate
+ * @returns {boolean} - Whether the email is valid
+ */
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+/**
+ * Show error message on form
+ * @param {HTMLFormElement} form - The form element
+ * @param {string} message - Error message to display
+ */
+function showFormError(form, message) {
+  // Check if error element already exists
+  let errorElement = form.querySelector('.form-error-message');
+  
+  // Create error element if it doesn't exist
+  if (!errorElement) {
+    errorElement = document.createElement('div');
+    errorElement.className = 'form-error-message text-red-500 text-sm mt-2';
+    form.appendChild(errorElement);
+  }
+  
+  // Set error message
+  errorElement.textContent = message;
+  
+  // Highlight input field
+  const emailInput = form.querySelector('input[type="email"]');
+  if (emailInput) {
+    emailInput.classList.add('border-red-500');
+    emailInput.focus();
+  }
+}
+
+/**
+ * Clear error messages from form
+ * @param {HTMLFormElement} form - The form element
+ */
+function clearFormErrors(form) {
+  // Remove error message
+  const errorElement = form.querySelector('.form-error-message');
+  if (errorElement) {
+    errorElement.remove();
+  }
+  
+  // Remove input highlighting
+  const emailInput = form.querySelector('input[type="email"]');
+  if (emailInput) {
+    emailInput.classList.remove('border-red-500');
   }
 }
 
@@ -193,7 +445,26 @@ async function handleFormSubmit(event) {
     const form = event.target;
     const email = form.email.value.trim();
     
-    if (!email) return;
+    // Clear any previous errors
+    clearFormErrors(form);
+    
+    // Validate email
+    if (!email) {
+      showFormError(form, 'Please enter your email address');
+      return;
+    }
+    
+    if (!validateEmail(email)) {
+      showFormError(form, 'Please enter a valid email address');
+      return;
+    }
+    
+    // Disable form while submitting
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerHTML = 'Submitting...';
+    }
     
     try {
       const response = await fetch('/api/waitlist', {
@@ -214,13 +485,25 @@ async function handleFormSubmit(event) {
         // Show success message
         showSuccessStep();
       } else {
-        // Handle error
-        console.error('Waitlist submission failed');
+        // Handle error response
+        const responseData = await response.json().catch(() => ({ message: 'Something went wrong. Please try again later.' }));
+        showFormError(form, responseData.message || 'Something went wrong. Please try again later.');
+        
+        // Re-enable form
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.innerHTML = 'Join Waitlist';
+        }
       }
     } catch (fetchError) {
       console.error('Error submitting to waitlist:', fetchError);
-      // Show a fallback success message to prevent blocking the user
-      showSuccessStep();
+      showFormError(form, 'Network error. Please try again later.');
+      
+      // Re-enable form
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Join Waitlist';
+      }
     }
   } catch (error) {
     console.error('Error handling form submission:', error);
@@ -255,6 +538,7 @@ function showSuccessStep() {
     }, 300);
   } catch (error) {
     console.error('Error showing success step:', error);
+    closeModal();
   }
 }
 

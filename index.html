@@ -131,6 +131,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
     
+    <!-- Modal CSS - fixes black screen issues -->
+    <link href="/css/modal.css" rel="stylesheet">
+    
     <!-- tsParticles -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js" defer></script>
     
@@ -898,7 +901,7 @@
           <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to trade <span class="text-gradient">ahead of the crowd?</span></h2>
           <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">Join the waitlist now and be among the first to access our 50ms Meme-Coin Sniper Bot.</p>
           
-          <a href="#waitlist-modal" class="btn-primary inline-flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-8 py-4 rounded-lg hover:shadow-glow transition-all text-lg">
+          <a href="#" data-waitlist aria-controls="waitlistModal" role="button" class="btn-primary inline-flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-8 py-4 rounded-lg hover:shadow-glow transition-all text-lg">
             <i class="icon-rocket text-xl"></i>Join the Waitlist
           </a>
           
@@ -962,21 +965,74 @@
     
     <!-- Waitlist Modal -->
     <div id="waitlistMount"></div>
-    <script type="module" defer>
-      // Use a try-catch block to prevent blocking the page if waitlist fails
+    <script type="module">
+      // Safety style to ensure body is always scrollable
+      document.body.style.overflow = 'auto';
+      
+      // Safety timeout to ensure the page doesn't remain stuck
+      const safetyTimeout = setTimeout(() => {
+        console.warn('Waitlist safety timeout triggered - ensuring page is usable');
+        document.body.style.overflow = 'auto';
+        
+        // Check for any problematic overlay elements and hide them
+        const dialogBackdrops = document.querySelectorAll('dialog');
+        dialogBackdrops.forEach(dialog => {
+          try {
+            dialog.classList.add('opacity-0', 'pointer-events-none', 'hidden');
+            if (dialog.hasAttribute('open')) {
+              if (typeof dialog.close === 'function') {
+                dialog.close();
+              }
+              dialog.removeAttribute('open');
+            }
+          } catch (e) {
+            console.error('Error cleaning up dialog:', e);
+          }
+        });
+      }, 8000);
+      
+      // Load and initialize modal with proper error handling
       try {
         const { inject } = await import('/js/include.js');
-        await inject('body','/components/waitlist-modal-v3');
-        const { initHomepagePopup } = await import('/js/waitlist-modal.js');
         
-        // Delay modal initialization to ensure page renders first
-        window.addEventListener('load', () => {
-          setTimeout(() => {
-            initHomepagePopup(3000);
-          }, 100);
-        });
+        // Inject the modal component with proper error handling
+        try {
+          await inject('body','/components/waitlist-modal-v3');
+        } catch (injectError) {
+          console.error('Failed to inject waitlist modal:', injectError);
+          clearTimeout(safetyTimeout);
+          document.body.style.overflow = 'auto';
+          return; // Exit early if injection fails
+        }
+        
+        // Import the modal script with proper error handling
+        try {
+          const { initHomepagePopup } = await import('/js/waitlist-modal.js');
+          
+          // Set flag to disable safety timeout once modal is successfully imported
+          clearTimeout(safetyTimeout);
+          
+          // Wait for page to fully load before showing modal
+          window.addEventListener('load', () => {
+            // Small delay to ensure page is fully rendered and interactive
+            setTimeout(() => {
+              try {
+                initHomepagePopup(3000);
+              } catch (popupError) {
+                console.error('Error initializing popup:', popupError);
+                document.body.style.overflow = 'auto';
+              }
+            }, 100);
+          });
+        } catch (scriptError) {
+          console.error('Failed to load waitlist modal script:', scriptError);
+          clearTimeout(safetyTimeout);
+          document.body.style.overflow = 'auto';
+        }
       } catch (error) {
-        console.error('Failed to load waitlist modal:', error);
+        console.error('Waitlist modal initialization failed:', error);
+        clearTimeout(safetyTimeout);
+        document.body.style.overflow = 'auto';
       }
     </script>
 </body>
