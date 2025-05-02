@@ -1,18 +1,21 @@
 /**
- * Waitlist Modal v2 - Handles the animated waitlist popup with focus trapping
+ * Waitlist Modal v3 - Handles the animated waitlist popup with focus trapping
  * and progressive enhancement for the dialog element
  */
 
-const LS_KEY = 'rr_waitlist_done';
+const LS_KEY = 'rr_wait_home_v3';
 let modal = null;
 let previouslyFocusedElement = null;
 let focusableElements = [];
 
 /**
- * Initialize the waitlist modal with a delay
+ * Initialize the homepage-only waitlist modal with a delay
  * @param {number} delay - Milliseconds to wait before showing the modal
  */
-export function initWaitlistModal(delay = 3000) {
+export function initHomepagePopup(delay = 3000) {
+  // Only show on homepage
+  if(!location.pathname.endsWith('index.html') && location.pathname !== '/' && location.pathname !== '') return;
+  
   // Don't show if user already signed up
   if (localStorage.getItem(LS_KEY)) return;
   
@@ -24,75 +27,72 @@ export function initWaitlistModal(delay = 3000) {
   
   // Add backdrop click listener for native dialog
   modal.addEventListener('click', handleBackdropClick);
+
+  // Add click listeners for close buttons
+  document.addEventListener('click', handleCloseButtonClick);
+
+  // Add submit listener for the form
+  document.addEventListener('submit', handleFormSubmit);
   
   // Show modal after delay
   setTimeout(() => openModal(), delay);
 }
 
 /**
- * Open the modal with animation
+ * Opens the modal with animation
  */
 function openModal() {
   if (!modal) return;
   
-  // Store the currently focused element to restore it later
+  // Store the previously focused element to restore it later
   previouslyFocusedElement = document.activeElement;
   
-  // Use native dialog if supported, fallback otherwise
+  // Use native showModal if available, otherwise fallback
   if (typeof modal.showModal === 'function') {
     modal.showModal();
   } else {
-    // Fallback for browsers without dialog support
-    document.body.classList.add('overflow-hidden');
-    modal.setAttribute('open', '');
     modal.style.display = 'block';
-    
-    // Create backdrop if it doesn't exist
-    if (!document.getElementById('modal-backdrop')) {
-      const backdrop = document.createElement('div');
-      backdrop.id = 'modal-backdrop';
-      backdrop.className = 'fixed inset-0 bg-black/50 z-40';
-      document.body.appendChild(backdrop);
-      backdrop.addEventListener('click', () => closeModal());
-    }
+    modal.setAttribute('open', '');
   }
   
-  // Animate in after a tiny delay for the browser to process
-  setTimeout(() => {
+  // Start animation after a small delay to ensure the dialog is in the DOM
+  requestAnimationFrame(() => {
     modal.classList.remove('translate-y-full', 'opacity-0');
-  }, 10);
-  
+  });
+
   // Set up focus trap
   setupFocusTrap();
+  
+  // Check for reduced motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Skip animations for users who prefer reduced motion
+    modal.style.transition = 'none';
+    modal.classList.remove('translate-y-full', 'opacity-0');
+  }
 }
 
 /**
- * Close the modal with animation
+ * Closes the modal with animation and sets localStorage flag
  */
 function closeModal() {
   if (!modal) return;
   
+  // Set localStorage flag to prevent showing again
+  localStorage.setItem(LS_KEY, '1');
+  
   // Animate out
   modal.classList.add('translate-y-full', 'opacity-0');
   
-  // Close after animation completes
+  // Close dialog after animation completes
   setTimeout(() => {
     if (typeof modal.close === 'function') {
       modal.close();
     } else {
-      // Fallback for browsers without dialog support
-      modal.removeAttribute('open');
       modal.style.display = 'none';
-      document.body.classList.remove('overflow-hidden');
-      
-      // Remove backdrop
-      const backdrop = document.getElementById('modal-backdrop');
-      if (backdrop) {
-        backdrop.remove();
-      }
+      modal.removeAttribute('open');
     }
     
-    // Restore focus to previously focused element
+    // Restore focus to the element that was focused before the modal opened
     if (previouslyFocusedElement) {
       previouslyFocusedElement.focus();
     }
@@ -100,155 +100,133 @@ function closeModal() {
 }
 
 /**
- * Handle Escape key press to close the modal
+ * Handle Escape key to close modal
  */
 function handleEscapeKey(event) {
   if (event.key === 'Escape') {
     closeModal();
+    event.preventDefault();
   }
 }
 
 /**
- * Handle clicks on the dialog backdrop (for native dialog implementation)
+ * Handle clicks on close buttons
+ */
+function handleCloseButtonClick(event) {
+  if (event.target.closest('[data-close]')) {
+    closeModal();
+    event.preventDefault();
+  }
+}
+
+/**
+ * Handle clicks on the backdrop for native dialogs
  */
 function handleBackdropClick(event) {
+  // Only close if clicking directly on the backdrop, not on dialog content
   if (event.target === modal) {
     closeModal();
   }
 }
 
 /**
- * Set up a focus trap to keep keyboard focus within the modal
+ * Handle form submission
+ */
+async function handleFormSubmit(event) {
+  if (!event.target.matches('[data-waitlist-form]')) return;
+  event.preventDefault();
+  
+  const form = event.target;
+  const email = form.email.value.trim();
+  
+  if (!email) return;
+  
+  try {
+    const response = await fetch('/api/waitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        email,
+        source: 'homepage-modal-v3'
+      }),
+    });
+    
+    if (response.ok) {
+      // Show success message
+      showSuccessStep();
+    } else {
+      // Handle error
+      console.error('Waitlist submission failed');
+    }
+  } catch (error) {
+    console.error('Error submitting to waitlist:', error);
+  }
+}
+
+/**
+ * Show the success step
+ */
+function showSuccessStep() {
+  const step1 = modal.querySelector('[data-step="1"]');
+  const step2 = modal.querySelector('[data-step="2"]');
+  
+  if (!step1 || !step2) return;
+  
+  // Fade out step 1
+  step1.style.opacity = '0';
+  
+  // After fade out, switch steps
+  setTimeout(() => {
+    step1.classList.add('hidden');
+    step2.classList.remove('hidden');
+    
+    // Trigger reflow to enable animation
+    step2.offsetHeight;
+    
+    // Fade in step 2
+    step2.style.opacity = '1';
+  }, 300);
+}
+
+/**
+ * Set up focus trap inside modal
  */
 function setupFocusTrap() {
-  // Find all focusable elements
-  focusableElements = [...modal.querySelectorAll(
+  // Get all focusable elements
+  focusableElements = modal.querySelectorAll(
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-  )];
+  );
   
-  if (focusableElements.length) {
+  if (focusableElements.length > 0) {
     // Focus the first element
     focusableElements[0].focus();
     
-    // Add event listener for Tab key
+    // Add event listener for tab key
     modal.addEventListener('keydown', trapTabKey);
   }
 }
 
 /**
- * Trap the Tab key within the modal
+ * Trap tab key within modal
  */
 function trapTabKey(event) {
-  // If not Tab key, return
   if (event.key !== 'Tab') return;
   
-  // If no focusable elements, return
   if (focusableElements.length === 0) return;
   
   const firstElement = focusableElements[0];
   const lastElement = focusableElements[focusableElements.length - 1];
   
-  // Shift+Tab on first element should go to last element
+  // If shift + tab and on first element, move to last element
   if (event.shiftKey && document.activeElement === firstElement) {
     lastElement.focus();
     event.preventDefault();
-  }
-  // Tab on last element should go to first element
+  } 
+  // If tab and on last element, move to first element
   else if (!event.shiftKey && document.activeElement === lastElement) {
     firstElement.focus();
     event.preventDefault();
-  }
-}
-
-/**
- * Set up event listeners for the modal
- */
-document.addEventListener('DOMContentLoaded', () => {
-  // Handle close button clicks
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('[data-close]')) {
-      closeModal();
-    }
-  });
-  
-  // Handle form submissions
-  document.addEventListener('submit', async (event) => {
-    if (!event.target.matches('[data-waitlist-form]')) return;
-    event.preventDefault();
-    
-    const form = event.target;
-    const emailInput = form.querySelector('input[name="email"]');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    
-    if (!emailInput || !emailInput.value.trim()) return;
-    
-    // Show loading state
-    const originalBtnText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="flex items-center"><svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-spaceBlack" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Submitting...</span>';
-    
-    try {
-      // Submit to API
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailInput.value.trim() }),
-      });
-      
-      if (response.ok) {
-        // Show success step
-        showSuccessStep();
-        
-        // Store completion in localStorage
-        localStorage.setItem(LS_KEY, '1');
-      } else {
-        throw new Error('Submission failed');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      
-      // For demo, show success anyway (fallback)
-      showSuccessStep();
-      localStorage.setItem(LS_KEY, '1');
-    } finally {
-      // Reset button state
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnText;
-    }
-  });
-});
-
-/**
- * Show the success step after form submission
- */
-function showSuccessStep() {
-  if (!modal) return;
-  
-  const step1 = modal.querySelector('[data-step="1"]');
-  const step2 = modal.querySelector('[data-step="2"]');
-  
-  if (step1 && step2) {
-    // Fade out step 1
-    step1.style.opacity = '0';
-    
-    setTimeout(() => {
-      // Hide step 1
-      step1.classList.add('hidden');
-      
-      // Show step 2
-      step2.classList.remove('hidden');
-      
-      // Wait a frame then fade in
-      requestAnimationFrame(() => {
-        // Force reflow
-        step2.offsetHeight;
-        
-        // Fade in
-        step2.style.opacity = '1';
-        
-        // Update focus trap
-        setupFocusTrap();
-      });
-    }, 300);
   }
 } 

@@ -26,6 +26,7 @@ module.exports = {
         'pulseFast': 'pulse 1.5s cubic-bezier(0.4,0,0.6,1) infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
         'linear-move': 'linear-move 15s linear infinite',
+        'fade-slide': 'fadeSlide 0.3s ease-out forwards',
       },
       keyframes: {
         'gradient-x': {
@@ -39,6 +40,10 @@ module.exports = {
         'linear-move': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
+        },
+        'fadeSlide': {
+          '0%': { opacity: '0', transform: 'translateY(2rem)' },
+          '100%': { opacity: '1', transform: 'none' },
         }
       },
       transitionProperty: {
@@ -63,6 +68,7 @@ module.exports = {
     'animate-pulseFast',
     'animate-pulse-slow',
     'animate-spin',
+    'animate-fade-slide',
     'overflow-hidden',
     'fixed',
     'bottom-0',
@@ -79,6 +85,8 @@ module.exports = {
     'text-neonGreen',
     'bg-rocketPurple/10',
     'glass-card',
-    'drop-shadow-neon'
+    'drop-shadow-neon',
+    'border-neonGreen/30',
+    'shadow-[0_0_24px_rgba(42,255,98,0.25)]'
   ]
 }; 
