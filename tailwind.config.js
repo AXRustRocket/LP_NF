@@ -56,14 +56,20 @@ module.exports = {
   safelist: [
     'translate-x-full',
     'translate-x-0',
+    'translate-y-full',
+    'opacity-0',
+    'transition-all',
+    'duration-300',
     'animate-pulseFast',
     'animate-pulse-slow',
+    'animate-spin',
     'overflow-hidden',
     'fixed',
     'bottom-0',
     'h-18',
     'bg-spaceDark/80',
     'backdrop-blur',
+    'backdrop-blur-lg',
     'hero-slot-gif',
     'hero-radar-svg',
     'hero-mirror-gif',
@@ -72,6 +78,7 @@ module.exports = {
     'timeline-dot-pulse',
     'text-neonGreen',
     'bg-rocketPurple/10',
-    'glass-card'
+    'glass-card',
+    'drop-shadow-neon'
   ]
 }; 

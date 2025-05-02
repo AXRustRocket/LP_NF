@@ -730,8 +730,9 @@
     <div id="waitlistMount"></div>
     <script type="module">
       import { inject } from '/js/include.js';
-      await inject('#waitlistMount','/components/waitlist-modal');
-      import('/js/waitlist-popup.js');
+      await inject('#waitlistMount','/components/waitlist-modal-v2');
+      const { initWaitlistModal } = await import('/js/waitlist-modal.js');
+      initWaitlistModal(3000);
     </script>
 
     <!-- JS -->
