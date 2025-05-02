@@ -154,6 +154,9 @@ async function handleFormSubmit(event) {
     });
     
     if (response.ok) {
+      // Set localStorage flag to prevent showing again
+      localStorage.setItem(LS_KEY, '1');
+      
       // Show success message
       showSuccessStep();
     } else {

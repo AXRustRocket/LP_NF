@@ -11,6 +11,31 @@ function isValidEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+// Simple in-memory rate limiting
+// Note: This will reset when the function is redeployed or scaled
+// For production, use Redis or a similar service
+const rateLimitStore = {};
+const RATE_LIMIT = 10; // max requests per hour
+const RATE_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  
+  // Initialize or clean up old entries
+  if (!rateLimitStore[ip] || now - rateLimitStore[ip].timestamp > RATE_WINDOW) {
+    rateLimitStore[ip] = {
+      count: 0,
+      timestamp: now
+    };
+  }
+  
+  // Increment count
+  rateLimitStore[ip].count++;
+  
+  // Check if rate limited
+  return rateLimitStore[ip].count > RATE_LIMIT;
+}
+
 exports.handler = async (event, context) => {
   // Set CORS headers for browser clients
   const headers = {
@@ -38,6 +63,22 @@ exports.handler = async (event, context) => {
   }
   
   try {
+    // Get client IP for rate limiting
+    const clientIP = event.headers['client-ip'] || 
+                    event.headers['x-forwarded-for'] || 
+                    event.ip || 
+                    'unknown';
+    
+    // Check rate limit
+    if (isRateLimited(clientIP)) {
+      console.log(`Rate limit exceeded for IP: ${clientIP}`);
+      return {
+        statusCode: 429,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Too many requests, please try again later' }),
+      };
+    }
+
     // Parse request body
     const requestBody = JSON.parse(event.body);
     const { email, name } = requestBody;
@@ -50,10 +91,6 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({ success: false, message: 'Valid email is required' }),
       };
     }
-    
-    // Basic rate limiting (by IP) - Just an example, real implementation would use Redis
-    // const clientIP = event.headers['client-ip'] || event.headers['x-forwarded-for'];
-    // TODO: Implement proper rate limiting
     
     // Insert into Supabase
     const { data, error } = await supabase
