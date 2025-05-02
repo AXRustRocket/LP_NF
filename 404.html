@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +71,16 @@
     </style>
 </head>
 
-<body class="font-sans text-gray-100 antialiased min-h-screen">
+<body class="font-sans text-gray-100 antialiased relative">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
+    
+    <!-- Mobile Navigation Container (removed since it's included in headbar.html) -->
+    
     <main class="min-h-screen bg-gradient-to-b from-spaceBlack to-spaceDark flex flex-col justify-center items-center p-6 text-center">
         <div class="text-center mb-8 animate-rocket">
             <div class="relative inline-block">

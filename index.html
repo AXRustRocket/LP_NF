@@ -217,6 +217,10 @@
 <body class="font-sans text-gray-100 antialiased relative">
     <!-- Header Container -->
     <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
     
     <!-- Mobile Navigation Container -->
     <div id="mobileNavContainer"></div>

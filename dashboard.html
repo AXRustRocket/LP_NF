@@ -156,12 +156,15 @@
     </style>
 </head>
 
-<body class="font-sans text-gray-100 antialiased">
+<body class="font-sans text-gray-100 antialiased relative">
     <!-- Header Container -->
     <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
     
-    <!-- Mobile Navigation Container -->
-    <div id="mobileNavContainer"></div>
+    <!-- Mobile Navigation Container (removed since it's included in headbar.html) -->
     
     <!-- DASHBOARD PREVIEW -->
     <section class="relative mx-auto max-w-4xl text-center py-16 lg:py-28 px-6">
@@ -351,12 +354,9 @@
     <script src="js/metrics.js"></script>
     <script src="js/ai-onboarding.js" type="module"></script>
     <script src="js/dashboard.js" type="module"></script>
-    <script src="js/headbar.js"></script>
     <script type="module">
         import {inject} from './js/include.js';
         inject('#ai-chatbot-container', './components/ai-onboarding-chatbot.html');
-        inject('#headbarContainer', './components/headbar.html');
-        inject('#mobileNavContainer', './components/mobile-nav.html');
     </script>
 </body>
 </html> 

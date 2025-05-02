@@ -1,3 +1,31 @@
+/**
+ * Headbar functionality - toggles mobile navigation and handles scroll opacity
+ */
+
+// Toggle mobile nav
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-burger]');
+  if (btn) {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('translate-x-full');
+    nav.classList.toggle('translate-x-0');
+    btn.setAttribute('aria-expanded', nav.classList.contains('translate-x-0'));
+  }
+});
+
+// Scroll transparency
+const hdr = document.querySelector('header');
+window.addEventListener('scroll', () => {
+  hdr.classList.toggle('bg-spaceDark/90', window.scrollY > 64);
+  hdr.classList.toggle('border-b', window.scrollY > 64);
+  hdr.classList.toggle('border-white/10', window.scrollY > 64);
+});
+
+// Run scroll check on page load (in case page is loaded scrolled down)
+document.addEventListener('DOMContentLoaded', () => {
+  window.dispatchEvent(new Event('scroll'));
+});
+
 // Headbar.js - Handles header functionality
 document.addEventListener('DOMContentLoaded', function() {
   console.log('[headbar] Initializing header functionality');
