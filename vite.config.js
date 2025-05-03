@@ -13,7 +13,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['chart.js', 'lenis', 'tsparticles'],
-          ui: ['lucide-icons-font']
+          ui: ['lucide']
         },
         assetFileNames: (assetInfo) => {
           let extType = assetInfo.name.split('.').at(1);
