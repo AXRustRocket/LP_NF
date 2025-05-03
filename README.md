@@ -2,7 +2,8 @@
 
 ![Lighthouse](https://img.shields.io/badge/Lighthouse-Performance%3A%20100%20%7C%20Accessibility%3A%20100%20%7C%20Best%20Practices%3A%20100%20%7C%20SEO%3A%20100-success)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/new-site-id/deploy-status)](https://app.netlify.com/sites/rustrocket/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d89ec02a-0a4e-4daf-b199-188e43c54c37/deploy-status)](https://app.netlify.com/sites/rust-rocketx/deploys)
+[![CI](https://github.com/AXRustRocket/Homepage/actions/workflows/ci-prod.yml/badge.svg)](https://github.com/AXRustRocket/Homepage/actions/workflows/ci-prod.yml)
 
 Ultraschneller Meme-Coin Trading Bot mit <50ms Latenz und erweiterten Rug-Schutz. Vollständig reguliert nach dem Liechtensteiner TVTG-Rahmenwerk.
 
@@ -62,7 +63,7 @@ Die Anwendung wird mittels Netlify CLI direkt aus der Entwicklungsumgebung deplo
 
 3. Umgebungsvariablen einrichten:
    ```bash
-   netlify env:set SUPABASE_URL "https://xxxxx.supabase.co"
+   netlify env:set SUPABASE_URL "https://jpvbnbphgvtokbrlctke.supabase.co"
    netlify env:set SUPABASE_SERVICE_ROLE_KEY "xxxx"
    netlify env:set VITE_SUPABASE_ANON_KEY "xxxx"
    netlify env:set SIGNALS_API_KEY "xxxx"
@@ -75,7 +76,7 @@ Die Anwendung wird mittels Netlify CLI direkt aus der Entwicklungsumgebung deplo
 
 Alternativ kann auch das `deploy.sh` Skript verwendet werden, welches build und deploy in einem Schritt ausführt:
 ```bash
-./deploy.sh
+./deploy-with-token.sh
 ```
 
 ## Lighthouse CI

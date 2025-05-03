@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Status | Rust Rocket</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/tailwind.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <h1 class="text-3xl font-bold mb-8 text-center">Supabase Status Dashboard</h1>
+        
+        <div id="authStatus" class="mb-8 p-4 bg-gray-800 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">Authentication Status</h2>
+            <p id="authMessage" class="text-yellow-400">Please login to view this page...</p>
+            <div id="loginForm" class="mt-4">
+                <input type="email" id="emailInput" placeholder="Your email" class="w-full p-2 rounded bg-gray-700 mb-2">
+                <button id="loginButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Login with Magic Link
+                </button>
+            </div>
+        </div>
+
+        <div id="statusContent" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-semibold mb-2">Health Status</h2>
+                    <div id="healthStatus" class="p-3 bg-gray-700 rounded flex items-center">
+                        <div id="healthIndicator" class="w-4 h-4 rounded-full bg-yellow-500 mr-2"></div>
+                        <span id="healthMessage">Checking...</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-semibold mb-2">Connection Info</h2>
+                    <div id="connectionInfo" class="p-3 bg-gray-700 rounded">Loading...</div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-4 rounded-lg mb-8">
+                <h2 class="text-xl font-semibold mb-2">Table Statistics</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-700 rounded">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b border-gray-600 text-left">Table</th>
+                                <th class="py-2 px-4 border-b border-gray-600 text-left">Row Count</th>
+                                <th class="py-2 px-4 border-b border-gray-600 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableStats">
+                            <tr>
+                                <td colspan="3" class="py-2 px-4 text-center">Loading table data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold mb-2">Edge Function Status</h2>
+                <div id="edgeFunctionStatus" class="p-3 bg-gray-700 rounded">
+                    Checking edge functions...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = localStorage.getItem('VITE_SUPABASE_URL') || 'https://jpvbnbphgvtokbrlctke.supabase.co';
+        const supabaseKey = localStorage.getItem('VITE_SUPABASE_ANON_KEY');
+        const supabase = supabaseKey ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
+        // DOM elements
+        const authStatus = document.getElementById('authStatus');
+        const authMessage = document.getElementById('authMessage');
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('emailInput');
+        const loginButton = document.getElementById('loginButton');
+        const statusContent = document.getElementById('statusContent');
+        const healthStatus = document.getElementById('healthStatus');
+        const healthIndicator = document.getElementById('healthIndicator');
+        const healthMessage = document.getElementById('healthMessage');
+        const connectionInfo = document.getElementById('connectionInfo');
+        const tableStats = document.getElementById('tableStats');
+        const edgeFunctionStatus = document.getElementById('edgeFunctionStatus');
+
+        // Check if user is already logged in
+        async function checkAuth() {
+            if (!supabase) {
+                authMessage.innerHTML = "Error: Missing Supabase credentials";
+                authMessage.classList.add('text-red-500');
+                return;
+            }
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                const { data: { user } } = await supabase.auth.getUser();
+                
+                // Check if user has admin role in user_metadata
+                if (user && user.user_metadata && user.user_metadata.role === 'admin') {
+                    authStatus.innerHTML = `<p class="text-green-400">✓ Authenticated as ${user.email} (Admin)</p>
+                                          <button id="logoutButton" class="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                            Logout
+                                          </button>`;
+                    
+                    document.getElementById('logoutButton').addEventListener('click', async () => {
+                        await supabase.auth.signOut();
+                        window.location.reload();
+                    });
+                    
+                    statusContent.classList.remove('hidden');
+                    loadStatusData();
+                } else {
+                    authMessage.innerHTML = "Access denied: Admin role required";
+                    authMessage.classList.add('text-red-500');
+                    await supabase.auth.signOut();
+                }
+            }
+        }
+
+        // Login with magic link
+        loginButton.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                authMessage.innerHTML = "Please enter a valid email";
+                authMessage.classList.add('text-red-500');
+                return;
+            }
+
+            loginButton.disabled = true;
+            loginButton.innerText = "Sending link...";
+            
+            const { error } = await supabase.auth.signInWithOtp({
+                email,
+                options: {
+                    emailRedirectTo: window.location.href,
+                }
+            });
+            
+            if (error) {
+                authMessage.innerHTML = `Error: ${error.message}`;
+                authMessage.classList.add('text-red-500');
+                loginButton.disabled = false;
+                loginButton.innerText = "Login with Magic Link";
+            } else {
+                loginForm.innerHTML = `<p class="text-green-400">✓ Magic link sent to ${email}. Please check your inbox.</p>`;
+            }
+        });
+
+        // Load Supabase health and stats
+        async function loadStatusData() {
+            // Check Supabase health
+            try {
+                const { data: health, error } = await supabase.rpc('get_service_health');
+                
+                if (error) throw error;
+                
+                const isHealthy = health && health.is_healthy === true;
+                healthIndicator.className = `w-4 h-4 rounded-full ${isHealthy ? 'bg-green-500' : 'bg-red-500'} mr-2`;
+                healthMessage.innerText = isHealthy ? 'Healthy' : 'Unhealthy';
+                healthMessage.className = isHealthy ? 'text-green-400' : 'text-red-400';
+            } catch (err) {
+                healthIndicator.className = 'w-4 h-4 rounded-full bg-red-500 mr-2';
+                healthMessage.innerText = `Error: ${err.message || 'Could not check health'}`;
+                healthMessage.className = 'text-red-400';
+            }
+
+            // Show connection info
+            connectionInfo.innerHTML = `
+                <div><strong>URL:</strong> ${supabaseUrl}</div>
+                <div><strong>Key:</strong> ${supabaseKey ? supabaseKey.substring(0, 8) + '...' : 'Missing'}</div>
+            `;
+
+            // Get table stats
+            const tables = ['profiles', 'waitlist'];
+            let tableRows = '';
+            
+            for (const table of tables) {
+                try {
+                    const { count, error } = await supabase
+                        .from(table)
+                        .select('*', { count: 'exact', head: true });
+                    
+                    const status = error ? 'Error' : 'OK';
+                    const statusClass = error ? 'text-red-400' : 'text-green-400';
+                    
+                    tableRows += `
+                        <tr>
+                            <td class="py-2 px-4 border-b border-gray-600">${table}</td>
+                            <td class="py-2 px-4 border-b border-gray-600">${error ? 'N/A' : count}</td>
+                            <td class="py-2 px-4 border-b border-gray-600 ${statusClass}">${status}</td>
+                        </tr>
+                    `;
+                } catch (err) {
+                    tableRows += `
+                        <tr>
+                            <td class="py-2 px-4 border-b border-gray-600">${table}</td>
+                            <td class="py-2 px-4 border-b border-gray-600">N/A</td>
+                            <td class="py-2 px-4 border-b border-gray-600 text-red-400">Error: ${err.message || 'Unknown'}</td>
+                        </tr>
+                    `;
+                }
+            }
+            
+            tableStats.innerHTML = tableRows;
+
+            // Check edge functions (simulated)
+            try {
+                const response = await fetch(`${supabaseUrl}/functions/v1/postSignup`, {
+                    method: 'HEAD',
+                    headers: {
+                        'Authorization': `Bearer ${supabaseKey}`
+                    }
+                });
+                
+                if (response.ok || response.status === 401) {
+                    edgeFunctionStatus.innerHTML = `
+                        <div class="text-green-400">✓ postSignup function is deployed</div>
+                    `;
+                } else {
+                    throw new Error(`Status: ${response.status}`);
+                }
+            } catch (err) {
+                edgeFunctionStatus.innerHTML = `
+                    <div class="text-yellow-400">⚠️ Could not verify edge functions: ${err.message}</div>
+                    <div class="mt-2 text-sm">This may be normal if accessing from a browser due to CORS restrictions.</div>
+                `;
+            }
+        }
+
+        // Handle hash-based auth redirects
+        if (window.location.hash) {
+            const hashParams = new URLSearchParams(window.location.hash.substring(1));
+            if (hashParams.get('access_token')) {
+                window.location.hash = '';
+                checkAuth();
+            }
+        } else {
+            checkAuth();
+        }
+    </script>
+</body>
+</html> 

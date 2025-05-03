@@ -29,6 +29,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
     "@playwright/test": "^1.40.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
     "eslint": "^8.53.0",
     "google-closure-compiler": "^20240317.0.0",
     "lighthouse": "^12.6.0",

@@ -59,9 +59,6 @@ module.exports = {
     }
   },
   safelist: [
-    'translate-x-full',
-    'translate-x-0',
-    'translate-y-full',
     'opacity-0',
     'transition-all',
     'duration-300',
@@ -70,12 +67,6 @@ module.exports = {
     'animate-spin',
     'animate-fade-slide',
     'overflow-hidden',
-    'fixed',
-    'bottom-0',
-    'h-18',
-    'bg-spaceDark/80',
-    'backdrop-blur',
-    'backdrop-blur-lg',
     'hero-slot-gif',
     'hero-radar-svg',
     'hero-mirror-gif',

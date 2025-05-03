@@ -7,6 +7,14 @@ export async function inject(sel, url){
   }
   console.log(`[include] Found target element`);
   
+  // Skip header and footer includes
+  if (url === '/components/headbar' || url === '/components/footer') {
+    console.log(`[include] Skipping header/footer injection for ${url}`);
+    // Remove the container elements to avoid empty space
+    host.style.display = 'none';
+    return;
+  }
+  
   try{
     console.log(`[include] Fetching from ${url}`);
     const res = await fetch(url, {cache:'no-cache'});
@@ -17,5 +25,7 @@ export async function inject(sel, url){
     console.log(`[include] Successfully injected content into ${sel}`);
   }catch(e){
     console.error('[include] failed:', url, e);
+    // If the component fails to load, hide the container
+    host.style.display = 'none';
   }
 } 
