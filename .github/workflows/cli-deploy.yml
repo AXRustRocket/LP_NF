@@ -1,0 +1,72 @@
+name: Netlify CLI Deploy with Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    
+    env:
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: d89ec02a-0a4e-4daf-b199-188e43c54c37
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build site
+        run: npm run build
+        
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+        
+      - name: Run E2E tests
+        run: npm run test:e2e
+        
+      - name: Deploy to Netlify (if tests pass)
+        if: success() && github.event_name != 'pull_request'
+        run: npx netlify-cli deploy --dir=dist --prod
+        
+      - name: Deploy to Netlify (preview for PR)
+        if: success() && github.event_name == 'pull_request'
+        run: npx netlify-cli deploy --dir=dist --alias=${GITHUB_HEAD_REF}
+        
+      - name: Comment deploy URL on PR
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const deployOutput = fs.readFileSync('netlify-deploy-output.txt', 'utf8');
+            const urlMatch = deployOutput.match(/Website Draft URL: (https:\/\/[^\s]+)/);
+            const deployUrl = urlMatch ? urlMatch[1] : 'Deploy URL not found';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Preview deployed to: ${deployUrl}
+
+              E2E Tests: PASSED`
+            }) 
