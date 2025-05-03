@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "check-links": "node link-checker.js",
-    "serve": "npx serve -l 8000"
+    "serve": "npx serve -l 8000",
+    "build": "vite build",
+    "test:e2e": "playwright test",
+    "lint": "eslint ."
   },
   "author": "Axiom Enterprise AG",
   "license": "UNLICENSED",

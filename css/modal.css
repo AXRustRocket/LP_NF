@@ -1,0 +1,78 @@
+/**
+ * Modal styles - ensures proper modal behavior and prevents black screen issues
+ */
+
+/* Fix for dialog backdrop issues */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none !important;
+}
+
+/* Safety styles to ensure dialogs don't block the page */
+dialog {
+  border: none;
+  background: transparent;
+  max-height: 100vh;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
+  overscroll-behavior: contain;
+}
+
+dialog[open] {
+  display: flex;
+}
+
+/* Fix for Safari and older browsers */
+dialog:not([open]) {
+  display: none !important;
+}
+
+/* Modal animation classes */
+.modal-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Emergency reset styles - applied when modal fails to close properly */
+.modal-reset {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Ensure body is always scrollable */
+body.modal-open {
+  overflow: auto !important;
+}
+
+/* Prefers reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  dialog,
+  .modal-enter,
+  .modal-enter-active,
+  .modal-exit,
+  .modal-exit-active {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+} 

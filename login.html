@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Rust Rocket Trading Platform</title>
+    <meta name="description" content="Secure login to access your Rust Rocket dashboard. Control your Solana trading algorithms and track performance.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://jpvbnbphgvtokbrlctke.supabase.co" crossorigin>
+    <link rel="preload" href="/assets/logo.svg" as="image" type="image/svg+xml">
+    <meta name="theme-color" content="#04070D">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rustrocket.io/login">
+    <meta property="og:title" content="Login | Rust Rocket Trading Platform">
+    <meta property="og:description" content="Secure login to access your Rust Rocket dashboard. Control your Solana trading algorithms and track performance.">
+    <meta property="og:site_name" content="Rust Rocket – Fast. Fair. Fully Audited.">
+    
+    <!-- Favicon & Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="canonical" href="https://rustrocket.io/login">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui']
+                },
+                extend: {
+                    colors: {
+                        spaceBlack: '#04070D',
+                        spaceDark: '#0B1624',
+                        rustBlue: '#0B3D91',
+                        rocketPurple: '#7B2CBF',
+                        liechtensteinRed: '#D50000',
+                        speedYellow: '#FFD600',
+                        neonGreen: '#2AFF62',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(42, 255, 98, 0.5)',
+                        'inner-glow': 'inset 0 0 10px rgba(42, 255, 98, 0.15)',
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-icons-font@latest/lucide-icons.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #04070D 0%, #0B1624 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 22, 36, 0.25);
+            border: 1px solid rgba(42, 255, 98, 0.08);
+            box-shadow: inset 0 0 10px rgba(42, 255, 98, 0.05);
+        }
+        
+        main {
+            flex: 1;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, #FFD600, #2AFF62);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .auth-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-input:focus {
+            outline: none;
+            border-color: rgba(42, 255, 98, 0.5);
+            box-shadow: 0 0 0 2px rgba(42, 255, 98, 0.25);
+        }
+        
+        .auth-submit {
+            background: linear-gradient(90deg, #FFD600, #2AFF62);
+            color: #04070D;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-submit:hover {
+            box-shadow: 0 0 15px rgba(42, 255, 98, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .auth-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-100 antialiased">
+    <!-- Header Container -->
+    <div id="headbarContainer"></div>
+    <script type="module">
+      import { inject } from '/js/include.js';
+      inject('#headbarContainer','/components/headbar');
+    </script>
+
+    <main class="py-20 px-4 flex items-center justify-center">
+        <div class="w-full max-w-md">
+            <!-- Login Card -->
+            <div class="glass-card rounded-2xl p-8 md:p-10 shadow-lg">
+                <div class="text-center mb-8">
+                    <img src="/assets/logo.svg" alt="Rust Rocket Logo" class="h-12 mx-auto mb-6">
+                    <h1 class="text-2xl font-bold mb-2">Log in to <span class="text-gradient">Rust Rocket</span></h1>
+                    <p class="text-gray-400 text-sm">We'll send you a magic link to your email</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-6">
+                    <!-- Email Input -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            autocomplete="email"
+                            class="auth-input"
+                            placeholder="you@example.com"
+                        >
+                        <div id="emailError" class="mt-1 text-red-500 text-xs hidden"></div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        id="submitBtn"
+                        class="auth-submit flex items-center justify-center gap-2"
+                    >
+                        <span id="submitText">Send Magic Link</span>
+                        <svg id="loadingIcon" class="animate-spin h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </form>
+                
+                <!-- Success Message (hidden by default) -->
+                <div id="successMessage" class="hidden text-center space-y-4 py-4">
+                    <div class="mx-auto w-16 h-16 bg-neonGreen/10 rounded-full flex items-center justify-center">
+                        <i class="icon-mail text-2xl text-neonGreen"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neonGreen">Check your inbox</h3>
+                    <p class="text-gray-300 text-sm">
+                        We've sent a magic link to <span id="sentEmailAddress" class="font-medium"></span>
+                    </p>
+                    <p class="text-gray-400 text-xs mt-6">
+                        The link expires in 1 hour. Can't find the email? Check your spam folder.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Additional Help -->
+            <div class="mt-8 text-center">
+                <p class="text-gray-400 text-sm">
+                    Need help? Contact <a href="mailto:support@rustrocket.io" class="text-neonGreen hover:underline">support@rustrocket.io</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="pageFooter"></div>
+    <script type="module">
+        import { inject } from '/js/include.js';
+        inject('#pageFooter','/components/footer');
+    </script>
+    
+    <!-- Login Script -->
+    <script type="module">
+        import { signInWithMagicLink, getRedirectUrl, handleAuthRedirect } from '/js/auth.js';
+        
+        // Get DOM elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingIcon = document.getElementById('loadingIcon');
+        const successMessage = document.getElementById('successMessage');
+        const sentEmailAddress = document.getElementById('sentEmailAddress');
+        
+        // Process auth redirect if applicable
+        handleAuthRedirect();
+        
+        // Handle form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Reset error message
+            emailError.textContent = '';
+            emailError.classList.add('hidden');
+            
+            // Get form data
+            const email = emailInput.value.trim();
+            
+            // Validate email
+            if (!email) {
+                emailError.textContent = 'Please enter your email address';
+                emailError.classList.remove('hidden');
+                emailInput.focus();
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Sending...';
+            loadingIcon.classList.remove('hidden');
+            
+            try {
+                // Send magic link
+                const { data, error } = await signInWithMagicLink(email);
+                
+                if (error) {
+                    throw error;
+                }
+                
+                // Show success message
+                loginForm.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                sentEmailAddress.textContent = email;
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                // Show error message
+                emailError.textContent = error.message || 'An error occurred while sending the magic link. Please try again.';
+                emailError.classList.remove('hidden');
+                
+                // Reset form state
+                submitBtn.disabled = false;
+                submitText.textContent = 'Send Magic Link';
+                loadingIcon.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html> 

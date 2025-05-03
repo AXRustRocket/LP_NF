@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Auth Test</title>
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <style>
+        body {
+            background-color: #04070D;
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #0B1624;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .success {
+            color: #2AFF62;
+        }
+        .error {
+            color: #FF4D4D;
+        }
+        pre {
+            overflow-x: auto;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin-top: 0.5rem;
+        }
+        button {
+            background-color: #2AFF62;
+            color: #04070D;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            color: white;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-2xl font-bold mb-4">Supabase Auth Testing</h1>
+        
+        <div class="card">
+            <h2 class="text-xl mb-2">1. Test Supabase Client</h2>
+            <p class="mb-4">Tests if the Supabase client can be initialized properly</p>
+            <button id="testClient">Test Client</button>
+            <div id="clientResult"></div>
+        </div>
+        
+        <div class="card">
+            <h2 class="text-xl mb-2">2. Test Magic Link Authentication</h2>
+            <p class="mb-4">Send a magic link to the provided email</p>
+            <input type="email" id="emailInput" placeholder="Enter your email">
+            <button id="sendMagicLink">Send Magic Link</button>
+            <div id="magicLinkResult"></div>
+        </div>
+        
+        <div class="card">
+            <h2 class="text-xl mb-2">3. Test Current Session</h2>
+            <p class="mb-4">Checks if there is an active session</p>
+            <button id="checkSession">Check Session</button>
+            <div id="sessionResult"></div>
+        </div>
+        
+        <div class="card">
+            <h2 class="text-xl mb-2">4. Sign Out</h2>
+            <p class="mb-4">Signs out the current user</p>
+            <button id="signOut">Sign Out</button>
+            <div id="signOutResult"></div>
+        </div>
+        
+        <div class="card">
+            <h2 class="text-xl mb-2">Status</h2>
+            <p>Current authentication status: <span id="authStatus" class="font-bold">Checking...</span></p>
+            <p>User email: <span id="userEmail" class="font-bold">None</span></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { 
+            getSupabaseClient, 
+            signInWithMagicLink, 
+            signOut, 
+            getSession, 
+            getCurrentUser 
+        } from '../js/auth.js';
+        
+        // Update auth status on page load
+        updateAuthStatus();
+        
+        // Test Supabase Client
+        document.getElementById('testClient').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('clientResult');
+            resultDiv.innerHTML = 'Testing Supabase client...';
+            
+            try {
+                const supabase = await getSupabaseClient();
+                resultDiv.innerHTML = `
+                    <p class="success">✓ Supabase client initialized successfully</p>
+                    <pre>${JSON.stringify({
+                        url: supabase.supabaseUrl,
+                        clientType: typeof supabase,
+                        hasAuth: !!supabase.auth
+                    }, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Failed to initialize Supabase client</p>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            }
+        });
+        
+        // Send Magic Link
+        document.getElementById('sendMagicLink').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('magicLinkResult');
+            const email = document.getElementById('emailInput').value.trim();
+            
+            if (!email) {
+                resultDiv.innerHTML = '<p class="error">Please enter an email address</p>';
+                return;
+            }
+            
+            resultDiv.innerHTML = `Sending magic link to ${email}...`;
+            
+            try {
+                const result = await signInWithMagicLink(email);
+                resultDiv.innerHTML = `
+                    <p class="success">✓ Magic link sent successfully</p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Failed to send magic link</p>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            }
+        });
+        
+        // Check Session
+        document.getElementById('checkSession').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('sessionResult');
+            resultDiv.innerHTML = 'Checking session...';
+            
+            try {
+                const session = await getSession();
+                if (session) {
+                    resultDiv.innerHTML = `
+                        <p class="success">✓ Active session found</p>
+                        <pre>${JSON.stringify({
+                            user: session.user,
+                            expires_at: new Date(session.expires_at * 1000).toLocaleString()
+                        }, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">No active session found</p>
+                    `;
+                }
+                
+                updateAuthStatus();
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Error checking session</p>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            }
+        });
+        
+        // Sign Out
+        document.getElementById('signOut').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('signOutResult');
+            resultDiv.innerHTML = 'Signing out...';
+            
+            try {
+                await signOut();
+                resultDiv.innerHTML = `
+                    <p class="success">✓ Signed out successfully</p>
+                `;
+                
+                updateAuthStatus();
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Error signing out</p>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            }
+        });
+        
+        // Helper function to update auth status display
+        async function updateAuthStatus() {
+            const statusElement = document.getElementById('authStatus');
+            const emailElement = document.getElementById('userEmail');
+            
+            try {
+                const session = await getSession();
+                if (session) {
+                    statusElement.textContent = 'Authenticated';
+                    statusElement.className = 'font-bold success';
+                    emailElement.textContent = session.user.email;
+                } else {
+                    statusElement.textContent = 'Not authenticated';
+                    statusElement.className = 'font-bold error';
+                    emailElement.textContent = 'None';
+                }
+            } catch (error) {
+                statusElement.textContent = 'Error checking auth status';
+                statusElement.className = 'font-bold error';
+                console.error('Error updating auth status:', error);
+            }
+        }
+    </script>
+</body>
+</html> 
