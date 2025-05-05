@@ -126,26 +126,58 @@
 </head>
 
 <body class="font-sans text-gray-100 antialiased">
-    <!-- Header Container -->
-    <script type="module">
-      import { inject } from '/js/include.js';
-    </script>
+<!-- Header Container -->
+<!-- BEGIN HEADER -->
+<header class="w-full bg-spaceDark text-white glass sticky top-0 z-[9000]">
+  <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+    <a href="/index.html" class="flex-shrink-0">
+        <img src="./assets/logo.gif" alt="Rust Rocket Logo" class="h-8 md:h-10"/>
+    </a>
 
-    <main class="py-20 px-4 flex items-center justify-center">
-        <div class="w-full max-w-md">
-            <!-- Login Card -->
-            <div class="glass-card rounded-2xl p-8 md:p-10 shadow-lg">
-                <div class="text-center mb-8">
-                    <img src="/assets/logo.svg" alt="Rust Rocket Logo" class="h-12 mx-auto mb-6">
-                    <h1 class="text-2xl font-bold mb-2">Log in to <span class="text-gradient">Rust Rocket</span></h1>
-                    <p class="text-gray-400 text-sm">We'll send you a magic link to your email</p>
-                </div>
-                
-                <!-- Login Form -->
-                <form id="loginForm" class="space-y-6">
-                    <!-- Email Input -->
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      <a href="/index.html" class="hover:text-neonGreen transition">Home</a>
+      <a href="/sniper-bot.html" class="hover:text-neonGreen transition">Sniper Bot</a>
+      <a href="/pump-alerts.html" class="hover:text-neonGreen transition">Pump Alerts</a>
+      <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
+      <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
+      <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
+      <!-- New Waitlist Button -->
+      <button id="joinWaitlistBtn" 
+              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
+        🚀 Join the Waitlist
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Area -->
+    <div class="md:hidden flex items-center gap-4">
+        <!-- Existing Hamburger Button (Assuming ID mobileMenuBtn) -->
+        <button id="mobileMenuBtn" aria-label="Open Menu">
+           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+    
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenuDrawer" class="md:hidden fixed inset-x-0 top-[68px] bg-spaceDark/95 backdrop-blur-md p-6 hidden z-[8900]">
+      <nav class="flex flex-col gap-4 text-center">
+          <a href="/index.html" class="py-2 hover:text-neonGreen transition">Home</a>
+          <a href="/sniper-bot.html" class="py-2 hover:text-neonGreen transition">Sniper Bot</a>
+          <a href="/pump-alerts.html" class="py-2 hover:text-neonGreen transition">Pump Alerts</a>
+          <a href="/arbitrage.html" class="py-2 hover:text-neonGreen transition">Arbitrage</a>
+          <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
+          <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
+          <hr class="border-gray-700 my-2"/>
+          <!-- New Waitlist Button in Mobile Menu -->
+          <button id="joinWaitlistBtnDrawer" 
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
+            🚀 Join the Waitlist
+          </button>
+      </nav>
+  </div>
+</header>
+<!-- END HEADER --> 
                         <input 
                             type="email" 
                             id="email" 
@@ -270,6 +302,6 @@
         });
     </script>
 <!--#include file="partials/waitlist-modal.html" -->
-<script src="./js/waitlist-modal.js" defer></script>
-</body>
+<script type="module" src="./js/waitlist-modal.js" defer></script>
+<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
 </html> 

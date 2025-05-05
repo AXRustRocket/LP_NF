@@ -246,12 +246,58 @@
 </head>
 
 <body class="font-sans text-gray-100 antialiased relative">
-    <!-- Header Container -->
-    <script type="module">
-      import { inject } from '/js/include.js';
-    </script>
+<!-- Header Container -->
+<!-- BEGIN HEADER -->
+<header class="w-full bg-spaceDark text-white glass sticky top-0 z-[9000]">
+  <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+    <a href="/index.html" class="flex-shrink-0">
+        <img src="./assets/logo.gif" alt="Rust Rocket Logo" class="h-8 md:h-10"/>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      <a href="/index.html" class="hover:text-neonGreen transition">Home</a>
+      <a href="/sniper-bot.html" class="hover:text-neonGreen transition">Sniper Bot</a>
+      <a href="/pump-alerts.html" class="hover:text-neonGreen transition">Pump Alerts</a>
+      <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
+      <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
+      <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
+      <!-- New Waitlist Button -->
+      <button id="joinWaitlistBtn" 
+              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
+        🚀 Join the Waitlist
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Area -->
+    <div class="md:hidden flex items-center gap-4">
+        <!-- Existing Hamburger Button (Assuming ID mobileMenuBtn) -->
+        <button id="mobileMenuBtn" aria-label="Open Menu">
+           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
     
-    <!-- HERO SECTION -->
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenuDrawer" class="md:hidden fixed inset-x-0 top-[68px] bg-spaceDark/95 backdrop-blur-md p-6 hidden z-[8900]">
+      <nav class="flex flex-col gap-4 text-center">
+          <a href="/index.html" class="py-2 hover:text-neonGreen transition">Home</a>
+          <a href="/sniper-bot.html" class="py-2 hover:text-neonGreen transition">Sniper Bot</a>
+          <a href="/pump-alerts.html" class="py-2 hover:text-neonGreen transition">Pump Alerts</a>
+          <a href="/arbitrage.html" class="py-2 hover:text-neonGreen transition">Arbitrage</a>
+          <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
+          <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
+          <hr class="border-gray-700 my-2"/>
+          <!-- New Waitlist Button in Mobile Menu -->
+          <button id="joinWaitlistBtnDrawer" 
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
+            🚀 Join the Waitlist
+          </button>
+      </nav>
+  </div>
+</header>
+<!-- END HEADER --> 
     <section id="hero" class="relative min-h-screen px-6 pt-24 min-h-[600px]">
       <div id="particleCanvas" class="absolute inset-0 z-0" aria-hidden="true"></div>
       
@@ -766,6 +812,6 @@
       });
     </script>
 <!--#include file="partials/waitlist-modal.html" -->
-<script src="./js/waitlist-modal.js" defer></script>
-</body>
+<script type="module" src="./js/waitlist-modal.js" defer></script>
+<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
 </html> 
