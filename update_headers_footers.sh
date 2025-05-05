@@ -5,38 +5,35 @@ set -euo pipefail
 
 echo "Injecting includes into *.html files..."
 
+# Read the modal HTML content for inline embedding
+MODAL_HTML=$(cat partials/waitlist-modal.html)
+
 for file in *.html; do
   if [ -f "$file" ]; then
     echo "Processing $file..."
     
-    # GA before </head> (add if missing)
-    if ! grep -q '<!--#include file="partials/ga.html" -->' "$file"; then
+    # 1. Add modal HTML before </head> (add if missing)
+    if ! grep -q 'id="waitlistModal"' "$file"; then
       sed -i '' '/\(<\/head>\)/i\
-<!--#include file="partials/ga.html" -->
+'"$MODAL_HTML"'
 ' "$file"
-      echo "  -> Added GA include."
+      echo "  -> Added modal HTML."
     fi
-
-    # Modal & JS before </body> (add if missing)
-    if ! grep -q '<!--#include file="partials/waitlist-modal.html" -->' "$file"; then
-      # Remove orphaned script just in case
-      sed -i '' '/<script src=".\/js\/waitlist-modal.js" defer><\/script>/d' "$file"
-      # Add both
-      sed -i '' '/\(<\/body>\)/i\
-<!--#include file="partials/waitlist-modal.html" -->\
-<script src="./js/waitlist-modal.js" defer><\/script>
-' "$file"
-      echo "  -> Added Modal include + script."
-    else
-      # If modal include exists, ensure script exists too
-       if ! grep -q '<script src="./js/waitlist-modal.js" defer><\/script>' "$file"; then
-            sed -i '' '/<!--#include file="partials\/waitlist-modal.html" -->/a\
-<script src="./js/waitlist-modal.js" defer><\/script>
-' "$file"
-            echo "  -> Added missing modal script tag."
-        fi
+    
+    # 2. Add JS scripts before </body> (add if missing or update)
+    if grep -q '<script.*waitlist-modal.js' "$file"; then
+      # Remove existing waitlist scripts to avoid duplicates
+      sed -i '' '/<script.*waitlist-modal.js/d' "$file"
+      sed -i '' '/<script.*waitlist-header-connector.js/d' "$file"
     fi
+    
+    # Add the new scripts in correct order
+    sed -i '' '/\(<\/body>\)/i\
+<script type="module" src="./js/waitlist-modal.js" defer></script>\
+<script type="module" src="./js/waitlist-header-connector.js" defer></script>
+' "$file"
+    echo "  -> Added/Updated waitlist script tags."
   fi
 done
 
-echo "Include injection finished." 
+echo "Injection finished." 
