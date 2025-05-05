@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+test('Header waitlist button opens modal', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#joinWaitlistBtn').click();
+  await expect(page.locator('#waitlistModalNew')).toBeVisible();
+});
+
 test('waitlist modal shows & submits', async ({ page }) => {
   await page.goto('/');
   await page.locator('#joinWaitlistBtn').click();

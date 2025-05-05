@@ -1,224 +1,201 @@
 /**
- * Waitlist Modal - Handles the "Join Waitlist" modal functionality
+ * Waitlist Modal Handler for Rust Rocket
+ * Handles open/close and submission of waitlist form
  */
 
-// Track if modal is initialized to avoid duplicating event listeners
-let initialized = false;
-let modal = null;
-let form = null;
-let spinner = null;
-let successMessage = null;
-let errorMessage = null;
-
-// Initialize modal when the DOM is ready
-document.addEventListener('DOMContentLoaded', initModal);
-
-/**
- * Initialize the modal and add event listeners
- */
-function initModal() {
-  if (initialized) return;
-  
-  modal = document.getElementById('waitlistModal');
-  if (!modal) {
-    console.error('Waitlist modal element not found');
-    return;
-  }
-  
-  // Get form elements
-  form = document.getElementById('waitlistForm');
-  spinner = document.getElementById('waitlist_spinner');
-  successMessage = document.getElementById('waitlist_success');
-  errorMessage = document.getElementById('waitlist_error');
-  
-  // Add form submit listener
-  if (form) {
-    form.addEventListener('submit', handleSubmit);
-  }
-  
-  // Add close button listeners
-  const closeButtons = modal.querySelectorAll('[data-close]');
-  closeButtons.forEach(button => {
-    button.addEventListener('click', closeModal);
-  });
-  
-  // Close on escape key and backdrop click
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-  
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.open) closeModal();
-  });
-  
-  initialized = true;
-}
-
-/**
- * Open the waitlist modal
- * This function is exported for use by the header button
- */
+// Export the openWaitlistModal function for use by the header connector
 export function openWaitlistModal() {
-  if (!initialized) initModal();
+  const modal = document.getElementById('waitlistModalNew');
   if (!modal) return;
-  
-  // Reset form if it exists
-  if (form) {
-    form.reset();
-    form.style.display = 'block';
-    successMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
-    errorMessage.textContent = '';
+
+  // Reset form and messages
+  const form = document.getElementById('waitlistModalForm');
+  const successMsg = document.getElementById('modalSuccessMessage');
+  const errorMsg = document.getElementById('modalErrorMessage');
+
+  if (form) form.reset();
+  if (successMsg) successMsg.classList.add('hidden');
+  if (errorMsg) {
+    errorMsg.classList.add('hidden');
+    errorMsg.textContent = '';
   }
-  
-  // Capture UTM parameters from URL
+
+  // Capture UTM parameters
   captureUtmParams();
-  
-  // Open modal using native dialog method if available, with fallback
-  if (typeof modal.showModal === 'function') {
-    modal.showModal();
-  } else {
-    modal.setAttribute('open', '');
-    document.body.classList.add('modal-open');
-  }
+
+  // Show modal
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  document.body.classList.add('overflow-hidden');
 }
 
-/**
- * Close the waitlist modal
- */
-function closeModal() {
+// Close the modal
+function closeWaitlistModal() {
+  const modal = document.getElementById('waitlistModalNew');
   if (!modal) return;
-  
-  // Use native close if available, otherwise fallback
-  if (typeof modal.close === 'function') {
-    modal.close();
-  } else {
-    modal.removeAttribute('open');
-    document.body.classList.remove('modal-open');
-  }
+
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+  document.body.classList.remove('overflow-hidden');
 }
 
-/**
- * Handle form submission
- */
-async function handleSubmit(e) {
-  e.preventDefault();
-  
-  // Show spinner
-  spinner.classList.remove('hidden');
-  
-  // Get form data
-  const formData = new FormData(form);
-  const data = {
-    email: formData.get('email'),
-    fullName: formData.get('fullName'),
-    marketingOK: formData.get('marketingOK') === 'on',
-    
-    // UTM parameters
-    utm_source: formData.get('utm_source'),
-    utm_medium: formData.get('utm_medium'),
-    utm_campaign: formData.get('utm_campaign'),
-    utm_term: formData.get('utm_term'),
-    utm_content: formData.get('utm_content'),
-    
-    // Click IDs
-    gclid: formData.get('gclid'),
-    fbclid: formData.get('fbclid'),
-    referral_code: formData.get('referral_code')
-  };
-  
-  try {
-    const response = await fetch('/.netlify/functions/waitlist', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    
-    // Handle different response status codes
-    if (response.status === 200) {
-      // Success - show success message and track event
-      handleSuccess();
-    } else if (response.status === 409) {
-      // Duplicate email - show friendly message
-      showError('This email is already on our waitlist.');
-    } else {
-      // Other errors
-      const text = await response.text();
-      showError('Error: ' + (text || 'Something went wrong. Please try again.'));
-    }
-  } catch (error) {
-    console.error('Waitlist submission error:', error);
-    showError('Network error. Please check your connection and try again.');
-  } finally {
-    // Hide spinner regardless of outcome
-    spinner.classList.add('hidden');
-  }
-}
-
-/**
- * Handle successful submission
- */
-function handleSuccess() {
-  // Hide form, show success message
-  form.style.display = 'none';
-  successMessage.style.display = 'block';
-  
-  // Track event in analytics if consent given
-  const consent = localStorage.getItem('rr_cookie_consent') === 'accepted';
-  if (consent && typeof gtag === 'function') {
-    gtag('event', 'waitlist_submit', { method: 'modal' });
-  }
-  
-  // Meta Pixel tracking for leads
-  if (typeof fbq === 'function') {
-    fbq('track', 'Lead');
-  }
-  
-  // Auto-close after 3 seconds
-  setTimeout(closeModal, 3000);
-}
-
-/**
- * Show error message
- */
-function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.style.display = 'block';
-}
-
-/**
- * Capture UTM and click ID parameters from URL
- */
+// Capture UTM parameters from URL
 function captureUtmParams() {
   try {
-    const url = new URL(window.location.href);
-    const params = url.searchParams;
-    
-    // UTM parameters
-    setParamValueIfExists(params, 'utm_source', 'waitlist_utm_source');
-    setParamValueIfExists(params, 'utm_medium', 'waitlist_utm_medium');
-    setParamValueIfExists(params, 'utm_campaign', 'waitlist_utm_campaign');
-    setParamValueIfExists(params, 'utm_term', 'waitlist_utm_term');
-    setParamValueIfExists(params, 'utm_content', 'waitlist_utm_content');
-    
-    // Click IDs
-    setParamValueIfExists(params, 'gclid', 'waitlist_gclid');
-    setParamValueIfExists(params, 'fbclid', 'waitlist_fbclid');
-    setParamValueIfExists(params, 'ref', 'waitlist_referral_code');
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmParams = [
+      'utm_source', 'utm_medium', 'utm_campaign', 
+      'utm_term', 'utm_content', 'gclid', 'fbclid'
+    ];
+
+    // Set UTM values to hidden fields
+    utmParams.forEach(param => {
+      const value = urlParams.get(param);
+      if (value) {
+        const field = document.getElementById(param);
+        if (field) field.value = value;
+      }
+    });
+
+    // Handle referral code (might be named 'ref' in URL)
+    const refCode = urlParams.get('ref');
+    if (refCode) {
+      const refField = document.getElementById('referral_code');
+      if (refField) refField.value = refCode;
+    }
   } catch (error) {
     console.error('Error capturing UTM params:', error);
   }
 }
 
-/**
- * Helper to set form field value from URL parameter
- */
-function setParamValueIfExists(params, paramName, elementId) {
-  const value = params.get(paramName);
-  if (value) {
-    const element = document.getElementById(elementId);
-    if (element) element.value = value;
+// Form submission handler
+async function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const errorMsg = document.getElementById('modalErrorMessage');
+  
+  // Disable button during submission
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = `
+      <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-spaceBlack inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Submitting...
+    `;
   }
-} 
+
+  // Collect form data
+  const formData = new FormData(form);
+  const data = {
+    email: formData.get('email'),
+    fullName: formData.get('fullName') || '',
+    marketingOK: formData.get('marketingOK') === 'on',
+    utm_source: formData.get('utm_source'),
+    utm_medium: formData.get('utm_medium'),
+    utm_campaign: formData.get('utm_campaign'),
+    utm_term: formData.get('utm_term'),
+    utm_content: formData.get('utm_content'),
+    gclid: formData.get('gclid'),
+    fbclid: formData.get('fbclid'),
+    referral_code: formData.get('referral_code')
+  };
+
+  try {
+    // Submit to Netlify function
+    const response = await fetch('/.netlify/functions/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      // Success - hide form, show success message
+      form.classList.add('hidden');
+      const successMsg = document.getElementById('modalSuccessMessage');
+      if (successMsg) successMsg.classList.remove('hidden');
+
+      // Track conversions if cookie consent is given
+      const hasConsent = localStorage.getItem('rr_cookie_consent') === 'accepted';
+      
+      // GA4 event tracking
+      if (hasConsent && typeof gtag === 'function') {
+        gtag('event', 'waitlist_submit', {
+          'event_category': 'waitlist',
+          'event_label': data.email,
+          'value': 1
+        });
+      }
+      
+      // Meta Pixel tracking
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead');
+      }
+
+      // Auto-close after 3 seconds
+      setTimeout(closeWaitlistModal, 3000);
+    } else {
+      // Show error message
+      if (errorMsg) {
+        errorMsg.textContent = result.message || 'An error occurred. Please try again.';
+        errorMsg.classList.remove('hidden');
+      }
+    }
+  } catch (error) {
+    console.error('Waitlist submission error:', error);
+    if (errorMsg) {
+      errorMsg.textContent = 'Network error. Please check your connection and try again.';
+      errorMsg.classList.remove('hidden');
+    }
+  } finally {
+    // Re-enable button
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Join the Waitlist';
+    }
+  }
+}
+
+// Initialize event listeners when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Form submission
+  const form = document.getElementById('waitlistModalForm');
+  if (form) {
+    form.addEventListener('submit', handleFormSubmit);
+  }
+
+  // Close buttons
+  const closeBtn = document.getElementById('closeWaitlistModal');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeWaitlistModal);
+  }
+
+  // Success message close button
+  const closeSuccessBtn = document.getElementById('closeSuccessModal');
+  if (closeSuccessBtn) {
+    closeSuccessBtn.addEventListener('click', closeWaitlistModal);
+  }
+
+  // Close on click outside modal content
+  const modal = document.getElementById('waitlistModalNew');
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeWaitlistModal();
+      }
+    });
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeWaitlistModal();
+    }
+  });
+}); 
