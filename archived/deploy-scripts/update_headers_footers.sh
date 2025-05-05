@@ -10,8 +10,8 @@ MODAL_HTML=$(cat partials/waitlist-modal.html)
 
 for file in *.html; do
   if [ -f "$file" ]; then
-    echo "Processing $file..."
-    
+  echo "Processing $file..."
+  
     # 1. Add modal HTML before </head> (add if missing)
     if ! grep -q 'id="waitlistModal"' "$file"; then
       sed -i '' '/\(<\/head>\)/i\
