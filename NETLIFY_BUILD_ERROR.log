@@ -1,0 +1,43 @@
+✘ [ERROR] "vite-imagetools" resolved to an ESM file. ESM file cannot be loaded by `require`. See https://vite.dev/guide/troubleshooting.html#this-package-is-esm-only for more details. [plugin externalize-deps]
+
+    node_modules/esbuild/lib/main.js:1225:27:
+      1225 │         let result = await callback({
+           ╵                            ^
+
+    at file:///Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:66911:23
+    at requestCallbacks.on-resolve (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:1225:28)
+    at handleRequest (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:647:17)
+    at handleIncomingPacket (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:672:7)
+    at Socket.readFromStdout (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:600:7)
+    at Socket.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+
+  This error came from the "onResolve" callback registered here:
+
+    node_modules/esbuild/lib/main.js:1150:20:
+      1150 │       let promise = setup({
+           ╵                     ^
+
+    at setup (file:///Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:66873:18)
+    at handlePlugins (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:1150:21)
+    at buildOrContextImpl (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:873:5)
+    at Object.buildOrContext (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:699:5)
+    at /Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:2023:15
+    at new Promise (<anonymous>)
+    at Object.build (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:2022:25)
+    at build (/Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/esbuild/lib/main.js:1873:51)
+    at bundleConfigFile (file:///Users/m.schroeder/Desktop/RR_Content/axiom_LP/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:66828:24)
+
+  The plugin "externalize-deps" was triggered by this import
+
+    vite.config.js:3:27:
+      3 │ import { imagetools } from 'vite-imagetools';
+        ╵                            ~~~~~~~~~~~~~~~~~
+
+failed to load config from /Users/m.schroeder/Desktop/RR_Content/axiom_LP/vite.config.js
+error during build:
+Error: Build failed with 1 error:
+node_modules/esbuild/lib/main.js:1225:27: ERROR: [plugin: externalize-deps] "vite-imagetools" resolved to an ESM file. ESM file cannot be loaded by `require`. See https://vite.dev/guide/troubleshooting.html#this-package-is-esm-only for more details.

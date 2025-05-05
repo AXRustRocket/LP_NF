@@ -15,7 +15,8 @@
     "dev": "vite",
     "deploy:test": "npm run build && npm run test:e2e && netlify deploy --prod --dir=dist",
     "supabase:health": "curl https://jpvbnbphgvtokbrlctke.supabase.co/rest/v1/health",
-    "waitlist:test": "curl -X POST https://rust-rocketx.netlify.app/api/waitlist -H \"Content-Type: application/json\" -d '{\"email\":\"test@example.com\",\"name\":\"Test User\"}'"
+    "waitlist:test": "curl -X POST https://rust-rocketx.netlify.app/api/waitlist -H \"Content-Type: application/json\" -d '{\"email\":\"test@example.com\",\"name\":\"Test User\"}'",
+    "prebuild": "./update_headers_footers_simple.sh"
   },
   "author": "Axiom Enterprise AG",
   "license": "UNLICENSED",
@@ -35,7 +36,7 @@
     "lighthouse": "^12.6.0",
     "serve": "^14.2.0",
     "vite": "^5.0.0",
-    "vite-imagetools": "^7.0.5",
+    "vite-imagetools": "3.6.2",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-pwa": "^1.0.0"
   }

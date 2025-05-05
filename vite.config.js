@@ -11,10 +11,6 @@ export default defineConfig({
     assetsInlineLimit: 4096, // 4kb - small assets are inlined
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['chart.js', 'lenis', 'tsparticles'],
-          ui: ['lucide']
-        },
         assetFileNames: (assetInfo) => {
           let extType = assetInfo.name.split('.').at(1);
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp|avif/i.test(extType)) {
