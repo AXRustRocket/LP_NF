@@ -17,6 +17,9 @@
         vor betrügerischen Projekten und maximiert Ihre Gewinnchancen.
     </p>
 <!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+<script src="./js/waitlist-modal.js" type="module" defer></script>
+<script src="./js/waitlist-header-connector.js" type="module" defer></script>
 </head>
 <body>
 <body>
@@ -35,10 +38,12 @@
       <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
       <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
       <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
-      <!-- New Waitlist Button -->
-      <button id="joinWaitlistBtn" 
-              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-        🚀 Join the Waitlist
+      <!-- Waitlist Button -->
+      <button id="joinWaitlistBtn"
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
+        🚀 Join Waitlist
       </button>
     </nav>
 
@@ -62,28 +67,14 @@
           <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
           <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
           <hr class="border-gray-700 my-2"/>
-          <!-- New Waitlist Button in Mobile Menu -->
+          <!-- Mobile Waitlist Button -->
           <button id="joinWaitlistBtnDrawer" 
-                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-            🚀 Join the Waitlist
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
+            🚀 Join Waitlist
           </button>
       </nav>
   </div>
 </header>
-<!-- END HEADER -->                 <div>
-                    <h4 class="font-medium mb-4">Connect</h4>
-                    <ul class="space-y-2">
-                        <li><a href="https://twitter.com/aX_RustRocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-twitter mr-2"></i> Twitter</a></li>
-                        <li><a href="https://discord.gg/Rust_Rocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-discord mr-2"></i> Discord</a></li>
-                        <li><a href="https://instagram.com/rust.xrocket" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-instagram mr-2"></i> Instagram</a></li>
-                        <li><a href="mailto:hello@rustrocket.io" class="text-sm text-gray-400 hover:text-white flex items-center"><i class="icon-mail mr-2"></i> Email</a></li>
-                    </ul>
-                </div>
-<!--#include file="partials/waitlist-modal.html" -->
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-</html> 
+<!-- END HEADER -->

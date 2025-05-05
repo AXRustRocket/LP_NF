@@ -66,6 +66,9 @@
         }
     </style>
 <!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+<script src="./js/waitlist-modal.js" type="module" defer></script>
+<script src="./js/waitlist-header-connector.js" type="module" defer></script>
 </head>
 <body class="min-h-screen py-12">
 <body class="min-h-screen py-12">
@@ -84,10 +87,12 @@
       <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
       <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
       <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
-      <!-- New Waitlist Button -->
-      <button id="joinWaitlistBtn" 
-              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-        🚀 Join the Waitlist
+      <!-- Waitlist Button -->
+      <button id="joinWaitlistBtn"
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
+        🚀 Join Waitlist
       </button>
     </nav>
 
@@ -111,120 +116,14 @@
           <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
           <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
           <hr class="border-gray-700 my-2"/>
-          <!-- New Waitlist Button in Mobile Menu -->
+          <!-- Mobile Waitlist Button -->
           <button id="joinWaitlistBtnDrawer" 
-                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-            🚀 Join the Waitlist
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
+            🚀 Join Waitlist
           </button>
       </nav>
   </div>
 </header>
-<!-- END HEADER -->     <div class="container mx-auto px-4 max-w-4xl">
-        <h1 class="text-3xl font-bold text-center mb-8 text-white">
-            <i class="fas fa-shield-alt text-neon-blue mr-2"></i> Supabase Row-Level Security (RLS) Problem beheben
-        </h1>
-        
-        <div class="card rounded-xl p-6 shadow-lg mb-8">
-            <h2 class="text-xl font-bold mb-4 text-neon-blue">Was ist passiert?</h2>
-            <div class="space-y-4">
-                <p>Sie haben folgende Fehlermeldung erhalten:</p>
-                <div class="bg-red-900/20 text-red-300 p-4 rounded-lg">
-                    <p class="font-semibold">Error: new row violates row-level security policy for table "waitlist"</p>
-                </div>
-                <p>Dieser Fehler bedeutet, dass Supabase die Row-Level Security (RLS) für die Tabelle "waitlist" aktiviert hat, jedoch ohne entsprechende Richtlinien, die das Einfügen von Daten erlauben.</p>
-            </div>
-        </div>
-        
-        <div class="card rounded-xl p-6 shadow-lg mb-8">
-            <h2 class="text-xl font-bold mb-4 text-neon-blue">So beheben Sie das Problem:</h2>
-            <div class="space-y-6">
-                <div>
-                    <h3 class="font-semibold text-white mb-2">Schritt 1: Melden Sie sich bei Supabase an</h3>
-                    <p>Gehen Sie zur <a href="https://app.supabase.com" class="text-neon-blue hover:underline" target="_blank">Supabase-Dashboard</a> und melden Sie sich mit Ihren Zugangsdaten an.</p>
-                </div>
-                
-                <div>
-                    <h3 class="font-semibold text-white mb-2">Schritt 2: Projekt auswählen</h3>
-                    <p>Wählen Sie Ihr Projekt aus der Projektliste.</p>
-                </div>
-                
-                <div>
-                    <h3 class="font-semibold text-white mb-2">Schritt 3: Tabelle-Einstellungen öffnen</h3>
-                    <p>Klicken Sie im linken Menü auf "Table Editor", suchen Sie die Tabelle "waitlist" und klicken Sie auf die drei Punkte (...) rechts neben dem Tabellennamen.</p>
-                    <img src="https://i.imgur.com/JxOEPGW.png" alt="Tabellenoptionen" class="rounded-lg border border-neon-blue/20 mt-2 max-w-full">
-                </div>
-                
-                <div>
-                    <h3 class="font-semibold text-white mb-2">Schritt 4: RLS deaktivieren oder anpassen</h3>
-                    <p>Sie haben zwei Möglichkeiten:</p>
-                    
-                    <div class="mt-4 space-y-4">
-                        <div class="bg-navy/50 p-4 rounded-lg border border-neon-blue/20">
-                            <h4 class="font-bold text-neon-blue mb-2">Option 1: RLS deaktivieren (einfacher)</h4>
-                            <ol class="list-decimal list-inside space-y-2">
-                                <li>Wählen Sie "Edit table"</li>
-                                <li>Deaktivieren Sie das Kontrollkästchen "Enable Row Level Security (RLS)"</li>
-                                <li>Klicken Sie auf "Save" um die Änderungen zu speichern</li>
-                            </ol>
-                            <img src="https://i.imgur.com/MdWQ2QH.png" alt="RLS deaktivieren" class="rounded-lg border border-neon-blue/20 mt-2 max-w-full">
-                        </div>
-                        
-                        <div class="bg-navy/50 p-4 rounded-lg border border-neon-blue/20">
-                            <h4 class="font-bold text-neon-blue mb-2">Option 2: RLS-Richtlinie erstellen (sicherer)</h4>
-                            <ol class="list-decimal list-inside space-y-2">
-                                <li>Wählen Sie "Policies"</li>
-                                <li>Klicken Sie auf "New Policy"</li>
-                                <li>Wählen Sie "Insert: Allow anyone to insert" für ein einfaches Formular</li>
-                                <li>Klicken Sie auf "Save" um die Richtlinie zu speichern</li>
-                            </ol>
-                            <img src="https://i.imgur.com/LMVWZYX.png" alt="RLS-Richtlinie erstellen" class="rounded-lg border border-neon-blue/20 mt-2 max-w-full">
-                            
-                            <div class="mt-4">
-                                <p class="font-medium">Für erweiterte Sicherheit können Sie auch eine bedingte Richtlinie erstellen:</p>
-                                <pre class="text-silver mt-2"><code>-- Beispiel: Nur bestimmte E-Mail-Domänen zulassen
-CREATE POLICY "Allow specific email domains" 
-ON waitlist
-FOR INSERT
-TO authenticated, anon
-WITH CHECK (email LIKE '%@erlaubte-domain.com');</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card rounded-xl p-6 shadow-lg">
-            <h2 class="text-xl font-bold mb-4 text-neon-blue">Warum ist RLS aktiviert?</h2>
-            <div class="space-y-4">
-                <p>In Supabase ist Row-Level Security (RLS) standardmäßig für neue Tabellen aktiviert, um die Sicherheit zu erhöhen. Dies ist eine gute Praxis, da:</p>
-                
-                <ul class="list-disc list-inside space-y-2">
-                    <li>Es verhindert unbefugten Zugriff auf Daten</li>
-                    <li>Es ermöglicht granulare Kontrolle darüber, wer welche Daten einsehen oder ändern kann</li>
-                    <li>Es schützt vor versehentlicher Datenexposition durch Client-seitige Code-Fehler</li>
-                </ul>
-                
-                <p>Für öffentliche Formulare, wie z.B. eine Waitlist, müssen Sie jedoch entweder:</p>
-                <ul class="list-disc list-inside space-y-2">
-                    <li>RLS deaktivieren (weniger sicher, aber einfacher)</li>
-                    <li>Explizite Richtlinien erstellen, die öffentliches Einfügen erlauben (empfohlen)</li>
-                </ul>
-                
-                <div class="bg-neon-blue/10 p-4 rounded-lg">
-                    <p class="text-neon-blue">
-                        <i class="fas fa-info-circle mr-2"></i>
-                        <strong>Hinweis:</strong> In einer Produktionsumgebung wird empfohlen, RLS aktiviert zu lassen und stattdessen geeignete Richtlinien zu erstellen.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--#include file="partials/waitlist-modal.html" -->
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-</html> 
+<!-- END HEADER -->

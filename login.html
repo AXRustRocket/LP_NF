@@ -123,6 +123,9 @@
         }
     </style>
 <!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+<script src="./js/waitlist-modal.js" type="module" defer></script>
+<script src="./js/waitlist-header-connector.js" type="module" defer></script>
 </head>
 
 <body class="font-sans text-gray-100 antialiased">
@@ -142,10 +145,12 @@
       <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
       <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
       <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
-      <!-- New Waitlist Button -->
-      <button id="joinWaitlistBtn" 
-              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-        🚀 Join the Waitlist
+      <!-- Waitlist Button -->
+      <button id="joinWaitlistBtn"
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
+        🚀 Join Waitlist
       </button>
     </nav>
 
@@ -169,143 +174,14 @@
           <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
           <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
           <hr class="border-gray-700 my-2"/>
-          <!-- New Waitlist Button in Mobile Menu -->
+          <!-- Mobile Waitlist Button -->
           <button id="joinWaitlistBtnDrawer" 
-                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-            🚀 Join the Waitlist
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
+            🚀 Join Waitlist
           </button>
       </nav>
   </div>
 </header>
-<!-- END HEADER --> 
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            required 
-                            autocomplete="email"
-                            class="auth-input"
-                            placeholder="you@example.com"
-                        >
-                        <div id="emailError" class="mt-1 text-red-500 text-xs hidden"></div>
-                    </div>
-                    
-                    <!-- Submit Button -->
-                    <button 
-                        type="submit" 
-                        id="submitBtn"
-                        class="auth-submit flex items-center justify-center gap-2"
-                    >
-                        <span id="submitText">Send Magic Link</span>
-                        <svg id="loadingIcon" class="animate-spin h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </button>
-                </form>
-                
-                <!-- Success Message (hidden by default) -->
-                <div id="successMessage" class="hidden text-center space-y-4 py-4">
-                    <div class="mx-auto w-16 h-16 bg-neonGreen/10 rounded-full flex items-center justify-center">
-                        <i class="icon-mail text-2xl text-neonGreen"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-neonGreen">Check your inbox</h3>
-                    <p class="text-gray-300 text-sm">
-                        We've sent a magic link to <span id="sentEmailAddress" class="font-medium"></span>
-                    </p>
-                    <p class="text-gray-400 text-xs mt-6">
-                        The link expires in 1 hour. Can't find the email? Check your spam folder.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Additional Help -->
-            <div class="mt-8 text-center">
-                <p class="text-gray-400 text-sm">
-                    Need help? Contact <a href="mailto:support@rustrocket.io" class="text-neonGreen hover:underline">support@rustrocket.io</a>
-                </p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <script type="module">
-        import { inject } from '/js/include.js';
-    </script>
-    
-    <!-- Login Script -->
-    <script type="module">
-        import { signInWithMagicLink, getRedirectUrl, handleAuthRedirect } from '/js/auth.js';
-        
-        // Get DOM elements
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const emailError = document.getElementById('emailError');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitText = document.getElementById('submitText');
-        const loadingIcon = document.getElementById('loadingIcon');
-        const successMessage = document.getElementById('successMessage');
-        const sentEmailAddress = document.getElementById('sentEmailAddress');
-        
-        // Process auth redirect if applicable
-        handleAuthRedirect();
-        
-        // Handle form submission
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Reset error message
-            emailError.textContent = '';
-            emailError.classList.add('hidden');
-            
-            // Get form data
-            const email = emailInput.value.trim();
-            
-            // Validate email
-            if (!email) {
-                emailError.textContent = 'Please enter your email address';
-                emailError.classList.remove('hidden');
-                emailInput.focus();
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitText.textContent = 'Sending...';
-            loadingIcon.classList.remove('hidden');
-            
-            try {
-                // Send magic link
-                const { data, error } = await signInWithMagicLink(email);
-                
-                if (error) {
-                    throw error;
-                }
-                
-                // Show success message
-                loginForm.classList.add('hidden');
-                successMessage.classList.remove('hidden');
-                sentEmailAddress.textContent = email;
-                
-            } catch (error) {
-                console.error('Login error:', error);
-                
-                // Show error message
-                emailError.textContent = error.message || 'An error occurred while sending the magic link. Please try again.';
-                emailError.classList.remove('hidden');
-                
-                // Reset form state
-                submitBtn.disabled = false;
-                submitText.textContent = 'Send Magic Link';
-                loadingIcon.classList.add('hidden');
-            }
-        });
-    </script>
-<!--#include file="partials/waitlist-modal.html" -->
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-</html> 
+<!-- END HEADER -->

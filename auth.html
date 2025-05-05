@@ -113,6 +113,9 @@
         }
     </style>
 <!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+<script src="./js/waitlist-modal.js" type="module" defer></script>
+<script src="./js/waitlist-header-connector.js" type="module" defer></script>
 </head>
 
 <body class="font-sans text-gray-100 antialiased relative flex flex-col items-center justify-center">
@@ -132,10 +135,12 @@
       <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
       <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
       <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
-      <!-- New Waitlist Button -->
-      <button id="joinWaitlistBtn" 
-              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-        🚀 Join the Waitlist
+      <!-- Waitlist Button -->
+      <button id="joinWaitlistBtn"
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
+        🚀 Join Waitlist
       </button>
     </nav>
 
@@ -159,95 +164,14 @@
           <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
           <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
           <hr class="border-gray-700 my-2"/>
-          <!-- New Waitlist Button in Mobile Menu -->
+          <!-- Mobile Waitlist Button -->
           <button id="joinWaitlistBtnDrawer" 
-                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-            🚀 Join the Waitlist
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
+            🚀 Join Waitlist
           </button>
       </nav>
   </div>
 </header>
-<!-- END HEADER --> 
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required
-                        class="w-full bg-[#0F1116] text-white px-4 py-3 rounded-lg border border-white/10 focus:border-neonGreen focus:outline-none transition-colors"
-                        placeholder="your@email.com"
-                    >
-                </div>
-                
-                <!-- Username Input (Optional) -->
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-300 mb-1">
-                        Username <span class="text-gray-500 text-xs">(optional)</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username"
-                        class="w-full bg-[#0F1116] text-white px-4 py-3 rounded-lg border border-white/10 focus:border-neonGreen focus:outline-none transition-colors"
-                        placeholder="Choose a username"
-                    >
-                </div>
-                
-                <!-- Error Message Area -->
-                <div id="formError" class="text-red-500 text-sm hidden"></div>
-                
-                <!-- Submit Button -->
-                <button 
-                    type="submit" 
-                    id="submitBtn"
-                    class="btn-neon w-full font-medium px-4 py-3 rounded-lg flex items-center justify-center gap-2"
-                >
-                    <span>Send Magic Link</span>
-                    <svg id="loadingIcon" class="animate-spin h-4 w-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </button>
-                
-                <!-- Back Link -->
-                <div class="text-center">
-                    <a href="/" class="text-gray-400 hover:text-white text-sm transition-colors">← Back to Home</a>
-                </div>
-            </form>
-            
-            <!-- Success State (Initially Hidden) -->
-            <div id="successState" class="hidden flex flex-col items-center text-center space-y-6">
-                <div class="w-16 h-16 bg-neonGreen/10 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neonGreen">
-                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                    </svg>
-                </div>
-                
-                <div>
-                    <h2 class="text-xl font-bold text-neonGreen mb-2">Check your inbox</h2>
-                    <p class="text-gray-300">We've sent a magic link to <span id="emailDisplay" class="font-medium"></span></p>
-                    <p class="text-gray-400 text-sm mt-4">The link expires in 1 hour. Can't find the email? Check your spam folder.</p>
-                </div>
-                
-                <a href="/" class="btn-ghost px-6 py-2 rounded-lg mt-4">Return to Home</a>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <script type="module">
-      import { inject } from '/js/include.js';
-    </script>
-
-    <!-- Include auth.js script -->
-    <script type="module" src="/js/auth.js"></script>
-<!--#include file="partials/waitlist-modal.html" -->
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-</html> 
+<!-- END HEADER -->

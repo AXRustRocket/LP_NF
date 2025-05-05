@@ -240,6 +240,9 @@
         }
     </style>
 <!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+<script src="./js/waitlist-modal.js" type="module" defer></script>
+<script src="./js/waitlist-header-connector.js" type="module" defer></script>
 </head>
 
 <body class="font-sans text-gray-100 antialiased relative">
@@ -259,10 +262,12 @@
       <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
       <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
       <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
-      <!-- New Waitlist Button -->
-      <button id="joinWaitlistBtn" 
-              class="ml-4 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-        🚀 Join the Waitlist
+      <!-- Waitlist Button -->
+      <button id="joinWaitlistBtn"
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
+        🚀 Join Waitlist
       </button>
     </nav>
 
@@ -286,302 +291,14 @@
           <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
           <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
           <hr class="border-gray-700 my-2"/>
-          <!-- New Waitlist Button in Mobile Menu -->
+          <!-- Mobile Waitlist Button -->
           <button id="joinWaitlistBtnDrawer" 
-                  class="w-full mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-white font-semibold hover:scale-105 transition text-sm">
-            🚀 Join the Waitlist
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
+            🚀 Join Waitlist
           </button>
       </nav>
   </div>
 </header>
-<!-- END HEADER --> 
-            <section class="max-w-7xl mx-auto">
-                <div class="relative flex flex-col items-center text-center mb-16 pt-8">
-                    <h1 class="text-4.5xl font-bold mb-4">Choose your trading power</h1>
-                    <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">All plans include Rug-Shield AI & private relay.</p>
-                    
-                    <!-- Billing Toggle -->
-                    <div class="inline-flex items-center rounded-full bg-spaceDark/60 p-1 border border-white/10 mt-4 md:absolute md:top-0 md:right-0">
-                        <span class="text-sm px-4 py-2">Monthly</span>
-                        
-                        <!-- Toggle Switch -->
-                        <button 
-                            id="billing-toggle" 
-                            role="switch" 
-                            aria-checked="false"
-                            aria-label="Toggle between monthly and annual billing" 
-                            class="relative w-14 h-7 rounded-full bg-spaceDark flex items-center p-1 cursor-pointer"
-                        >
-                            <span class="toggle-button w-5 h-5 bg-speedYellow rounded-full transform transition-transform duration-300"></span>
-                        </button>
-                        
-                        <span class="text-sm px-4 py-2 annual-label text-white/60">Annual <span class="text-xs text-neonGreen ml-1">(-20%)</span></span>
-                    </div>
-                </div>
-                
-                <!-- Pricing Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                    <!-- Starter Plan -->
-                    <div class="glass-card rounded-xl p-6 flex flex-col">
-                        <div class="mb-6">
-                            <h3 class="text-xl font-bold mb-4">Starter</h3>
-                            <div class="flex items-baseline">
-                                <span class="text-4xl font-bold price" data-monthly="FREE" data-yearly="FREE">FREE</span>
-                            </div>
-                            <p class="text-gray-400 mt-2 text-sm">For beginners and explorers</p>
-                        </div>
-                        
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Basic trading interface</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Standard DEX routing</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Basic Rug-Shield protection</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Public relay (120ms+)</span>
-                            </li>
-                        </ul>
-                        
-                        <a href="/dashboard" class="mt-auto py-3 px-4 border border-white/20 text-center rounded-lg hover:bg-white/5 transition-colors">
-                            Start Free
-                        </a>
-                    </div>
-                    
-                    <!-- Pro Plan (Highlighted) -->
-                    <div class="glass-card rounded-xl p-6 flex flex-col plan-highlight">
-                        <div class="mb-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-bold">Pro</h3>
-                                <span class="px-3 py-1 bg-neonGreen/20 rounded-full text-neonGreen text-xs">Most Popular</span>
-                            </div>
-                            <div class="flex items-baseline">
-                                <span class="text-4xl font-bold price" data-monthly="$19" data-yearly="$15">$19</span>
-                                <span class="text-gray-400 ml-2">/month</span>
-                            </div>
-                            <div class="price-badge hidden items-center justify-center mt-2 text-xs text-neonGreen">
-                                <span>Save $48 per year</span>
-                            </div>
-                            <p class="text-gray-400 mt-2 text-sm">For active traders</p>
-                        </div>
-                        
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Unlimited snipes</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Copy Trading (1 leader)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Full Rug-Shield AI protection</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Private relay (80ms)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Pump alerts (3/day)</span>
-                            </li>
-                        </ul>
-                        
-                        <a href="/dashboard" class="mt-auto py-3 px-4 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold text-center rounded-lg hover:shadow-glow transition-all">
-                            Get Started
-                        </a>
-                    </div>
-                    
-                    <!-- UltraSpeed Plan -->
-                    <div class="glass-card rounded-xl p-6 flex flex-col">
-                        <div class="mb-6">
-                            <h3 class="text-xl font-bold mb-4">UltraSpeed</h3>
-                            <div class="flex items-baseline">
-                                <span class="text-4xl font-bold price" data-monthly="$49" data-yearly="$39">$49</span>
-                                <span class="text-gray-400 ml-2">/month</span>
-                            </div>
-                            <div class="price-badge hidden items-center justify-center mt-2 text-xs text-neonGreen">
-                                <span>Save $120 per year</span>
-                            </div>
-                            <p class="text-gray-400 mt-2 text-sm">+ 0.25% on profitable trades</p>
-                        </div>
-                        
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">All Pro features</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Copy Trading (unlimited)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Ultra-low latency (50ms)</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">Jito bundles support</span>
-                            </li>
-                            <li class="flex items-start">
-                                <img src="/assets/icons/check.svg" alt="" class="w-5 h-5 text-neonGreen flex-shrink-0 mt-0.5">
-                                <span class="ml-3">API access</span>
-                            </li>
-                        </ul>
-                        
-                        <a href="/dashboard" class="mt-auto py-3 px-4 bg-rocketPurple/40 border border-rocketPurple/60 text-center rounded-lg hover:bg-rocketPurple/50 transition-colors">
-                            Upgrade to UltraSpeed
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Feature Matrix -->
-                <div class="max-w-4xl mx-auto mb-24">
-                    <h2 class="text-2xl font-bold text-center mb-8">Feature Comparison</h2>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="border-b border-white/10">
-                                    <th class="py-4 text-left">Feature</th>
-                                    <th class="py-4 text-center">Starter</th>
-                                    <th class="py-4 text-center">Pro</th>
-                                    <th class="py-4 text-center">UltraSpeed</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Rug-Shield Protection</td>
-                                    <td class="py-4 text-center">Basic</td>
-                                    <td class="py-4 text-center">Full</td>
-                                    <td class="py-4 text-center">Full + Advanced</td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Execution Speed</td>
-                                    <td class="py-4 text-center">120ms+</td>
-                                    <td class="py-4 text-center">80ms</td>
-                                    <td class="py-4 text-center">50ms</td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Copy Trading</td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center">1 Leader</td>
-                                    <td class="py-4 text-center">Unlimited</td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Pump Alerts</td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center">3/day</td>
-                                    <td class="py-4 text-center">Unlimited</td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Jito Bundles</td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/check.svg" alt="Yes" class="w-5 h-5 mx-auto"></td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">API Access</td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/check.svg" alt="Yes" class="w-5 h-5 mx-auto"></td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Auto-Trading Strategies</td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center">Basic</td>
-                                    <td class="py-4 text-center">Advanced</td>
-                                </tr>
-                                <tr class="border-b border-white/5">
-                                    <td class="py-4">Priority Support</td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/minus.svg" alt="No" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/check.svg" alt="Yes" class="w-5 h-5 mx-auto"></td>
-                                    <td class="py-4 text-center"><img src="/assets/icons/check.svg" alt="Yes" class="w-5 h-5 mx-auto"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="text-center mt-8">
-                        <a href="/assets/pricing/comparison.pdf" target="_blank" class="inline-flex items-center text-neonGreen hover:underline">
-                            See full matrix <i class="icon-external-link ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- FAQ Section -->
-                <section class="max-w-3xl mx-auto mb-24">
-                    <h2 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="glass-card rounded-xl overflow-hidden">
-                            <div class="p-6">
-                                <h3 class="text-xl font-medium mb-3">How is billing handled?</h3>
-                                <p class="text-gray-300">Billing is processed securely through our payment provider. You can pay with credit/debit cards or cryptocurrency. For annual plans, you'll be billed once upfront with a 20% discount compared to monthly payments.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="glass-card rounded-xl overflow-hidden">
-                            <div class="p-6">
-                                <h3 class="text-xl font-medium mb-3">Can I upgrade my plan later?</h3>
-                                <p class="text-gray-300">Yes, you can upgrade your plan at any time. When upgrading, we'll prorate your remaining subscription period and apply it to your new plan. Your new features will be available immediately after upgrading.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="glass-card rounded-xl overflow-hidden">
-                            <div class="p-6">
-                                <h3 class="text-xl font-medium mb-3">How can I cancel my subscription?</h3>
-                                <p class="text-gray-300">You can cancel your subscription at any time from your dashboard settings. After cancellation, your premium features will remain active until the end of your current billing cycle. There are no cancellation fees.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="glass-card rounded-xl overflow-hidden">
-                            <div class="p-6">
-                                <h3 class="text-xl font-medium mb-3">What are the fees for the UltraSpeed plan?</h3>
-                                <p class="text-gray-300">The UltraSpeed plan costs $49/month plus a 0.25% fee on profitable trades. The percentage fee only applies to profits made, not the total trading volume. For example, if you make a $1000 profit on a trade, the fee would be $2.50.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Final CTA Ribbon -->
-                <section class="max-w-7xl mx-auto mb-16">
-                    <div class="relative py-12 px-8 rounded-xl overflow-hidden text-center">
-                        <!-- Neon Ribbon Background -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-speedYellow via-neonGreen to-rocketPurple opacity-10"></div>
-                        
-                        <h2 class="text-3xl font-bold mb-6">Ready to trade ahead of the <span class="text-gradient">crowd?</span></h2>
-                        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Start with our free plan or boost your trading with premium features.</p>
-                        
-                        <a href="/dashboard" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-speedYellow to-neonGreen text-spaceBlack font-semibold px-8 py-4 rounded-lg hover:shadow-glow transition-all">
-                            Start Free
-                        </a>
-                    </div>
-                </section>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <script type="module">
-          import { inject } from '/js/include.js';
-        </script>
-    </div>
-
-    <!-- JS -->
-    <script src="js/pricing-toggle.js"></script>
-<!--#include file="partials/waitlist-modal.html" -->
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script></body>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-<script type="module" src="./js/waitlist-modal.js" defer></script>
-<script type="module" src="./js/waitlist-header-connector.js" defer></script>
-</html> 
+<!-- END HEADER -->
