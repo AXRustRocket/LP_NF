@@ -2,10 +2,7 @@
 
 ![Lighthouse](https://img.shields.io/badge/Lighthouse-Performance%3A%20100%20%7C%20Accessibility%3A%20100%20%7C%20Best%20Practices%3A%20100%20%7C%20SEO%3A%20100-success)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5ce2eb18-4180-4f69-adb4-e110eb5df787/deploy-status)](https://app.netlify.com/sites/rust-rocket/deploys)
-[![CI](https://github.com/AXRustRocket/LP_NF/actions/workflows/ci-prod.yml/badge.svg)](https://github.com/AXRustRocket/LP_NF/actions/workflows/ci-prod.yml)
-
-Ultraschneller Meme-Coin Trading Bot mit <50ms Latenz und erweiterten Rug-Schutz. Vollständig reguliert nach dem Liechtensteiner TVTG-Rahmenwerk.
+Ultraschneller Meme-Coin Trading Bot mit &lt;80ms Latenz und erweiterten Rug-Schutz. Vollständig reguliert nach dem Liechtensteiner TVTG-Rahmenwerk.
 
 ## Optimierungen
 
@@ -44,36 +41,9 @@ npm run serve
 npm run build
 ```
 
-## Deployment
-
-Die Anwendung wird automatisch über Git-basiertes Deployment mit Netlify bereitgestellt:
-
-1. Änderungen auf main-Branch committen:
-   ```bash
-   git add .
-   git commit -m "Beschreibung der Änderungen"
-   git push origin main
-   ```
-
-2. Netlify triggert automatisch einen Build und Deployment bei jedem Push auf den main-Branch.
-
-3. Der Build-Status kann unter https://app.netlify.com/sites/rust-rocket/deploys überprüft werden.
-
-### Umgebungsvariablen
-
-Die folgenden Umgebungsvariablen sind in der Netlify-Umgebung konfiguriert:
-
-```
-SUPABASE_URL = https://jpvbnbphgvtokbrlctke.supabase.co
-SUPABASE_SERVICE_KEY = [geheimer Schlüssel]
-SUPABASE_ANON_KEY = [öffentlicher Schlüssel]
-```
-
-**Wichtig:** Die Umgebungsvariablen sind im Scope "functions" konfiguriert und stehen nur für Netlify Serverless Functions zur Verfügung.
-
 ## Lighthouse CI
 
-Das Projekt nutzt Lighthouse CI zur kontinuierlichen Überwachung der Performance-Metriken. Die lokalen Tests prüfen automatisch, dass alle Core Web Vitals den folgenden Anforderungen entsprechen:
+Das Projekt nutzt Lighthouse CI zur kontinuierlichen Überwachung der Performance-Metriken. Der CI-Workflow prüft automatisch, dass alle Core Web Vitals den folgenden Anforderungen entsprechen:
 
 - Performance: ≥ 95
 - Accessibility: 100
@@ -86,4 +56,4 @@ Als erster vollständig regulierter Anbieter gemäß dem liechtensteinischen TVT
 
 ---
 
-© Axiom Enterprise AG. Alle Rechte vorbehalten.
+© Axiom Enterprise AG. Alle Rechte vorbehalten. 

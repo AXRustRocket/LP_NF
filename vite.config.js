@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import compression from 'vite-plugin-compression';
 import { imagetools } from 'vite-imagetools';
-import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   build: {
@@ -43,30 +42,6 @@ export default defineConfig({
       threshold: 1024,
       exclude: [/\.(gz)$/],
       deleteOriginalAssets: false,
-    }),
-    
-    // PWA support for offline capability
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'assets/icons/*.png', 'assets/logo.svg'],
-      manifest: {
-        name: 'Rust Rocket',
-        short_name: 'RustRocket',
-        description: 'Meme-Coin Sniper Bot with <80ms latency and advanced rug protection',
-        theme_color: '#04070D',
-        icons: [
-          {
-            src: '/assets/icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: '/assets/icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
-      }
     })
   ],
   server: {

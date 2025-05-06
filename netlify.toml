@@ -1,10 +1,7 @@
 [build]
-  publish = "dist"
+  publish = "."
   functions = "netlify/functions"
   command = "npm run build"
-
-[build.environment]
-  NODE_VERSION = "18"
 
 [dev]
   framework = "#static"
@@ -17,11 +14,6 @@
   to = "/.netlify/functions/:splat"
   status = 200
   force = true
-
-[[redirects]]
-  from = "/signals/:token.json"
-  to   = "/.netlify/functions/signals/:token"
-  status = 200
 
 [[redirects]]
   from = "/terms"

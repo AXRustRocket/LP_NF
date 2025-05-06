@@ -1,24 +1,19 @@
 # Rust Rocket robots.txt
 User-agent: *
 Allow: /
-Allow: /signals/
 
 # AI Crawlers
 User-agent: ChatGPT-User
 Allow: /
-Allow: /signals/
 
 User-agent: anthropic-ai
 Allow: /
-Allow: /signals/
 
 User-agent: GPTBot
 Allow: /
-Allow: /signals/
 
 User-agent: Googlebot
 Allow: /
-Allow: /signals/
 
 # Sitemap
 Sitemap: https://rustrocket.io/sitemap.xml 
