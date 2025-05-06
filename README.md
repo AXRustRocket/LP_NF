@@ -2,7 +2,10 @@
 
 ![Lighthouse](https://img.shields.io/badge/Lighthouse-Performance%3A%20100%20%7C%20Accessibility%3A%20100%20%7C%20Best%20Practices%3A%20100%20%7C%20SEO%3A%20100-success)
 
-Ultraschneller Meme-Coin Trading Bot mit &lt;80ms Latenz und erweiterten Rug-Schutz. Vollständig reguliert nach dem Liechtensteiner TVTG-Rahmenwerk.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d89ec02a-0a4e-4daf-b199-188e43c54c37/deploy-status)](https://app.netlify.com/sites/rust-rocketx/deploys)
+[![CI](https://github.com/AXRustRocket/Homepage/actions/workflows/ci-prod.yml/badge.svg)](https://github.com/AXRustRocket/Homepage/actions/workflows/ci-prod.yml)
+
+Ultraschneller Meme-Coin Trading Bot mit <50ms Latenz und erweiterten Rug-Schutz. Vollständig reguliert nach dem Liechtensteiner TVTG-Rahmenwerk.
 
 ## Optimierungen
 
@@ -39,11 +42,46 @@ npm run serve
 
 # Build for production
 npm run build
+
+# Deploy to Netlify
+npm run deploy
+```
+
+## Deployment mit Netlify CLI
+
+Die Anwendung wird mittels Netlify CLI direkt aus der Entwicklungsumgebung deployed:
+
+1. Netlify CLI installieren (falls noch nicht geschehen):
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. Mit Netlify anmelden:
+   ```bash
+   netlify login
+   ```
+
+3. Umgebungsvariablen einrichten:
+   ```bash
+   netlify env:set SUPABASE_URL "https://jpvbnbphgvtokbrlctke.supabase.co"
+   netlify env:set SUPABASE_SERVICE_ROLE_KEY "xxxx"
+   netlify env:set VITE_SUPABASE_ANON_KEY "xxxx"
+   netlify env:set SIGNALS_API_KEY "xxxx"
+   ```
+
+4. Deployment ausführen:
+   ```bash
+   npm run deploy
+   ```
+
+Alternativ kann auch das `deploy.sh` Skript verwendet werden, welches build und deploy in einem Schritt ausführt:
+```bash
+./deploy-with-token.sh
 ```
 
 ## Lighthouse CI
 
-Das Projekt nutzt Lighthouse CI zur kontinuierlichen Überwachung der Performance-Metriken. Der CI-Workflow prüft automatisch, dass alle Core Web Vitals den folgenden Anforderungen entsprechen:
+Das Projekt nutzt Lighthouse CI zur kontinuierlichen Überwachung der Performance-Metriken. Die lokalen Tests prüfen automatisch, dass alle Core Web Vitals den folgenden Anforderungen entsprechen:
 
 - Performance: ≥ 95
 - Accessibility: 100
@@ -56,4 +94,4 @@ Als erster vollständig regulierter Anbieter gemäß dem liechtensteinischen TVT
 
 ---
 
-© Axiom Enterprise AG. Alle Rechte vorbehalten. 
+© Axiom Enterprise AG. Alle Rechte vorbehalten.

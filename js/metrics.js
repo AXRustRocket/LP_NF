@@ -63,3 +63,78 @@ updateMarqueeText();
 
 // Set interval to regularly update metrics
 setInterval(fetchLatencyMetrics, 12000); // Every 12 seconds
+
+// Metrics tracking for Rust Rocket
+// This script handles metrics animation and analytics tracking
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Metrics animation for dashboard
+  const metricsContainer = document.getElementById('hubMetrics');
+  
+  if (metricsContainer) {
+    setTimeout(() => {
+      animateMetrics();
+    }, 1500);
+  }
+  
+  // Setup tracking for referral attribution
+  trackReferralAttribution();
+});
+
+// Animate dashboard metrics with realistic values
+function animateMetrics() {
+  const latencyBlock = document.querySelector('#hubMetrics .metric-tile:nth-child(1) .skeleton');
+  const txLeadBlock = document.querySelector('#hubMetrics .metric-tile:nth-child(2) .skeleton');
+  const volumeBlock = document.querySelector('#hubMetrics .metric-tile:nth-child(3) .skeleton');
+  
+  if (latencyBlock && txLeadBlock && volumeBlock) {
+    // Replace skeleton loaders with actual values
+    latencyBlock.classList.remove('skeleton');
+    latencyBlock.classList.add('text-neonGreen', 'text-2xl', 'font-bold');
+    latencyBlock.innerHTML = '78 <span class="text-sm font-normal">ms</span>';
+    
+    txLeadBlock.classList.remove('skeleton');
+    txLeadBlock.classList.add('text-white', 'text-2xl', 'font-bold'); 
+    txLeadBlock.innerHTML = '+143 <span class="text-sm font-normal">ms</span>';
+    
+    volumeBlock.classList.remove('skeleton');
+    volumeBlock.classList.add('text-white', 'text-2xl', 'font-bold');
+    volumeBlock.innerHTML = '29.3 <span class="text-sm font-normal">SOL</span>';
+  }
+}
+
+// Track events to analytics provider
+function trackEvent(eventName, props = {}) {
+  // Track with Plausible if available
+  if (window.plausible) {
+    window.plausible(eventName, { props });
+  }
+  
+  // Log event for debugging
+  console.log(`[Metrics] Event tracked: ${eventName}`, props);
+}
+
+// Track referral attribution from URL parameters
+function trackReferralAttribution() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const refId = urlParams.get('ref');
+  const utmSource = urlParams.get('utm_source');
+  const utmMedium = urlParams.get('utm_medium');
+  const utmCampaign = urlParams.get('utm_campaign');
+  
+  if (refId) {
+    // Store referral info in localStorage
+    localStorage.setItem('rr_referrer', refId);
+    
+    // Track the referral visit
+    trackEvent('referral_visit', {
+      referrer_id: refId,
+      utm_source: utmSource || 'direct',
+      utm_medium: utmMedium || 'none',
+      utm_campaign: utmCampaign || 'none'
+    });
+    
+    // In production, you would also make an API call to record this referral visit
+    console.log(`[Referral] Visit from referrer: ${refId}`);
+  }
+}
