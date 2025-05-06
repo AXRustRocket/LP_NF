@@ -214,12 +214,14 @@
             border-radius: inherit;
         }
     </style>
-  <script type="module" crossorigin src="/assets/js/index.ul-a-eT3.js"></script>
+<!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+  <script type="module" crossorigin src="/assets/js/index.CGCDTfnN.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/css/index.x-SYytEK.css">
-</head>
+<link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
 
 <body class="font-sans text-gray-100 antialiased relative">
-    <!-- Header Container -->
+<!-- Header Container -->
 <!-- BEGIN HEADER -->
 <header class="w-full bg-spaceDark text-white glass sticky top-0 z-[9000]">
   <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
@@ -237,8 +239,9 @@
       <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
       <!-- Waitlist Button -->
       <button id="joinWaitlistBtn"
-              class="hidden lg:inline-flex items-center gap-2 rounded-lg bg-neonGreen px-5 py-2 font-semibold text-spaceBlack
-                     hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-neonGreen/60 transition">
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
         🚀 Join Waitlist
       </button>
     </nav>
@@ -264,121 +267,13 @@
           <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
           <hr class="border-gray-700 my-2"/>
           <!-- Mobile Waitlist Button -->
-          <button id="joinWaitlistBtnDrawer"
-                  class="mt-4 w-full rounded-lg bg-neonGreen py-2 text-center font-semibold text-spaceBlack">
+          <button id="joinWaitlistBtnDrawer" 
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
             🚀 Join Waitlist
           </button>
       </nav>
   </div>
 </header>
 <!-- END HEADER -->
-
-<!-- Waitlist Modal -->
-<div id="waitlistModalNew" 
-     class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
-  <div class="relative max-w-md rounded-xl bg-spaceDark border border-gray-800 p-6 shadow-2xl w-full">
-    <!-- Close button -->
-    <button id="closeWaitlistModal" 
-            class="absolute right-3 top-3 rounded-full p-1 text-gray-400 hover:bg-gray-800 hover:text-white focus:outline-none"
-            aria-label="Close">
-      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
-    
-    <!-- Modal header -->
-    <div class="mb-5 text-center">
-      <h2 class="text-2xl font-bold text-white">Join the Waitlist</h2>
-      <p class="mt-2 text-gray-400">Get early access to our high-performance trading tools.</p>
-    </div>
-    
-    <!-- Waitlist form -->
-    <form id="waitlistModalForm" class="space-y-4">
-      <!-- Hidden fields for tracking -->
-      <input type="hidden" name="utm_source" id="utm_source">
-      <input type="hidden" name="utm_medium" id="utm_medium">
-      <input type="hidden" name="utm_campaign" id="utm_campaign">
-      <input type="hidden" name="utm_term" id="utm_term">
-      <input type="hidden" name="utm_content" id="utm_content">
-      <input type="hidden" name="gclid" id="gclid">
-      <input type="hidden" name="fbclid" id="fbclid">
-      <input type="hidden" name="referral_code" id="referral_code">
-      
-      <!-- Email field -->
-      <div>
-        <label for="modal-email" class="mb-1 block text-sm font-medium text-gray-300">Email address</label>
-        <input 
-          type="email" 
-          id="modal-email" 
-          name="email" 
-          required
-          class="w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-white focus:border-neonGreen focus:ring-2 focus:ring-neonGreen/50"
-          placeholder="you@example.com"
-        >
-      </div>
-      
-      <!-- Optional name field -->
-      <div>
-        <label for="modal-name" class="mb-1 block text-sm font-medium text-gray-300">Full Name (optional)</label>
-        <input 
-          type="text" 
-          id="modal-name" 
-          name="fullName"
-          class="w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-white focus:border-neonGreen focus:ring-2 focus:ring-neonGreen/50"
-          placeholder="Your Name"
-        >
-      </div>
-      
-      <!-- Marketing consent checkbox (required) -->
-      <div class="flex items-start space-x-2">
-        <input 
-          type="checkbox" 
-          id="modal-marketing-consent" 
-          name="marketingOK" 
-          required
-          class="mt-1 h-4 w-4 rounded border-gray-600 bg-gray-700 text-neonGreen focus:ring-neonGreen"
-        >
-        <label for="modal-marketing-consent" class="text-sm text-gray-300">
-          I agree to receive product updates and marketing communications. You can unsubscribe anytime.
-        </label>
-      </div>
-      
-      <!-- Submit button -->
-      <button 
-        type="submit"
-        class="w-full rounded-lg bg-neonGreen py-3 px-4 font-semibold text-spaceBlack hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-neonGreen/60 transition-colors"
-      >
-        <span>Join the Waitlist</span>
-      </button>
-      
-      <!-- Privacy hint -->
-      <p class="text-center text-xs text-gray-500">
-        We respect your privacy and will never share your information with third parties.
-      </p>
-    </form>
-    
-    <!-- Success message (initially hidden) -->
-    <div id="modalSuccessMessage" class="hidden space-y-4 text-center">
-      <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-900">
-        <svg class="h-6 w-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-        </svg>
-      </div>
-      <h3 class="text-xl font-medium text-white">Thank you for joining!</h3>
-      <p class="text-gray-400">We've added you to our waitlist. We'll notify you as soon as we launch.</p>
-      <button 
-        type="button" 
-        id="closeSuccessModal" 
-        class="mt-2 w-full rounded-lg bg-gray-800 py-2 font-medium text-white hover:bg-gray-700"
-      >
-        Close
-      </button>
-    </div>
-    
-    <!-- Error message (initially hidden) -->
-    <div id="modalErrorMessage" class="mt-4 hidden rounded-lg bg-red-900/30 p-3 text-red-400"></div>
-  </div>
-</div>
-
-</body>
-</html>

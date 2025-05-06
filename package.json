@@ -15,7 +15,8 @@
     "dev": "vite",
     "deploy:test": "npm run build && npm run test:e2e && netlify deploy --prod --dir=dist",
     "supabase:health": "curl https://jpvbnbphgvtokbrlctke.supabase.co/rest/v1/health",
-    "waitlist:test": "curl -X POST https://rust-rocketx.netlify.app/api/waitlist -H \"Content-Type: application/json\" -d '{\"email\":\"test@example.com\",\"name\":\"Test User\"}'"
+    "waitlist:test": "curl -X POST https://rust-rocketx.netlify.app/api/waitlist -H \"Content-Type: application/json\" -d '{\"email\":\"test@example.com\",\"name\":\"Test User\"}'",
+    "prebuild": "./update_headers_footers_simple.sh"
   },
   "author": "Axiom Enterprise AG",
   "license": "UNLICENSED",
@@ -24,8 +25,7 @@
     "@supabase/supabase-js": "^2.49.4",
     "chalk": "^4.1.2",
     "fast-xml-parser": "^5.2.1",
-    "jsdom": "^21.1.0",
-    "node-fetch": "^3.3.2"
+    "jsdom": "^21.1.0"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
@@ -37,6 +37,7 @@
     "serve": "^14.2.0",
     "vite": "^5.0.0",
     "vite-imagetools": "3.6.2",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-pwa": "^1.0.0"
   }
 }
