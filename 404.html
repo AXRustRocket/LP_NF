@@ -69,42 +69,66 @@
             animation: rocket 3s ease-in-out infinite;
         }
     </style>
+<!--#include file="partials/ga.html" -->
+<!--#include file="partials/waitlist-modal.html" -->
+<script src="./js/waitlist-modal.js" type="module" defer></script>
+<script src="./js/waitlist-header-connector.js" type="module" defer></script>
 </head>
 
 <body class="font-sans text-gray-100 antialiased relative">
-    <!-- Header Container -->
-    <script type="module">
-      import { inject } from '/js/include.js';
-    </script>
+<!-- Header Container -->
+<!-- BEGIN HEADER -->
+<header class="w-full bg-spaceDark text-white glass sticky top-0 z-[9000]">
+  <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+    <a href="/index.html" class="flex-shrink-0">
+        <img src="./assets/logo.gif" alt="Rust Rocket Logo" class="h-8 md:h-10"/>
+    </a>
     
-    <!-- Mobile Navigation Container (removed since it's included in headbar.html) -->
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      <a href="/index.html" class="hover:text-neonGreen transition">Home</a>
+      <a href="/sniper-bot.html" class="hover:text-neonGreen transition">Sniper Bot</a>
+      <a href="/pump-alerts.html" class="hover:text-neonGreen transition">Pump Alerts</a>
+      <a href="/arbitrage.html" class="hover:text-neonGreen transition">Arbitrage</a>
+      <a href="/copy-trading.html" class="hover:text-neonGreen transition">Copy Trading</a>
+      <a href="/pricing.html" class="hover:text-neonGreen transition">Pricing</a>
+      <!-- Waitlist Button -->
+      <button id="joinWaitlistBtn"
+              class="px-5 py-2 rounded-lg bg-neonGreen
+                    hover:bg-opacity-80 text-spaceBlack font-semibold
+                    transition">
+        🚀 Join Waitlist
+      </button>
+    </nav>
     
-    <main class="min-h-screen bg-gradient-to-b from-spaceBlack to-spaceDark flex flex-col justify-center items-center p-6 text-center">
-        <div class="text-center mb-8 animate-rocket">
-            <div class="relative inline-block">
-                <img src="assets/logo.svg" alt="Rust Rocket" class="h-24 md:h-32 mx-auto" />
-                <div class="absolute -bottom-4 -left-2 right-0 h-4 bg-gradient-to-t from-neonGreen/50 to-transparent rounded-full blur-xl"></div>
-            </div>
-        </div>
-        
-        <div class="glass-card rounded-xl p-8 max-w-lg mx-auto text-center">
-            <h1 class="text-4xl font-bold mb-4">404</h1>
-            <h2 class="text-2xl mb-6">This page was not found</h2>
-            <p class="text-gray-300 mb-8">The content you were looking for may have been removed or is available at a different URL.</p>
-            
-            <a href="index.html" class="inline-flex items-center px-6 py-3 bg-neonGreen text-spaceBlack rounded-full font-medium hover:bg-neonGreen/90 transition-colors">
-                <i class="icon-home mr-2"></i> Back to Homepage
-            </a>
-        </div>
-        
-        <div class="mt-12 text-center">
-            <p class="text-sm text-gray-400">Need help? <a href="mailto:hello@rustrocket.io" class="text-neonGreen hover:underline">Contact us</a></p>
-        </div>
-    </main>
-
-    <!-- JS -->
-    <script type="module">
-        import {inject} from './js/include.js';
-    </script>
-</body>
-</html> 
+    <!-- Mobile Menu Area -->
+    <div class="md:hidden flex items-center gap-4">
+        <!-- Existing Hamburger Button (Assuming ID mobileMenuBtn) -->
+        <button id="mobileMenuBtn" aria-label="Open Menu">
+           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      </button>
+    </div>
+    
+    </div>
+    
+  <!-- Mobile Menu Drawer -->
+  <div id="mobileMenuDrawer" class="md:hidden fixed inset-x-0 top-[68px] bg-spaceDark/95 backdrop-blur-md p-6 hidden z-[8900]">
+      <nav class="flex flex-col gap-4 text-center">
+          <a href="/index.html" class="py-2 hover:text-neonGreen transition">Home</a>
+          <a href="/sniper-bot.html" class="py-2 hover:text-neonGreen transition">Sniper Bot</a>
+          <a href="/pump-alerts.html" class="py-2 hover:text-neonGreen transition">Pump Alerts</a>
+          <a href="/arbitrage.html" class="py-2 hover:text-neonGreen transition">Arbitrage</a>
+          <a href="/copy-trading.html" class="py-2 hover:text-neonGreen transition">Copy Trading</a>
+          <a href="/pricing.html" class="py-2 hover:text-neonGreen transition">Pricing</a>
+          <hr class="border-gray-700 my-2"/>
+          <!-- Mobile Waitlist Button -->
+          <button id="joinWaitlistBtnDrawer" 
+                  class="w-full mt-2 px-4 py-2 rounded-lg bg-neonGreen
+                        hover:bg-opacity-80 text-spaceBlack font-semibold
+                        transition">
+            🚀 Join Waitlist
+      </button>
+    </nav>
+  </div>
+</header>
+<!-- END HEADER -->

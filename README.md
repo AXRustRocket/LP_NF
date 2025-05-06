@@ -2,8 +2,8 @@
 
 ![Lighthouse](https://img.shields.io/badge/Lighthouse-Performance%3A%20100%20%7C%20Accessibility%3A%20100%20%7C%20Best%20Practices%3A%20100%20%7C%20SEO%3A%20100-success)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d89ec02a-0a4e-4daf-b199-188e43c54c37/deploy-status)](https://app.netlify.com/sites/rust-rocketx/deploys)
-[![CI](https://github.com/AXRustRocket/Homepage/actions/workflows/ci-prod.yml/badge.svg)](https://github.com/AXRustRocket/Homepage/actions/workflows/ci-prod.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5ce2eb18-4180-4f69-adb4-e110eb5df787/deploy-status)](https://app.netlify.com/sites/rust-rocket/deploys)
+[![CI](https://github.com/AXRustRocket/LP_NF/actions/workflows/ci-prod.yml/badge.svg)](https://github.com/AXRustRocket/LP_NF/actions/workflows/ci-prod.yml)
 
 Ultraschneller Meme-Coin Trading Bot mit <50ms Latenz und erweiterten Rug-Schutz. Vollständig reguliert nach dem Liechtensteiner TVTG-Rahmenwerk.
 
@@ -42,42 +42,34 @@ npm run serve
 
 # Build for production
 npm run build
-
-# Deploy to Netlify
-npm run deploy
 ```
 
-## Deployment mit Netlify CLI
+## Deployment
 
-Die Anwendung wird mittels Netlify CLI direkt aus der Entwicklungsumgebung deployed:
+Die Anwendung wird automatisch über Git-basiertes Deployment mit Netlify bereitgestellt:
 
-1. Netlify CLI installieren (falls noch nicht geschehen):
+1. Änderungen auf main-Branch committen:
    ```bash
-   npm install -g netlify-cli
+   git add .
+   git commit -m "Beschreibung der Änderungen"
+   git push origin main
    ```
 
-2. Mit Netlify anmelden:
-   ```bash
-   netlify login
-   ```
+2. Netlify triggert automatisch einen Build und Deployment bei jedem Push auf den main-Branch.
 
-3. Umgebungsvariablen einrichten:
-   ```bash
-   netlify env:set SUPABASE_URL "https://jpvbnbphgvtokbrlctke.supabase.co"
-   netlify env:set SUPABASE_SERVICE_ROLE_KEY "xxxx"
-   netlify env:set VITE_SUPABASE_ANON_KEY "xxxx"
-   netlify env:set SIGNALS_API_KEY "xxxx"
-   ```
+3. Der Build-Status kann unter https://app.netlify.com/sites/rust-rocket/deploys überprüft werden.
 
-4. Deployment ausführen:
-   ```bash
-   npm run deploy
-   ```
+### Umgebungsvariablen
 
-Alternativ kann auch das `deploy.sh` Skript verwendet werden, welches build und deploy in einem Schritt ausführt:
-```bash
-./deploy-with-token.sh
+Die folgenden Umgebungsvariablen sind in der Netlify-Umgebung konfiguriert:
+
 ```
+SUPABASE_URL = https://jpvbnbphgvtokbrlctke.supabase.co
+SUPABASE_SERVICE_KEY = [geheimer Schlüssel]
+SUPABASE_ANON_KEY = [öffentlicher Schlüssel]
+```
+
+**Wichtig:** Die Umgebungsvariablen sind im Scope "functions" konfiguriert und stehen nur für Netlify Serverless Functions zur Verfügung.
 
 ## Lighthouse CI
 
